@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class Barras_PanelDesplazamiento extends Application {
+public class BarrasPanelesDesplazamiento extends Application {
 
     @Override
     public void start(Stage escenarioPrincipal) {
