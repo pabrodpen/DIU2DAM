@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ContadorPulsaciones extends Application {
+public class ContadorEstilos extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -28,6 +28,10 @@ public class ContadorPulsaciones extends Application {
             bSumar=new Button();
             bRestar=new Button();
             bCero=new Button();
+            bSumar.setId("bSumar");
+            bRestar.setId("bRestar");
+            bCero.setId("bCero");
+
 
             bSumar.setText("+");
             bRestar.setText("-");
@@ -42,6 +46,10 @@ public class ContadorPulsaciones extends Application {
             lbNumero.setFont(Font.font("Ani", 40));
             lbNumero.setMinWidth(100);
             lbNumero.setAlignment(Pos.CENTER);
+            // Asignar ID a la etiqueta para el CSS
+            lbNumero.setId("lbNumero");
+
+
 
             VBox raiz=new VBox();
 
@@ -49,10 +57,16 @@ public class ContadorPulsaciones extends Application {
             raiz.setSpacing(10);
             raiz.setAlignment(Pos.CENTER);
 
+            //coger la clase para el css
+            raiz.getStyleClass().add("raiz");
+
+
+
             raiz.getChildren().addAll(botones,lbNumero);
 
 
             Scene escena = new Scene(raiz, 420, 150);
+            escena.getStylesheets().add(getClass().getResource("/styles/estilosContador.css").toExternalForm());
             stage.setTitle("Contador");
             stage.setScene(escena);
             stage.show();
