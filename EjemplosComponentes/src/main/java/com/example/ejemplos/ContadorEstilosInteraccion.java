@@ -1,6 +1,7 @@
 package com.example.ejemplos;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
