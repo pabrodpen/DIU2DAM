@@ -24,8 +24,10 @@ public class ContadorProperties extends Application {
     private IntegerProperty numPulsaciones = new SimpleIntegerProperty(1);
 
     private void pulsado(int n){
-        if(n==0){
+        if(n==0){//0
             numPulsaciones.set(0);
+        }else{
+            numPulsaciones.set(numPulsaciones.get()+n);//suma o resta
         }
         lbNumero.setText(String.valueOf(numPulsaciones));
 
@@ -65,12 +67,24 @@ public class ContadorProperties extends Application {
 
         lbNumero=new Label();
 
-        lbNumero.setText("1");
         lbNumero.setFont(Font.font("Ani", 40));
         lbNumero.setMinWidth(100);
         lbNumero.setAlignment(Pos.CENTER);
         // Asignar ID a la etiqueta para el CSS
         lbNumero.setId("lbNumero");
+
+
+        //IMP
+        // Vincular el texto de la etiqueta con la propiedad numPulsaciones
+        lbNumero.textProperty().bind(numPulsaciones.asString());
+
+        /*
+        * El método bind
+        * establece una vinculación unidireccional entre la propiedad
+        * textProperty de lbNumero y otra propiedad (en este caso, numPulsaciones)
+        * . Esto significa que si numPulsaciones cambia, el valor de textProperty
+        * se actualizará automáticamente para reflejar ese cambio.
+        * */
 
 
 
@@ -94,6 +108,12 @@ public class ContadorProperties extends Application {
         stage.setTitle("Contador");
         stage.setScene(escena);
         stage.show();*/
+
+        /*
+        *numPulsaciones.asString(): numPulsaciones es un IntegerProperty,
+        * que es una clase especializada de JavaFX para gestionar 
+        * propiedades numéricas observables. El método asString()
+         * */
 
         return raiz;
 
