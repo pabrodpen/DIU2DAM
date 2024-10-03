@@ -1,4 +1,4 @@
-module com.example.scenebuilderejemplo {
+module com.example.scenebuilder {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,8 +11,6 @@ module com.example.scenebuilderejemplo {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens com.example.scenebuilderejemplo to javafx.fxml;
-    exports com.example.scenebuilderejemplo;
-    exports com.example.scenebuilderejemplo.controller;
-    opens com.example.scenebuilderejemplo.controller to javafx.fxml;
+    opens com.example.scenebuilder to javafx.fxml;
+    exports com.example.scenebuilder;
 }
