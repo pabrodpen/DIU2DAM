@@ -1,4 +1,4 @@
-package com.example.scenebuilder;
+package com.example.scenebuilder.controller;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

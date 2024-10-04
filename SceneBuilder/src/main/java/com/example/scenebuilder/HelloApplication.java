@@ -1,5 +1,6 @@
 package com.example.scenebuilder;
 
+import com.example.scenebuilder.controller.HelloController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

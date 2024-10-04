@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<Pane fx:id="contenedor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenebuilder.HelloController">
+<Pane fx:id="contenedor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenebuilder.controller.HelloController">
    <children>
       <Button fx:id="bSumar" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" onAction="#incrementar" text="+" />
       <Button fx:id="bRestar" layoutX="121.0" layoutY="81.0" mnemonicParsing="false" onAction="#decrementar" text="-" />
