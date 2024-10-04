@@ -17,6 +17,8 @@ public class Contador {
 
     }
 
+
+
     // Método para obtener el número de pulsaciones
     public IntegerProperty getNumPulsaciones() {
         return numPulsaciones;

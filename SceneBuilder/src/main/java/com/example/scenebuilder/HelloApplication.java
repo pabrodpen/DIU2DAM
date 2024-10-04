@@ -14,20 +14,24 @@ public class HelloApplication extends Application {
 
         // Crear la primera ventana
         FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("contador.fxml"));
-        Scene scene1 = new Scene(fxmlLoader1.load(), 350, 200);
+        Scene escena1 = new Scene(fxmlLoader1.load(), 350, 200);
+        escena1.getStylesheets().add(getClass().getResource("/styles/estilos.css").toExternalForm());
+
 
         Stage stage1 = new Stage(); // Crear nuevo Stage para la primera ventana
         stage1.setTitle("Contador 1");
-        stage1.setScene(scene1);
+        stage1.setScene(escena1);
         stage1.show();
 
         // Crear la segunda ventana
         FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("contador.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 350, 200);
+        Scene escena2 = new Scene(fxmlLoader2.load(), 350, 200);
+        escena2.getStylesheets().add(getClass().getResource("/styles/estilos.css").toExternalForm());
+
 
         Stage stage2 = new Stage(); // Crear nuevo Stage para la segunda ventana
         stage2.setTitle("Contador 2");
-        stage2.setScene(scene2);
+        stage2.setScene(escena2);
         stage2.show();
 
         //cargamos los controladores
@@ -37,6 +41,8 @@ public class HelloApplication extends Application {
         //Asignamos la instancia del contador sincronizado cada controlador
         controlador1.iniciarContador(contadorSincronizado);
         controlador2.iniciarContador(contadorSincronizado);
+        //si solo hiciese un controlador para el contador sincronizado
+        // iria solo uno de los contadores
 
     }
 

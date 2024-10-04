@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 
 public class HelloController {
@@ -16,7 +17,10 @@ public class HelloController {
     // El Label que actualizaremos con el valor de numPulsaciones
     @FXML
     private Label lbNumero;
-    private TextField txt;
+    @FXML
+    private TextField textCantidad;
+    @FXML
+    ProgressBar barraProgreso;
 
     public void initialize() {
         /*
@@ -34,13 +38,17 @@ public class HelloController {
         // Inicialmente mostrar el valor de numPulsaciones en el Label
         lbNumero.setText(String.valueOf(contador.getNumPulsaciones().get()));
 
-        // Listener para actualizar la etiqueta cuando cambia
+        //inicializamos la barra de progreso
+        barraProgreso.setProgress(contador.getNumPulsaciones().get()/50.0);
+
+        // Listener para actualizar la etiqueta y la barra progeso cuando cambia
         // el valor del contador
         contador.getNumPulsaciones().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 contador.getNumPulsaciones().addListener((observable, oldValue, newValue) -> {
                     lbNumero.setText(String.valueOf(newValue));
+                    cambiarProgreso(Integer.parseInt(String.valueOf(newValue)));
                 });
 
             }
@@ -48,7 +56,6 @@ public class HelloController {
     }
 
 
-    // Métodos que serán vinculados en SceneBuilder
     public void incrementar() {
         contador.pulsado(1);
     }
@@ -61,8 +68,14 @@ public class HelloController {
         contador.pulsado(0);
     }
     public void cambiar(){
-        int cantidad=Integer.parseInt(txt.getText());
+        int cantidad=Integer.parseInt(textCantidad.getText());
         contador.cantidadIntroducida(cantidad);
     }
+
+    public void cambiarProgreso(int n){
+        double progreso=(double) n/50.0;
+        barraProgreso.setProgress(progreso);
+    }
+
 
 }

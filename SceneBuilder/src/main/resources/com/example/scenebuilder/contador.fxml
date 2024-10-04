@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenebuilder.HelloController">
+<Pane fx:id="contenedor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenebuilder.HelloController">
    <children>
       <Button fx:id="bSumar" layoutX="23.0" layoutY="81.0" mnemonicParsing="false" onAction="#incrementar" text="+" />
       <Button fx:id="bRestar" layoutX="121.0" layoutY="81.0" mnemonicParsing="false" onAction="#decrementar" text="-" />
       <Button fx:id="bCero" layoutX="214.0" layoutY="81.0" mnemonicParsing="false" onAction="#resetear" text="0" />
       <Label fx:id="lbNumero" layoutX="132.0" layoutY="140.0" text="Label" />
       <TextField fx:id="textCantidad" layoutX="51.0" layoutY="24.0" onAction="#cambiar" />
-      <ProgressBar fx:id="progressBar" layoutX="48.0" layoutY="174.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar fx:id="barraProgreso" layoutX="48.0" layoutY="174.0" prefWidth="200.0" progress="0.0" />
    </children>
 </Pane>

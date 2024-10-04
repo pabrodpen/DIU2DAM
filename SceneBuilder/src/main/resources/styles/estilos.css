@@ -1,0 +1,14 @@
+#bCero{
+    -fx-background-color:#070707;
+}
+
+#lbNumero{
+    -fx-font: "Ani";
+    -fx-text-fill: #333fff;
+    -fx-background-color:#3d0be7;
+}
+
+#contenedor{
+    -fx-background-color:#e70b0b;
+}
+
