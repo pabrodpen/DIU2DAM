@@ -10,7 +10,6 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Contador contadorSincronizado=new Contador();
 
         // Crear la primera ventana
         FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("contador.fxml"));
@@ -38,11 +37,9 @@ public class HelloApplication extends Application {
         HelloController controlador1=fxmlLoader1.getController();
         HelloController controlador2=fxmlLoader2.getController();
 
-        //Asignamos la instancia del contador sincronizado cada controlador
-        controlador1.iniciarContador(contadorSincronizado);
-        controlador2.iniciarContador(contadorSincronizado);
-        //si solo hiciese un controlador para el contador sincronizado
-        // iria solo uno de los contadores
+
+        controlador1.getNumPulsaciones().bindBidirectional(controlador2.getNumPulsaciones());
+
 
     }
 
