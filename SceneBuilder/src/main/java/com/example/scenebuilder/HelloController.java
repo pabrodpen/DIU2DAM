@@ -6,55 +6,63 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class HelloController {
 
-    Contador contador1 = new Contador();
-    Contador contador2 = new Contador();
+    Contador contador;
 
 
     // El Label que actualizaremos con el valor de numPulsaciones
     @FXML
     private Label lbNumero;
+    private TextField txt;
 
     public void initialize() {
-        //nada mas arrnacar sincronizamos los contadores y lo vinculamos al label
-        contador1.getNumPulsaciones().bindBidirectional(contador2.getNumPulsaciones());
+        /*
+        * initialize() es un método que JavaFX llama automáticamente cuando
+        *se carga el archivo FXML. Sin embargo, en este caso no puede ser
+        * usado directamente para inicializar el contador porque necesitamos
+        * pasar una instancia compartida del contador desde la clase principal
+        * a ambos controladores.
+        * */
+    }
+
+    public void iniciarContador(Contador contador){
+        this.contador = contador; // Asignar el contador recibido a la variable del controlador
 
         // Inicialmente mostrar el valor de numPulsaciones en el Label
-        lbNumero.setText(String.valueOf(contador1));//da igual si es cont2, ya que son iguales
+        lbNumero.setText(String.valueOf(contador.getNumPulsaciones().get()));
 
         // Listener para actualizar la etiqueta cuando cambia
         // el valor del contador
-        contador1.getNumPulsaciones().addListener(new ChangeListener<Number>() {
+        contador.getNumPulsaciones().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                contador1.getNumPulsaciones().addListener((observable, oldValue, newValue) -> {
+                contador.getNumPulsaciones().addListener((observable, oldValue, newValue) -> {
                     lbNumero.setText(String.valueOf(newValue));
                 });
 
             }
         });
-
     }
 
 
     // Métodos que serán vinculados en SceneBuilder
     public void incrementar() {
-        contador1.pulsado(1);
+        contador.pulsado(1);
     }
 
     public void decrementar() {
-        contador1.pulsado(-1);
+        contador.pulsado(-1);
     }
 
     public void resetear() {
-        contador1.pulsado(0);
+        contador.pulsado(0);
+    }
+    public void cambiar(){
+        int cantidad=Integer.parseInt(txt.getText());
+        contador.cantidadIntroducida(cantidad);
     }
 
-    // Método para inicializar el contador desde la aplicación principal
-    public void initializeContador(Contador contador) {
-        this.contador1 = contador; // Asignar la instancia de contador al controlador
-
-    }
 }

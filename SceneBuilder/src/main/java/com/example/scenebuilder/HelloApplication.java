@@ -10,9 +10,11 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Contador contadorSincronizado=new Contador();
+
         // Crear la primera ventana
         FXMLLoader fxmlLoader1 = new FXMLLoader(HelloApplication.class.getResource("contador.fxml"));
-        Scene scene1 = new Scene(fxmlLoader1.load(), 320, 240);
+        Scene scene1 = new Scene(fxmlLoader1.load(), 350, 200);
 
         Stage stage1 = new Stage(); // Crear nuevo Stage para la primera ventana
         stage1.setTitle("Contador 1");
@@ -21,7 +23,7 @@ public class HelloApplication extends Application {
 
         // Crear la segunda ventana
         FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("contador.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 320, 240);
+        Scene scene2 = new Scene(fxmlLoader2.load(), 350, 200);
 
         Stage stage2 = new Stage(); // Crear nuevo Stage para la segunda ventana
         stage2.setTitle("Contador 2");
@@ -32,9 +34,9 @@ public class HelloApplication extends Application {
         HelloController controlador1=fxmlLoader1.getController();
         HelloController controlador2=fxmlLoader2.getController();
 
-        //Asignamos cada instancia de Contador a cada controlador
-        controlador1.initializeContador(new Contador());
-        controlador2.initializeContador(new Contador());
+        //Asignamos la instancia del contador sincronizado cada controlador
+        controlador1.iniciarContador(contadorSincronizado);
+        controlador2.iniciarContador(contadorSincronizado);
 
     }
 

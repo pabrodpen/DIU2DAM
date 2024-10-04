@@ -22,5 +22,9 @@ public class Contador {
         return numPulsaciones;
     }
 
+    public void cantidadIntroducida(int c){
+        numPulsaciones.set(c);
+    }
+
 
 }
