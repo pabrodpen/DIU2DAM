@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import com.example.agenda.model.Contacto;
 import javafx.application.Application;
-import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
+public class MainApp extends Application {
 
-    public HelloApplication(){
+    public MainApp(){
         listaContactos.add(new Contacto("Hans", "Muster"));
         listaContactos.add(new Contacto("Ruth", "Mueller"));
         listaContactos.add(new Contacto("Heinz", "Kurz"));
@@ -28,10 +26,15 @@ public class HelloApplication extends Application {
         listaContactos.add(new Contacto("Martin", "Mueller"));
     }
 
+
     private Stage primaryStage;
     private BorderPane rootLayout;
 
     private ObservableList<Contacto> listaContactos= FXCollections.observableArrayList();
+
+    public ObservableList<Contacto> getPersonData() {
+        return listaContactos;
+    }
 
 
 
@@ -52,7 +55,7 @@ public class HelloApplication extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/example/agenda/root-layout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -71,7 +74,7 @@ public class HelloApplication extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("view/PersonOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/example/agenda/hello-view.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
