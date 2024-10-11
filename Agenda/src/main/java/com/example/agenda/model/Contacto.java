@@ -3,6 +3,8 @@ package com.example.agenda.model;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Contacto{
     //NOMBRE,APELLIADO,DIRECC,LOCALIDAD,CODIGO POSTA. FECHA NAC
@@ -10,6 +12,8 @@ public class Contacto{
     public StringProperty nombre,apellido,direccion,localidad;
     public IntegerProperty codPostal;
     public ObjectProperty<LocalDate> fechaNac;
+
+    DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     //constructor de solo nombre y apellido
     public Contacto(String nombre, String apellido) {

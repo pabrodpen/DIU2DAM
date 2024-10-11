@@ -58,4 +58,26 @@ public class PersonOverviewController {
         // Add observable list data to the table
         personTable.setItems(mainApp.getPersonData());
     }
+
+    private void showPersonDetails(Contacto c) {
+        if (c != null) {
+            // Fill the labels with info from the person object.
+            firstNameLabel.setText(c.getNombre());
+            lastNameLabel.setText(c.getApellido());
+            streetLabel.setText(c.getDireccion());
+            postalCodeLabel.setText(Integer.toString(c.getCodPostal()));
+            cityLabel.setText(c.getLocalidad());
+
+            // TODO: We need a way to convert the birthday into a String!
+            // birthdayLabel.setText(...);
+        } else {
+            // Person is null, remove all the text.
+            firstNameLabel.setText("");
+            lastNameLabel.setText("");
+            streetLabel.setText("");
+            postalCodeLabel.setText("");
+            cityLabel.setText("");
+            birthdayLabel.setText("");
+        }
+    }
 }
