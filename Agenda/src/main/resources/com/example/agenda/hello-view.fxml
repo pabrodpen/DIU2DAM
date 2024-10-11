@@ -48,21 +48,21 @@
                         <Label fx:id="firstLastName" text="Apellido" GridPane.rowIndex="1" />
                         <Label fx:id="firstName" text="Nombre" />
                         <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="firstLastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="firstStreetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="firstCityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="streetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="firstCode" text="Codigo postal" GridPane.rowIndex="4" />
-                        <Label fx:id="firstCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="firstBirthday" text="Fecha de nacimiento" GridPane.rowIndex="5" />
-                        <Label fx:id="firstBirthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="birthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                   <HBox layoutX="220.0" layoutY="319.0" />
                   <HBox layoutX="178.0" layoutY="305.0" spacing="5.0">
                      <children>
-                        <Button layoutX="178.0" layoutY="305.0" mnemonicParsing="false" text="Añadir" />
-                        <Button layoutX="238.0" layoutY="305.0" mnemonicParsing="false" text="Editar" />
-                        <Button layoutX="298.0" layoutY="305.0" mnemonicParsing="false" text="Eliminar" />
+                        <Button fx:id="buttonAdd" layoutX="178.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleNewPerson" text="Añadir" />
+                        <Button fx:id="buttonEditar" layoutX="238.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar" />
+                        <Button fx:id="buttonEliminar" layoutX="298.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Eliminar" />
                      </children>
                   </HBox>
                </children>

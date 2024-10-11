@@ -1,11 +1,22 @@
 package com.example.agenda.controller;
 import com.example.agenda.model.Contacto;
+import com.example.agenda.model.DateUtil;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class PersonOverviewController {
+    @FXML
+    public Button buttonAdd;
+    @FXML
+    public Button buttonEditar;
+    @FXML
+    public Button buttonEliminar;
     @FXML
     private TableView<Contacto> personTable;
     @FXML
@@ -45,6 +56,15 @@ public class PersonOverviewController {
         // Initialize the person table with the two columns.
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
+
+        // Clear person details.
+        showPersonDetails(null);
+
+        //cuando se seleccione una persona del table, se muestran los detalles mediante
+        //un listener
+
+        personTable.getSelectionModel().selectedItemProperty().addListener
+                ((observable,oldValue,newValue) ->showPersonDetails(newValue));
     }
 
     /**
@@ -67,9 +87,8 @@ public class PersonOverviewController {
             streetLabel.setText(c.getDireccion());
             postalCodeLabel.setText(Integer.toString(c.getCodPostal()));
             cityLabel.setText(c.getLocalidad());
+            birthdayLabel.setText(DateUtil.format(c.getFechaNac()));
 
-            // TODO: We need a way to convert the birthday into a String!
-            // birthdayLabel.setText(...);
         } else {
             // Person is null, remove all the text.
             firstNameLabel.setText("");
@@ -79,5 +98,87 @@ public class PersonOverviewController {
             cityLabel.setText("");
             birthdayLabel.setText("");
         }
+
     }
-}
+
+    @FXML
+    private void handleDeletePerson() {
+        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            personTable.getItems().remove(selectedIndex);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+            alert.showAndWait();
+
+        }
+    }
+
+    @FXML
+    private void handleNewPerson() {
+        Contacto tempPerson = new Contacto(); // Crea un nuevo Contacto
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson); // Muestra el diálogo
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson); // Agrega a la lista si se hizo clic en OK
+        }
+    }
+
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void handleEditPerson() {
+        Contacto selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            // Nada seleccionado.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Person Selected");
+            alert.setContentText("Please select a person in the table.");
+            alert.showAndWait();
+
+        }
+    }
+
+
+
+
+
+        public boolean showPersonEditDialog(Contacto contacto) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("/com/example/agenda/person-edit-dialog.fxml"));
+                AnchorPane page = (AnchorPane) loader.load();
+
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Edit Person");
+                Scene scene = new Scene(page);
+                dialogStage.setScene(scene);
+
+                PersonEditDialogController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setPerson(contacto);
+
+                dialogStage.showAndWait();
+
+                return controller.isOkClicked();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+
+
