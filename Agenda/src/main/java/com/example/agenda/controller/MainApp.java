@@ -8,13 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane; // Cambiado a AnchorPane
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    public MainApp(){
+    public MainApp() {
+        // Datos de ejemplo para la lista de contactos
         listaContactos.add(new Contacto("Hans", "Muster"));
         listaContactos.add(new Contacto("Ruth", "Mueller"));
         listaContactos.add(new Contacto("Heinz", "Kurz"));
@@ -26,17 +26,14 @@ public class MainApp extends Application {
         listaContactos.add(new Contacto("Martin", "Mueller"));
     }
 
+    public Stage primaryStage;
+    public AnchorPane rootLayout; // Cambiado a AnchorPane
 
-    private Stage primaryStage;
-    private BorderPane rootLayout;
-
-    private ObservableList<Contacto> listaContactos= FXCollections.observableArrayList();
+    public ObservableList<Contacto> listaContactos = FXCollections.observableArrayList();
 
     public ObservableList<Contacto> getPersonData() {
         return listaContactos;
     }
-
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -44,21 +41,20 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("AddressApp");
 
         initRootLayout();
-
         showPersonOverview();
     }
 
     /**
-     * Initializes the root layout.
+     * Inicializa el layout raíz.
      */
     public void initRootLayout() {
         try {
-            // Load root layout from fxml file.
+            // Cargar el layout raíz desde el archivo fxml.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/example/agenda/root-layout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            loader.setLocation(MainApp.class.getResource("/com/example/agenda/hello-view.fxml"));
+            rootLayout = (AnchorPane) loader.load();
 
-            // Show the scene containing the root layout.
+            // Mostrar la escena que contiene el layout raíz.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -68,24 +64,24 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Muestra la vista de personas dentro del layout raíz.
      */
     public void showPersonOverview() {
         try {
-            // Load person overview.
+            // Cargar la vista de personas.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/example/agenda/hello-view.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/example/agenda/hello-view.fxml")); // Asegúrate de que este es el correcto
             AnchorPane personOverview = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
+            // Agregar la vista de personas al layout raíz
+            rootLayout.getChildren().add(personOverview); // Añadir el AnchorPane al AnchorPane raíz
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Returns the main stage.
+     * Retorna la escena principal.
      * @return
      */
     public Stage getPrimaryStage() {
