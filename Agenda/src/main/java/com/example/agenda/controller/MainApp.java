@@ -52,8 +52,12 @@ public class MainApp extends Application {
         try {
             // Cargar el layout raíz desde el archivo fxml.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/example/agenda/hello-view.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/example/agenda/root-layout.fxml"));
             rootLayout = (AnchorPane) loader.load();
+
+            // Obtener el controlador y asignarle la instancia de MainApp
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
 
             // Mostrar la escena que contiene el layout raíz.
             Scene scene = new Scene(rootLayout);
@@ -124,6 +128,30 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void showBirthdayStatistics() {
+        try {
+            // Load the fxml file and create a new stage for the popup.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com.example/agenda/controller/birthday-statistics.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Birthday Statistics");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the persons into the controller.
+            BirthdayStatisticsController controller = loader.getController();
+            controller.setPersonData(listaContactos);
+
+            dialogStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

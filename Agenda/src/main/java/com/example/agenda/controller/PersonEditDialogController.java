@@ -130,11 +130,11 @@ public class PersonEditDialogController {
             }
         }
 
-        if (cityField.getText() == null || cityField.getText().length() == 0) {
+        if (cityField.getText() == null || cityField.getText().isEmpty()) {
             errorMessage += "No valid city!\n";
         }
 
-        if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
+        if (birthdayField.getText() == null || birthdayField.getText().isEmpty()) {
             errorMessage += "No valid birthday!\n";
         } else {
             if (!DateUtil.validDate(birthdayField.getText())) {
