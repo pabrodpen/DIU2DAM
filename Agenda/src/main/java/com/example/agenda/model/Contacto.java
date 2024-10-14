@@ -21,8 +21,8 @@ public class Contacto {
     public Contacto(String nombre, String apellido) {
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
-        this.direccion = new SimpleStringProperty("Dirección predeterminada");
-        this.localidad = new SimpleStringProperty("Localidad predeterminada");
+        this.direccion = new SimpleStringProperty("Dirección");
+        this.localidad = new SimpleStringProperty("Localidad");
         this.codPostal = new SimpleIntegerProperty(1234);
         this.fechaNac = new SimpleObjectProperty<>(LocalDate.of(2000, 1, 1));
     }

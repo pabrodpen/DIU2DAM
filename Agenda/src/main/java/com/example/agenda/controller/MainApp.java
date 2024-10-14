@@ -60,6 +60,10 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            // Obtener el controlador del root layout y establecer la referencia de MainApp.
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this); // Pasar la referencia de MainApp
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +76,7 @@ public class MainApp extends Application {
         try {
             // Cargar la vista de personas.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/example/agenda/hello-view.fxml")); // Ruta corregida
+            loader.setLocation(MainApp.class.getResource("/com/example/agenda/person-overview.fxml")); // Ruta corregida
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Establecer el centro del layout raíz.

@@ -7,19 +7,19 @@
   <top>
     <MenuBar BorderPane.alignment="CENTER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="Archivos">
           <items>
             <MenuItem mnemonicParsing="false" text="Close"/>
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Statistics">
+        <Menu mnemonicParsing="false" text="Estadisticas">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Statistics"/>
+            <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Mostrar estadisticas"/>
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu mnemonicParsing="false" text="Ayuda">
           <items>
-            <MenuItem mnemonicParsing="false" text="About"/>
+            <MenuItem mnemonicParsing="false" text="Sobre"/>
           </items>
         </Menu>
       </menus>
