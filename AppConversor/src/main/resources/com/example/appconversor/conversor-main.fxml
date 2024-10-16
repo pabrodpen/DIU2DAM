@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.appconversor.controllers.ConversorController">
+   <children>
+      <TextField fx:id="textEuros" layoutX="40.0" layoutY="104.0" />
+      <TextField fx:id="textDolares" layoutX="312.0" layoutY="104.0" onAction="#mostrarConversion" />
+      <Text layoutX="54.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EUROS" />
+      <Text layoutX="329.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DÓLARES" />
+      <Text layoutX="166.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONVERSOR MONEDAS">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
