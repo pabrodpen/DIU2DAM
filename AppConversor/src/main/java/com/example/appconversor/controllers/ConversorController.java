@@ -10,11 +10,14 @@ public class ConversorController {
     TextField textEuros,textDolares;
     ConversorModelo conversorModelo;
 
+    public void setConversorModelo(ConversorModelo c){
+        this.conversorModelo=c;
+    }
+
     @FXML
     public void initialize(){
 
         textEuros.setText("0");
-        textDolares.setText("0");
 
     }
 
