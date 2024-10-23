@@ -1,7 +1,8 @@
 package com.example.agenda.controller;
 
-import com.example.agenda.model.Contacto;
-import com.example.agenda.model.DateUtil;
+import com.example.agenda.model.AgendaModelo;
+import com.example.agenda.view.Contacto;
+import com.example.agenda.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -32,6 +33,7 @@ public class PersonEditDialogController {
     private Stage dialogStage;
     private Contacto c;
     private boolean okClicked = false;
+    private AgendaModelo agendaModelo;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -48,6 +50,10 @@ public class PersonEditDialogController {
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    public void setAgendaModelo(AgendaModelo m){
+        this.agendaModelo=m;
     }
 
     /**

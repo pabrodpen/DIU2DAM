@@ -1,6 +1,8 @@
 package com.example.agenda.controller;
-import com.example.agenda.model.Contacto;
-import com.example.agenda.model.DateUtil;
+import com.example.agenda.MainApp;
+import com.example.agenda.model.AgendaModelo;
+import com.example.agenda.view.Contacto;
+import com.example.agenda.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -39,6 +41,7 @@ public class PersonOverviewController {
 
     // Reference to the main application.
     private MainApp mainApp;
+    private AgendaModelo agendaModelo;
 
     /**
      * The constructor.
@@ -79,6 +82,11 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
 
+    public void setAgendaModelo(AgendaModelo m){
+        this.agendaModelo=m;
+    }
+
+
     private void showPersonDetails(Contacto c) {
         if (c != null) {
             // Fill the labels with info from the person object.
@@ -101,7 +109,7 @@ public class PersonOverviewController {
 
     }
 
-    @FXML
+ @FXML
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -127,10 +135,7 @@ public class PersonOverviewController {
     }
 
 
-    /**
-     * Called when the user clicks the edit button. Opens a dialog to edit
-     * details for the selected person.
-     */
+
     @FXML
     private void handleEditPerson() {
         Contacto selectedPerson = personTable.getSelectionModel().getSelectedItem();

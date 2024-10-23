@@ -1,8 +1,12 @@
-package com.example.agenda.controller;
+package com.example.agenda;
 
 import java.io.IOException;
 
-import com.example.agenda.model.Contacto;
+import com.example.agenda.controller.BirthdayStatisticsController;
+import com.example.agenda.controller.PersonEditDialogController;
+import com.example.agenda.controller.PersonOverviewController;
+import com.example.agenda.controller.RootLayoutController;
+import com.example.agenda.view.Contacto;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
