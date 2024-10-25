@@ -8,11 +8,25 @@ import java.util.ArrayList;
 public class PersonUtil {
     PersonaRepository personaRepository;
 
-    private ArrayList<PersonaVO> getListaPersonasVO(ArrayList<Contacto> contactos){
+    public ArrayList<PersonaVO> getListaPersonasVO(ArrayList<Contacto> contactos){
+        ArrayList<PersonaVO> listaPersonasVO=new ArrayList<>();
+        for(Contacto c:contactos){
+                PersonaVO personaVO=new PersonaVO(c.getNombre(),c.getApellido(),c.getDireccion(),c.getLocalidad(),c.getCodPostal(),c.getFechaNac());
+
+                listaPersonasVO.add(personaVO);
+        }
+        return listaPersonasVO;
 
     }
 
-    private ArrayList<Contacto> getListaContactos(ArrayList<PersonaVO> personaVOS){
+    public ArrayList<Contacto> getListaContactos(ArrayList<PersonaVO> personaVOS){
+        ArrayList<Contacto> listaContactos=new ArrayList<>();
+        for(PersonaVO p:personaVOS){
+            Contacto contacto=new Contacto(p.getNombre(),p.getApellido(),p.getDireccion(),p.getLocalidad(),p.getCodPostal(),String.valueOf(p.getFechaNac()));
+
+            listaContactos.add(contacto);
+        }
+        return listaContactos;
 
     }
 }

@@ -43,17 +43,11 @@ public class PersonOverviewController {
     private MainApp mainApp;
     private AgendaModelo agendaModelo;
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
+
+
     public PersonOverviewController() {
     }
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.

@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Contacto {
     // Propiedades: nombre, apellido, dirección, localidad, código postal, fecha de nacimiento
+    private final IntegerProperty codigo;
     private final StringProperty nombre;
     private final StringProperty apellido;
     private final StringProperty direccion;
@@ -27,8 +28,19 @@ public class Contacto {
         this.fechaNac = new SimpleObjectProperty<>(LocalDate.of(2000, 1, 1));
     }
 
+    public Contacto(int codigo,String nombre, String apellido, String direccion, String localidad, int codPostal, String fechaNac) {
+        this.codigo=new SimpleIntegerProperty(codigo);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
+        this.direccion = new SimpleStringProperty(direccion);
+        this.localidad = new SimpleStringProperty(localidad);
+        this.codPostal = new SimpleIntegerProperty(codPostal);
+        this.fechaNac = new SimpleObjectProperty<>(LocalDate.parse(fechaNac));
+    }
+
     // Constructor vacío (inicializa todas las propiedades con valores predeterminados)
     public Contacto() {
+        this.codigo=new SimpleIntegerProperty(0);
         this.nombre = new SimpleStringProperty("");
         this.apellido = new SimpleStringProperty("");
         this.direccion = new SimpleStringProperty("");
@@ -38,6 +50,13 @@ public class Contacto {
     }
 
     // Getters y setters para cada propiedad
+
+
+    public int getCodigo() {
+        return codigo.get();
+    }
+
+
 
     public String getNombre() {
         return nombre.get();
@@ -67,9 +86,6 @@ public class Contacto {
         return direccion.get();
     }
 
-    public StringProperty direccionProperty() {
-        return direccion;
-    }
 
     public void setDireccion(String direccion) {
         this.direccion.set(direccion);

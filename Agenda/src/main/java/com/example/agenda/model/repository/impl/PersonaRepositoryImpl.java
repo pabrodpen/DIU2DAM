@@ -31,7 +31,7 @@ public class PersonaRepositoryImpl implements PersonaRepository {
             Connection conn = this.conexion.conectarBD();
             this.personas = new ArrayList();
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM personas";
+            this.sentencia = "SELECT * FROM contactos";
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
             while(rs.next()) {
@@ -41,7 +41,7 @@ public class PersonaRepositoryImpl implements PersonaRepository {
                 String direcc = rs.getString("direccion");
                 String loc = rs.getString("localidad");
                 int cPostal=rs.getInt("codPostal");
-                LocalDate f= rs.getDate("fecha").toLocalDate();
+                LocalDate f= rs.getDate("fechaNac").toLocalDate();
 
                 this.persona = new PersonaVO(c,nom,apell,direcc,loc,cPostal,f);
                 //this.moneda.setCodigo(codigo);

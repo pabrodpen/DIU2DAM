@@ -5,11 +5,21 @@ import javafx.beans.property.SimpleObjectProperty;
 import java.time.LocalDate;
 
 public class PersonaVO {
-    int cod;
     String nombre;
     String apellido,direccion,localidad;
     int codPostal;
     LocalDate fechaNac;
+    int cod;
+
+    public PersonaVO(String nombre, String apellido, String direccion, String localidad, int codPostal, LocalDate fechaNac) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.localidad = localidad;
+        this.codPostal = codPostal;
+        this.fechaNac = fechaNac;
+    }
+
 
     public PersonaVO(int cod, String nombre, String apellido, String direccion, String localidad, int codPostal, LocalDate fechaNac) {
         this.cod = cod;

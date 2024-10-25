@@ -6,7 +6,10 @@ import com.example.agenda.controller.BirthdayStatisticsController;
 import com.example.agenda.controller.PersonEditDialogController;
 import com.example.agenda.controller.PersonOverviewController;
 import com.example.agenda.controller.RootLayoutController;
+import com.example.agenda.model.AgendaModelo;
+import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
 import com.example.agenda.view.Contacto;
+import com.example.agenda.view.PersonUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -25,16 +29,12 @@ public class MainApp extends Application {
     public ObservableList<Contacto> listaContactos = FXCollections.observableArrayList();
 
     public MainApp() {
-        // Datos de ejemplo para la lista de contactos
-        listaContactos.add(new Contacto("Hans", "Muster"));
-        listaContactos.add(new Contacto("Ruth", "Mueller"));
-        listaContactos.add(new Contacto("Heinz", "Kurz"));
-        listaContactos.add(new Contacto("Cornelia", "Meier"));
-        listaContactos.add(new Contacto("Werner", "Meyer"));
-        listaContactos.add(new Contacto("Lydia", "Kunz"));
-        listaContactos.add(new Contacto("Anna", "Best"));
-        listaContactos.add(new Contacto("Stefan", "Meier"));
-        listaContactos.add(new Contacto("Martin", "Mueller"));
+        PersonaRepositoryImpl personaRepository=new PersonaRepositoryImpl();
+        AgendaModelo agendaModelo=new AgendaModelo();
+        PersonUtil personUtil=new PersonUtil();
+        agendaModelo.setPersonaRepository(personaRepository);
+        agendaModelo.setPersonUtil(personUtil);
+        listaContactos.addAll(agendaModelo.getPersonas());
     }
 
     public ObservableList<Contacto> getPersonData() {
