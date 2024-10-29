@@ -48,6 +48,8 @@ public class PersonOverviewController {
     public PersonOverviewController() {
     }
 
+
+
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
@@ -108,6 +110,12 @@ public class PersonOverviewController {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             personTable.getItems().remove(selectedIndex);
+            //cogemos el Contacto con el indice que seleccionam os de
+            // la interfz del table view
+
+            Contacto contactoEliminar=personTable.getItems().get(selectedIndex);
+            //cogemos el metodo de agnedaModelo para eliminar d ela bd
+            agendaModelo.deletePersonVOtoBD(contactoEliminar);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -125,7 +133,10 @@ public class PersonOverviewController {
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson); // Muestra el diálogo
         if (okClicked) {
             mainApp.getPersonData().add(tempPerson); // Agrega a la lista si se hizo clic en OK
+            agendaModelo.addPersonVOtoBD(tempPerson);//agrega a la bd
         }
+
+
     }
 
 
@@ -137,6 +148,7 @@ public class PersonOverviewController {
             boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
             if (okClicked) {
                 showPersonDetails(selectedPerson);
+                agendaModelo.editPersonVOtoBD(selectedPerson);
             }
 
         } else {

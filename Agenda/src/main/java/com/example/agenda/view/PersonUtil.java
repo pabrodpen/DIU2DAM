@@ -22,7 +22,7 @@ public class PersonUtil {
     public ArrayList<Contacto> getListaContactos(ArrayList<PersonaVO> personaVOS){
         ArrayList<Contacto> listaContactos=new ArrayList<>();
         for(PersonaVO p:personaVOS){
-            Contacto contacto=new Contacto(p.getNombre(),p.getApellido(),p.getDireccion(),p.getLocalidad(),p.getCodPostal(),String.valueOf(p.getFechaNac()));
+            Contacto contacto=new Contacto(p.getCod(), p.getNombre(),p.getApellido(),p.getDireccion(),p.getLocalidad(),p.getCodPostal(),String.valueOf(p.getFechaNac()));
 
             listaContactos.add(contacto);
         }

@@ -27,14 +27,17 @@ public class MainApp extends Application {
     public BorderPane rootLayout; // Usar BorderPane como layout raíz
 
     public ObservableList<Contacto> listaContactos = FXCollections.observableArrayList();
+    AgendaModelo agendaModelo=new AgendaModelo();
 
     public MainApp() {
         PersonaRepositoryImpl personaRepository=new PersonaRepositoryImpl();
-        AgendaModelo agendaModelo=new AgendaModelo();
+
         PersonUtil personUtil=new PersonUtil();
         agendaModelo.setPersonaRepository(personaRepository);
         agendaModelo.setPersonUtil(personUtil);
         listaContactos.addAll(agendaModelo.getPersonas());
+
+
     }
 
     public ObservableList<Contacto> getPersonData() {
@@ -88,6 +91,8 @@ public class MainApp extends Application {
 
             // Obtener el controlador y pasar la referencia de MainApp.
             PersonOverviewController controller = loader.getController();
+            //INYECTAMOS EL MODELO EN EL CONTROLLER
+            controller.setAgendaModelo(agendaModelo);
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();

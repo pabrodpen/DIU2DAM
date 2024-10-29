@@ -16,7 +16,7 @@ public interface PersonaRepository {
 
         void editPersona(PersonaVO var1) throws ExcepcionPersona;
 
-        //PersonaVO getPersona(int c) throws ExcepcionPersona;
+
 
         int lastId() throws ExcepcionPersona;
     }

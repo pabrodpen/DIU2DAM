@@ -61,7 +61,7 @@ public class PersonaRepositoryImpl implements PersonaRepository {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO personas (nombre, apellido, direccion, localidad, codPostal, fechaNac) VALUES ('" + p.getNombre() + "','" + p.getApellido() + "','"+p.getDireccion()+"','"+p.getLocalidad()+"','"+p.getCodPostal()+"','"+p.getFechaNac()+"')";
+            this.sentencia = "INSERT INTO contactos (nombre, apellido, direccion, localidad, codPostal, fechaNac) VALUES ('" + p.getNombre() + "','" + p.getApellido() + "','"+p.getDireccion()+"','"+p.getLocalidad()+"','"+p.getCodPostal()+"','"+p.getFechaNac()+"')";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);
@@ -75,7 +75,7 @@ public class PersonaRepositoryImpl implements PersonaRepository {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
             Statement comando = conn.createStatement();
-            String sql = String.format("DELETE FROM personas WHERE codigo = %d", idPersona);
+            String sql = String.format("DELETE FROM contactos WHERE codigo = %d", idPersona);
             comando.executeUpdate(sql);
             this.conexion.desconectarBD(conn);
         } catch (SQLException var5) {
@@ -83,11 +83,13 @@ public class PersonaRepositoryImpl implements PersonaRepository {
         }
     }
 
-    public void editPersona(PersonaVO monedaVO) throws ExcepcionPersona {
+    public void editPersona(PersonaVO personaVO) throws ExcepcionPersona {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE personas SET nombre = '%s', apellido = '%s' , direccion = '%s', localidad = '%s' , codPostal = '%s' , fechaNac = '%s' WHERE codigo = %d",persona.getCod(), persona.getNombre(), persona.getApellido(), persona.getDireccion(), persona.getLocalidad(), persona.getCodPostal(), persona.getFechaNac());
+            //%s string y %d entero
+            //RESPETAR EÑ ORDEN DE UPDATE(si nomrbe eds el primeri, el primero del update sera persona.getnombre())
+            String sql = String.format("UPDATE contactos SET nombre = '%s', apellido = '%s' , direccion = '%s', localidad = '%s' , codPostal = '%s' , fechaNac = '%s' WHERE codigo = %d",personaVO.getNombre(), personaVO.getApellido() ,personaVO.getDireccion(), personaVO.getLocalidad(), personaVO.getCodPostal(),personaVO.getFechaNac(),personaVO.getCod());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido realizar la edición");

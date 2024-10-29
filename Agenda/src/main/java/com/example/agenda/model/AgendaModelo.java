@@ -29,4 +29,21 @@ public class AgendaModelo {
         return contactoArrayList;
     }
 
+    public void addPersonVOtoBD(Contacto c){
+        PersonaVO personaVO= new PersonaVO(c.getCodigo(),c.getNombre(),c.getApellido(),c.getDireccion(),c.getLocalidad(),c.getCodPostal(),c.getFechaNac());
+        personaRepository.addPersona(personaVO);
+    }
+
+    public void deletePersonVOtoBD(Contacto c){
+        int codContacto=c.getCodigo();
+        personaRepository.deletePersona(codContacto);
+    }
+
+    public void editPersonVOtoBD(Contacto c){
+        //mismo proceso que en añadir
+        PersonaVO personaVO= new PersonaVO(c.getCodigo(),c.getNombre(),c.getApellido(),c.getDireccion(),c.getLocalidad(),c.getCodPostal(),c.getFechaNac());
+        personaRepository.editPersona(personaVO);
+    }
+
+
 }

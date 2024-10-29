@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Contacto {
     // Propiedades: nombre, apellido, dirección, localidad, código postal, fecha de nacimiento
-    private final IntegerProperty codigo;
+    private  IntegerProperty codigo = null;
     private final StringProperty nombre;
     private final StringProperty apellido;
     private final StringProperty direccion;
