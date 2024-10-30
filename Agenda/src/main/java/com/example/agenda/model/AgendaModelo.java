@@ -45,5 +45,9 @@ public class AgendaModelo {
         personaRepository.editPersona(personaVO);
     }
 
+    public int getNumContactos(){
+        ArrayList<Contacto> lista=getPersonas();
+        return lista.size();
+    }
 
 }

@@ -5,6 +5,7 @@ import com.example.agenda.view.Contacto;
 import com.example.agenda.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -34,6 +35,9 @@ public class PersonEditDialogController {
     private Contacto c;
     private boolean okClicked = false;
     private AgendaModelo agendaModelo;
+    @FXML
+    ProgressBar progressBar;
+
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -41,6 +45,10 @@ public class PersonEditDialogController {
      */
     @FXML
     private void initialize() {
+
+    }
+    public void cambiarBarra(int cantidad){
+        progressBar.setProgress(cantidad/50);
     }
 
     /**
