@@ -71,7 +71,8 @@ public class PersonEditDialogController {
     public void actualizarProgressBar() {
         if (agendaModelo != null) {
             int cantidad = agendaModelo.getNumContactos();
-            progressBar.setProgress((double) cantidad / 50);  // Ajustar el divisor según el máximo
+            progressBar.setProgress((double) cantidad / 50);
+            progressIndicator.setProgress(Math.min((double) cantidad / 50, 1.0));
         }
     }
 

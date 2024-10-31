@@ -10,6 +10,7 @@ import com.example.appconversor.models.ConversorModelo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,27 +44,6 @@ public class ConversorMain extends Application {
         controller.setConversorModelo(conversorModelo);
 
 
-        //conexion a la bd con expecion personalizada
-
-        ConexionJDBC conexion = new ConexionJDBC();
-        Connection conn = null;
-
-        /*try {
-            // Intentar conectarse a la base de datos
-            conn = conexion.conectarBD();
-            System.out.println("Conexión exitosa a la base de datos.");
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Cerrar la conexión
-            if (conn != null) {
-                conexion.desconectarBD(conn);
-                System.out.println("Conexión cerrada.");
-            }
-        }*/
-
         try{
             MonedaRepositoryImpl monedaRepositoryImpl=new MonedaRepositoryImpl();
             MonedaVO monedaPrueba=new MonedaVO("dólar",1.2F);
@@ -72,7 +52,11 @@ public class ConversorMain extends Application {
 
 
         } catch (ExcepcionMoneda e) {
-            e.imprimirMensaje();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null); // No encabezado
+            alert.setContentText("No se ha podido recuperar la conversion a la moneda");
+            alert.showAndWait();
         }
     }
 
