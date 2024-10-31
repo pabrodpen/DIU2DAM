@@ -109,12 +109,14 @@ public class PersonOverviewController {
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            personTable.getItems().remove(selectedIndex);
             //cogemos el Contacto con el indice que seleccionam os de
-            // la interfz del table view
-
+            // la interfz del table view y le restamos uno, ya que la bd sigue unn indice mas
+            //que la inmterfaz
+            //cogemos el metodo de agnedaModelo para eliminar de la bd
             Contacto contactoEliminar=personTable.getItems().get(selectedIndex);
-            //cogemos el metodo de agnedaModelo para eliminar d ela bd
+            //lo quitamos de la interfaz
+            personTable.getItems().remove(selectedIndex);
+
             agendaModelo.deletePersonVOtoBD(contactoEliminar);
         } else {
             // Nothing selected.

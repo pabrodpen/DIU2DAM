@@ -130,6 +130,7 @@ public class MainApp extends Application {
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(c);
+            controller.setAgendaModelo(agendaModelo);
 
             // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
             dialogStage.showAndWait();

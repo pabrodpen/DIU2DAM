@@ -6,6 +6,7 @@ import com.example.agenda.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -37,6 +38,8 @@ public class PersonEditDialogController {
     private AgendaModelo agendaModelo;
     @FXML
     ProgressBar progressBar;
+    @FXML
+    ProgressIndicator progressIndicator;
 
 
     /**
@@ -46,9 +49,6 @@ public class PersonEditDialogController {
     @FXML
     private void initialize() {
 
-    }
-    public void cambiarBarra(int cantidad){
-        progressBar.setProgress(cantidad/50);
     }
 
     /**
@@ -61,7 +61,18 @@ public class PersonEditDialogController {
     }
 
     public void setAgendaModelo(AgendaModelo m){
-        this.agendaModelo=m;
+        this.agendaModelo = m;
+        actualizarProgressBar();
+    }
+
+    /**
+     * Método para actualizar el estado del ProgressBar en función de los contactos.
+     */
+    public void actualizarProgressBar() {
+        if (agendaModelo != null) {
+            int cantidad = agendaModelo.getNumContactos();
+            progressBar.setProgress((double) cantidad / 50);  // Ajustar el divisor según el máximo
+        }
     }
 
     /**
