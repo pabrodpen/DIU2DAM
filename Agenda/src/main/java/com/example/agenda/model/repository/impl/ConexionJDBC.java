@@ -1,5 +1,7 @@
 package com.example.agenda.model.repository.impl;
 
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,13 +20,7 @@ public class ConexionJDBC {
             System.out.println("\n--- SQLException capturada ---\n");
 
             while(ex != null) {
-                /*
-                * Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error de conexion");
-            alert.setHeaderText(null); // No encabezado
-            alert.setContentText("No se ha podido conectar con el servidor");
-            alert.showAndWait();
-                * */
+
                 System.out.println("Mensaje:   " + ex.getMessage());
                 System.out.println("SQLState:  " + ex.getSQLState());
                 System.out.println("ErrorCode: " + ex.getErrorCode());

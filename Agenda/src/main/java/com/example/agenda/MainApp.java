@@ -35,10 +35,16 @@ public class MainApp extends Application {
         PersonUtil personUtil=new PersonUtil();
         agendaModelo.setPersonaRepository(personaRepository);
         agendaModelo.setPersonUtil(personUtil);
+
         listaContactos.addAll(agendaModelo.getPersonas());
+
+        // Llamar a getPersonas() solo después de la configuración
+        agendaModelo.setNumContactos(agendaModelo.getPersonas().size());
 
 
     }
+
+
 
     public ObservableList<Contacto> getPersonData() {
         return listaContactos;
@@ -113,6 +119,7 @@ public class MainApp extends Application {
 
     public boolean showPersonEditDialog(Contacto c) {
         try {
+
             // Cargar el archivo FXML y crear un nuevo escenario para el diálogo emergente.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/example/agenda/person-edit-dialog.fxml")); // Ruta corregida
@@ -121,7 +128,8 @@ public class MainApp extends Application {
             // Crear el escenario del diálogo.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Person");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            //quitamos modal para que se puedan abrir varias ventanas
+            //dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
@@ -150,7 +158,7 @@ public class MainApp extends Application {
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Birthday Statistics");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            //dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);

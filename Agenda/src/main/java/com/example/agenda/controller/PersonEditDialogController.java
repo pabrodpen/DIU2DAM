@@ -3,6 +3,7 @@ package com.example.agenda.controller;
 import com.example.agenda.model.AgendaModelo;
 import com.example.agenda.view.Contacto;
 import com.example.agenda.util.DateUtil;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressBar;
@@ -62,7 +63,8 @@ public class PersonEditDialogController {
 
     public void setAgendaModelo(AgendaModelo m){
         this.agendaModelo = m;
-        actualizarProgressBar();
+        progressBar.progressProperty().bind(Bindings.divide(agendaModelo.numContactosProperty(), 50.0));
+        progressIndicator.progressProperty().bind(Bindings.min(1.0, Bindings.divide(agendaModelo.numContactosProperty(), 50.0)));
     }
 
     /**

@@ -8,6 +8,7 @@ package com.example.agenda.model.repository.impl;
 import com.example.agenda.model.ExcepcionPersona;
 import com.example.agenda.model.PersonaVO;
 import com.example.agenda.model.repository.PersonaRepository;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,36 +28,48 @@ public class PersonaRepositoryImpl implements PersonaRepository {
     }
 
     public ArrayList<PersonaVO> ObtenerListaPersonas() throws ExcepcionPersona {
+        this.personas = new ArrayList<>(); // Inicializamos la lista como vacía
+
         try {
             Connection conn = this.conexion.conectarBD();
-            this.personas = new ArrayList();
+            if (conn == null) {
+                // Si no se pudo conectar, se muestra el alerta y se devuelve la lista vacía
+                mostrarAlertaConexionFallida();
+                return this.personas; // Devuelve la lista vacía
+            }
+
             this.stmt = conn.createStatement();
             this.sentencia = "SELECT * FROM contactos";
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
-            while(rs.next()) {
-                int c=rs.getInt("codigo");
+            while (rs.next()) {
+                int c = rs.getInt("codigo");
                 String nom = rs.getString("nombre");
                 String apell = rs.getString("apellido");
                 String direcc = rs.getString("direccion");
                 String loc = rs.getString("localidad");
-                int cPostal=rs.getInt("codPostal");
-                LocalDate f= rs.getDate("fechaNac").toLocalDate();
+                int cPostal = rs.getInt("codPostal");
+                LocalDate f = rs.getDate("fechaNac").toLocalDate();
 
-                this.persona = new PersonaVO(c,nom,apell,direcc,loc,cPostal,f);
-                //this.moneda.setCodigo(codigo);
+                this.persona = new PersonaVO(c, nom, apell, direcc, loc, cPostal, f);
                 this.personas.add(this.persona);
-
-
             }
 
             this.conexion.desconectarBD(conn);
-            return this.personas;
         } catch (SQLException var6) {
-            throw new ExcepcionPersona("No se ha podido realizar la operación");
+            mostrarAlertaConexionFallida();
         }
+
+        return this.personas; // Devuelve la lista, que puede estar vacía si hubo un error
     }
 
+    private void mostrarAlertaConexionFallida() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error de conexión");
+        alert.setHeaderText(null);
+        alert.setContentText("No se ha podido conectar con el servidor.");
+        alert.showAndWait();
+    }
     public void addPersona(PersonaVO p) throws ExcepcionPersona {
         try {
             Connection conn = this.conexion.conectarBD();
