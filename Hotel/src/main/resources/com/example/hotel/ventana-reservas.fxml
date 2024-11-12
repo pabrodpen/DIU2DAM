@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotel.VentanaReservas">
+   <children>
+      <Label layoutX="8.0" layoutY="5.0" text="RESERVAS DE " AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="442.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="148.0" layoutY="5.0" text="Label" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="399.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="359.0" layoutY="11.0" text="DETALLES DE RESERVA" />
+   </children>
+</AnchorPane>

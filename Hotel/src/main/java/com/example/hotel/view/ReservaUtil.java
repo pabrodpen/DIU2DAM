@@ -24,12 +24,12 @@ public class ReservaUtil {
     }
 
     public ArrayList<ReservaVO> getReservasVO(ArrayList<Reserva> reservas) {
-        ArrayList<ReservaVO> reservaVOS=new ArrayList<>();
+        ArrayList<ReservaVO> reservasVOS=new ArrayList<>();
         for(Reserva reserva:reservas){
             ReservaVO reservaVO=new ReservaVO(reserva.getCodigo(),reserva.getNumHabitaciones(),reserva.getTipoHabitacion(),reserva.isEsFumador(),reserva.getRegimenHabitacion());
-            reservaVOS.add(reservaVO);
+            reservasVOS.add(reservaVO);
         }
-        return reservaVOS;
+        return reservasVOS;
     }
 
 

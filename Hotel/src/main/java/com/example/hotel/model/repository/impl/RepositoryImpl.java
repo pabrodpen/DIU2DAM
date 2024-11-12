@@ -86,7 +86,7 @@ public class RepositoryImpl implements Repository {
         }
     }
 
-    public void deletePersona(Integer dniPersona) throws ExcepcionPersona {
+    public void deletePersona(String dniPersona) throws ExcepcionPersona {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
@@ -192,19 +192,4 @@ public class RepositoryImpl implements Repository {
     }
 
 
-    public int lastId() throws ExcepcionPersona {
-        int lastMonedaId = 0;
-
-        try {
-            Connection conn = this.conexion.conectarBD();
-            Statement comando = conn.createStatement();
-
-            for(ResultSet registro = comando.executeQuery("SELECT codigo FROM monedas ORDER BY codigo DESC LIMIT 1"); registro.next(); lastMonedaId = registro.getInt("codigo")) {
-            }
-
-            return lastMonedaId;
-        } catch (SQLException var5) {
-            throw new ExcepcionPersona("No se ha podido realizar la busqueda del ID");
-        }
-    }
 }
