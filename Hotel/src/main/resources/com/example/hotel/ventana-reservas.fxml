@@ -33,25 +33,44 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="351.0">
                <children>
                   <Label layoutX="87.0" layoutY="5.0" text="DETALLES DE RESERVA" />
-                  <GridPane layoutX="14.0" layoutY="53.0" prefHeight="171.0" prefWidth="284.0">
+                  <GridPane layoutX="14.0" layoutY="45.0" prefHeight="218.0" prefWidth="329.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="181.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="169.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="114.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="101.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label prefHeight="19.0" prefWidth="158.0" text="Numero de habitaciones" />
                         <Label text="Tipo de habitacion" GridPane.rowIndex="1" />
-                        <Label text="Regimen de habiatcion" GridPane.rowIndex="2" />
+                        <Label text="Regimen de habitacion" GridPane.rowIndex="2" />
+                        <SplitMenuButton mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </SplitMenuButton>
+                        <SplitMenuButton mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </SplitMenuButton>
                      </children>
                   </GridPane>
+                  <CheckBox layoutX="14.0" layoutY="263.0" mnemonicParsing="false" text="CheckBox" />
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
+      <SplitMenuButton mnemonicParsing="false" text="SplitMenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
    </children>
 </AnchorPane>
