@@ -13,23 +13,27 @@ public class Reserva {
     private BooleanProperty esFumador=new SimpleBooleanProperty();
     private StringProperty regimenHabitacion=new SimpleStringProperty();
     private StringProperty dniCliente=new SimpleStringProperty();
-    LocalDateTime horaLlegada=new D
-    LocalDateTime horaSalida;
+    private SimpleObjectProperty<LocalDateTime> horaLlegada=new SimpleObjectProperty<LocalDateTime>();
+    private SimpleObjectProperty<LocalDateTime> horaSalida=new SimpleObjectProperty<LocalDateTime>();
 
-    public Reserva(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion) {
+    public Reserva(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion, LocalDateTime horaLlegada, LocalDateTime horaSalida) {
         this.codigo = new SimpleStringProperty(codigo);
         this.numHabitaciones = new SimpleIntegerProperty(numHabitaciones);
         this.tipoHabitacion = new SimpleStringProperty(tipoHabitacion);
         this.esFumador = new SimpleBooleanProperty(esFumador);
         this.regimenHabitacion = new SimpleStringProperty(regimenHabitacion);
+        this.horaLlegada = new SimpleObjectProperty(horaLlegada);
+        this.horaSalida = new SimpleObjectProperty(horaSalida);
     }
 
-    public Reserva(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion, String dniCliente) {
+    public Reserva(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion,LocalDateTime horaLlegada, LocalDateTime horaSalida, String dniCliente) {
         this.codigo = new SimpleStringProperty(codigo);
         this.numHabitaciones = new SimpleIntegerProperty(numHabitaciones);
         this.tipoHabitacion = new SimpleStringProperty(tipoHabitacion);
         this.esFumador = new SimpleBooleanProperty(esFumador);
         this.regimenHabitacion = new SimpleStringProperty(regimenHabitacion);
+        this.horaLlegada = new SimpleObjectProperty(horaLlegada);
+        this.horaSalida = new SimpleObjectProperty(horaSalida);
         this.dniCliente = new SimpleStringProperty(dniCliente);
     }
 
