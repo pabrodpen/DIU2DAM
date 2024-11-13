@@ -34,7 +34,7 @@ public class HotelModelo {
         repository.editPersona(personaVO);
     }
 
-    public void removePersonVOtoBD(Persona persona){
+    public void deletePersonVOtoBD(Persona persona){
         //cogemos la persona de la interfaz y la eliminamos mediante el codigo
         String dni=persona.getDni();
         repository.deletePersona(dni);

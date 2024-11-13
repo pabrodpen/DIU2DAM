@@ -2,6 +2,8 @@ package com.example.hotel.view;
 
 import javafx.beans.property.*;
 
+import java.time.LocalDateTime;
+
 public class Reserva {
     //String codigo;int numHabitaciones;String tipoHabitacion;boolean esFumador;String regimenHabitacion;
 
@@ -11,6 +13,8 @@ public class Reserva {
     private BooleanProperty esFumador=new SimpleBooleanProperty();
     private StringProperty regimenHabitacion=new SimpleStringProperty();
     private StringProperty dniCliente=new SimpleStringProperty();
+    LocalDateTime horaLlegada=new D
+    LocalDateTime horaSalida;
 
     public Reserva(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion) {
         this.codigo = new SimpleStringProperty(codigo);

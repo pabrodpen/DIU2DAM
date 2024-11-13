@@ -20,6 +20,10 @@ public class Persona {
         this.provincia = new SimpleStringProperty(provincia);
     }
 
+    public Persona(){
+
+    }
+
 
 
     public String getDni() {

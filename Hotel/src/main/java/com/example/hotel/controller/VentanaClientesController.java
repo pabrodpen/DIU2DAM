@@ -1,6 +1,10 @@
 package com.example.hotel.controller;
 
+import com.example.hotel.Main;
+import com.example.hotel.model.HotelModelo;
 import com.example.hotel.view.Persona;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -8,11 +12,24 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class InterfazPrincipalController {
+public class VentanaClientesController {
+
+
 
     public TableView <Persona> personaTable;
     public TableColumn <Persona, String> nombrePersona;
+    public ObservableList<Persona> listaPersonas= FXCollections.observableArrayList();
 
+    HotelModelo hotelModelo;
+
+    public void setHotelModelo(HotelModelo hotelModelo) {
+        this.hotelModelo = hotelModelo;
+    }
+
+    Main main;
+    public void setMain(Main main) {
+        this.main = main;
+    }
     private Label dniLabel,direccionLabel,localidadLabel,provinciaLabel;
 
     public void initialize(){
@@ -49,8 +66,8 @@ public class InterfazPrincipalController {
         Persona tempPerson = new Persona(); // Crea un nuevo Contacto
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson); // Muestra el diálogo
         if (okClicked) {
-            mainApp.getPersonData().add(tempPerson); // Agrega a la lista si se hizo clic en OK
-            agendaModelo.addPersonVOtoBD(tempPerson);//agrega a la bd
+            listaPersonas.add(tempPerson); // Agrega a la lista de  si se hizo clic en OK
+            hotelModelo.addPersonVOtoBD(tempPerson);//agrega a la bd
         }
 
 
@@ -59,17 +76,17 @@ public class InterfazPrincipalController {
 
     @FXML
     private void handleDeletePerson() {
-        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        int selectedIndex = personaTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             //cogemos el Contacto con el indice que seleccionam os de
-            // la interfz del table view y le restamos uno, ya que la bd sigue unn indice mas
+            // la interfaz del table view y le restamos uno, ya que la bd sigue unn indice mas
             //que la inmterfaz
             //cogemos el metodo de agnedaModelo para eliminar de la bd
-            Persona personaEliminar=personTable.getItems().get(selectedIndex);
+            Persona personaEliminar=personaTable.getItems().get(selectedIndex);
             //lo quitamos de la interfaz
-            personTable.getItems().remove(selectedIndex);
+            personaTable.getItems().remove(selectedIndex);
 
-            agendaModelo.deletePersonVOtoBD(personaEliminar);
+            hotelModelo.deletePersonVOtoBD(personaEliminar);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -84,12 +101,12 @@ public class InterfazPrincipalController {
 
     @FXML
     private void handleEditPerson() {
-        Persona selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        Persona selectedPerson = personaTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
             if (okClicked) {
-                showPersonDetails(selectedPerson);
-                agendaModelo.editPersonVOtoBD(selectedPerson);
+                mostrarDetalles(selectedPerson);
+                hotelModelo.editPersonVOtoBD(selectedPerson);
             }
 
         } else {
