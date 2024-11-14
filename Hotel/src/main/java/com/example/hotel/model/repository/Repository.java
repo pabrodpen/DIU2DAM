@@ -27,12 +27,6 @@ public interface Repository {
     void deleteReserva(String var1) throws ExcepcionReserva;
 
     void editReserva(ReservaVO var1) throws ExcepcionReserva;
-
-
-
-
-
-    int lastId() throws ExcepcionPersona;
 }
 
 

@@ -16,11 +16,21 @@ public class VentanaClientesController {
 
 
 
+    @FXML
     public TableView <Persona> personaTable;
+    @FXML
     public TableColumn <Persona, String> nombrePersona;
-    public ObservableList<Persona> listaPersonas= FXCollections.observableArrayList();
 
+    @FXML
+    Label dniLabel;
+    @FXML
+    Label direccionLabel;
+    @FXML
+    Label localidadLabel;
+    @FXML
+    Label provinciaLabel;
     HotelModelo hotelModelo;
+
 
     public void setHotelModelo(HotelModelo hotelModelo) {
         this.hotelModelo = hotelModelo;
@@ -29,15 +39,24 @@ public class VentanaClientesController {
     Main main;
     public void setMain(Main main) {
         this.main = main;
-    }
-    private Label dniLabel,direccionLabel,localidadLabel,provinciaLabel;
 
+        //como el metodo get de la lista observable lo tenemos en el main,
+        //lo ponemos en el setMain para que se actulice al pasarle la referencia del main
+        personaTable.setItems(main.getListaPersonas());
+    }
+
+    @FXML
     public void initialize(){
-        // Initialize the person table with the two columns.
-        nombrePersona.setCellValueFactory(new PropertyValueFactory<Persona, String>("nombrePersona"));
+
+
+
+        // Se inciializa la lista de Personas mostrando solo el nombre(atributo nombre_completo)
+        //        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+        nombrePersona.setCellValueFactory(cellData -> cellData.getValue().nombre_completoProperty());
 
         //cuando se seleccione una persona del table, se muestran los detalles mediante
         //un listener
+        //mostrarDetalles(null);//para que se actualice
 
         personaTable.getSelectionModel().selectedItemProperty().addListener
                 ((observable,oldValue,newValue) ->mostrarDetalles(newValue));
@@ -60,7 +79,7 @@ public class VentanaClientesController {
         }
 
     }
-
+/*
     @FXML
     private void handleNewPerson() {
         Persona tempPerson = new Persona(); // Crea un nuevo Contacto
@@ -70,12 +89,11 @@ public class VentanaClientesController {
             hotelModelo.addPersonVOtoBD(tempPerson);//agrega a la bd
         }
 
-
     }
-
+*/
 
     @FXML
-    private void handleDeletePerson() {
+    public void handleDeletePerson() {
         int selectedIndex = personaTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             //cogemos el Contacto con el indice que seleccionam os de
@@ -98,7 +116,7 @@ public class VentanaClientesController {
         }
     }
 
-
+/*
     @FXML
     private void handleEditPerson() {
         Persona selectedPerson = personaTable.getSelectionModel().getSelectedItem();
@@ -120,6 +138,8 @@ public class VentanaClientesController {
 
         }
     }
+
+*/
 
 
 

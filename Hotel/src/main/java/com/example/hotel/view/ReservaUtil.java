@@ -13,23 +13,12 @@ public class ReservaUtil {
         this.repository = repository;
     }
 
-    public ArrayList<Reserva> getReservas() {
-        ArrayList<ReservaVO> reservasVOS = repository.ObtenerListaReservas();
-        ArrayList<Reserva> reservas = new ArrayList<>();
-        for (ReservaVO reservaVO:reservasVOS){
-            Reserva reserva = new Reserva(reservaVO.getCodigo(), reservaVO.getNumHabitaciones(),reservaVO.getTipoHabitacion(),reservaVO.isEsFumador(),reservaVO.getRegimenHabitacion());
-            reservas.add(reserva);
-        }
-        return reservas;
+    public Reserva reservaVOtoReserva(ReservaVO reservaVO) {
+        return new Reserva(reservaVO.getCodigo(),reservaVO.getNumHabitaciones(),reservaVO.getTipoHabitacion(), reservaVO.isEsFumador(), reservaVO.getRegimenHabitacion(), reservaVO.getHoraLLegada(),reservaVO.getHoraSalida(), reservaVO.getDniCliente());
     }
 
-    public ArrayList<ReservaVO> getReservasVO(ArrayList<Reserva> reservas) {
-        ArrayList<ReservaVO> reservasVOS=new ArrayList<>();
-        for(Reserva reserva:reservas){
-            ReservaVO reservaVO=new ReservaVO(reserva.getCodigo(),reserva.getNumHabitaciones(),reserva.getTipoHabitacion(),reserva.isEsFumador(),reserva.getRegimenHabitacion());
-            reservasVOS.add(reservaVO);
-        }
-        return reservasVOS;
+    public ReservaVO reservatoReservaVO(Reserva reserva) {
+        return new ReservaVO(reserva.getCodigo(), reserva.getNumHabitaciones(), reserva.getTipoHabitacion(),reserva.isEsFumador(),reserva.getRegimenHabitacion(),reserva.getHoraLlegada(),reserva.getHoraLlegada(),reserva.getDniCliente());
     }
 
 

@@ -17,19 +17,25 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <Label text="Codigo" />
-                        <Label text="Numero de habitaciones" GridPane.rowIndex="1" />
-                        <Label text="Tipo de habitacion" GridPane.rowIndex="2" />
-                        <Label text="Regimen de habitacion" GridPane.rowIndex="3" />
+                        <Label text="Numero de habitaciones" GridPane.rowIndex="3" />
+                        <Label text="Tipo de habitacion" GridPane.rowIndex="4" />
+                        <Label text="Regimen de habitacion" GridPane.rowIndex="5" />
                         <Label text="Label" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Fecha de llegada" GridPane.rowIndex="1" />
+                  <Label text="Fecha de salida" GridPane.rowIndex="2" />
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
                 <HBox layoutX="414.0" layoutY="329.0" prefHeight="26.0" spacing="5.0">

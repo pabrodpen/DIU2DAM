@@ -108,4 +108,28 @@ public class Reserva {
     public void setDniCliente(String dniCliente) {
         this.dniCliente.set(dniCliente);
     }
+
+    public LocalDateTime getHoraLlegada() {
+        return horaLlegada.get();
+    }
+
+    public SimpleObjectProperty<LocalDateTime> horaLlegadaProperty() {
+        return horaLlegada;
+    }
+
+    public void setHoraLlegada(LocalDateTime horaLlegada) {
+        this.horaLlegada.set(horaLlegada);
+    }
+
+    public LocalDateTime getHoraSalida() {
+        return horaSalida.get();
+    }
+
+    public SimpleObjectProperty<LocalDateTime> horaSalidaProperty() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(LocalDateTime horaSalida) {
+        this.horaSalida.set(horaSalida);
+    }
 }

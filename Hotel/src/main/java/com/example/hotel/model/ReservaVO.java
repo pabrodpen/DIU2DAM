@@ -9,14 +9,19 @@ public class ReservaVO {
     String tipoHabitacion;
     boolean esFumador;
     String regimenHabitacion;
+    LocalDateTime horaLLegada,horaSalida;
+    String dniCliente;
 
 
-    public ReservaVO(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion) {
+    public ReservaVO(String codigo, int numHabitaciones, String tipoHabitacion, boolean esFumador, String regimenHabitacion, LocalDateTime horaLLegada, LocalDateTime horaSalida, String dniCliente) {
         this.codigo = codigo;
         this.numHabitaciones = numHabitaciones;
         this.tipoHabitacion = tipoHabitacion;
         this.esFumador = esFumador;
         this.regimenHabitacion = regimenHabitacion;
+        this.horaLLegada = horaLLegada;
+        this.horaSalida = horaSalida;
+        this.dniCliente = dniCliente;
     }
 
     public String getCodigo() {
@@ -57,5 +62,29 @@ public class ReservaVO {
 
     public void setRegimenHabitacion(String regimenHabitacion) {
         this.regimenHabitacion = regimenHabitacion;
+    }
+
+    public LocalDateTime getHoraLLegada() {
+        return horaLLegada;
+    }
+
+    public void setHoraLLegada(LocalDateTime horaLLegada) {
+        this.horaLLegada = horaLLegada;
+    }
+
+    public LocalDateTime getHoraSalida() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(LocalDateTime horaSalida) {
+        this.horaSalida = horaSalida;
+    }
+
+    public String getDniCliente() {
+        return dniCliente;
+    }
+
+    public void setDniCliente(String dniCliente) {
+        this.dniCliente = dniCliente;
     }
 }

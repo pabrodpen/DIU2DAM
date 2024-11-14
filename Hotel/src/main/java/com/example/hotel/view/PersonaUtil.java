@@ -14,23 +14,12 @@ public class PersonaUtil {
     }
 
 
-    public ArrayList<Persona> getPersonas() {
-        ArrayList<PersonaVO> personasVO = repository.ObtenerListaPersonas();
-        ArrayList<Persona> personas = new ArrayList<>();
-        for (PersonaVO personaVO:personasVO){
-            Persona persona = new Persona(personaVO.getDni(), personaVO.getNombre_completo(), personaVO.getDireccion(), personaVO.getLocalidad(), personaVO.getProvincia());
-            personas.add(persona);
-        }
-        return personas;
+    public Persona personaVOtoPersona(PersonaVO personaVO) {
+        return new Persona(personaVO.getDni(),personaVO.getNombre_completo(),personaVO.getDireccion(),personaVO.getLocalidad(),personaVO.getProvincia());
     }
 
-    public ArrayList<PersonaVO> getPersonasVO(ArrayList<Persona> personas) {
-        ArrayList<PersonaVO> personasVO=new ArrayList<>();
-        for(Persona persona:personas){
-            PersonaVO personaVO=new PersonaVO(persona.getDni(),persona.getNombre_completo(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia());
-            personasVO.add(personaVO);
-        }
-        return personasVO;
+    public PersonaVO personatoPersonaVO(Persona persona) {
+        return new PersonaVO(persona.getDni(), persona.getNombre_completo(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia());
     }
 
 }

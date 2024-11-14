@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class RepositoryImpl implements Repository {
@@ -130,12 +131,16 @@ public class RepositoryImpl implements Repository {
 
             while (rs.next()) {
                 String codigo= rs.getString("codigo");
-                int numHabitaciones = rs.getInt("numHabitaciones");
-                String tipoHabitacion = rs.getString("tipoHabitacion");
-                boolean fumador = rs.getBoolean("esFumador");
-                String regimenHabitacion = rs.getString("regimenHabitacion");
+                int numHabitaciones = rs.getInt("num_habitaciones");
+                String tipoHabitacion = rs.getString("tipo_habitacion");
+                boolean fumador = rs.getBoolean("fumador");
+                String regimenHabitacion = rs.getString("regimen_habitacion");
+                //IMP
+                LocalDateTime horaLlegada=rs.getTimestamp("fecha_llegada").toLocalDateTime();
+                LocalDateTime horaSalida=rs.getTimestamp("fecha_salida").toLocalDateTime();
+                String dniCliente = rs.getString("dni_persona");
 
-                this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion );
+                this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion,horaLlegada,horaSalida,dniCliente);
                 this.reservas.add(this.reserva);
             }
 
@@ -152,7 +157,7 @@ public class RepositoryImpl implements Repository {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO reservas (codigo, num_habitaciones, tipo_habitacion, fumador, regimen_habitacion) VALUES ('" + r.getCodigo() + "','"+ r.getNumHabitaciones()+"','" + r.getTipoHabitacion() + "','"+r.isEsFumador()+"','"+r.getRegimenHabitacion()+"')";
+            this.sentencia = "INSERT INTO reservas (codigo, num_habitaciones, tipo_habitacion, fumador, regimen_habitacion,fecha_llegada,fecha_salida,dni_persona) VALUES ('" + r.getCodigo() + "','"+ r.getNumHabitaciones()+"','" + r.getTipoHabitacion() + "','"+r.isEsFumador()+"','"+r.getRegimenHabitacion()+"','"+r.getHoraLLegada()+"','"+r.getHoraSalida()+"','"+r.getDniCliente()+"')";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);
@@ -184,7 +189,7 @@ public class RepositoryImpl implements Repository {
             this.stmt = conn.createStatement();
             //%s string y %d entero
             //RESPETAR EÑ ORDEN DE UPDATE(si nomrbe eds el primeri, el primero del update sera persona.getnombre())
-            String sql = String.format("UPDATE reservas SET num_habitaciones = '%s', tipo_habitacion = '%s', fumador = '%s' , regimen_habitacion = '%s'  WHERE codigo = %d",r.getNumHabitaciones(), r.getTipoHabitacion() ,r.isEsFumador(), r.getRegimenHabitacion());
+            String sql = String.format("UPDATE reservas SET num_habitaciones = '%s', tipo_habitacion = '%s', fumador = '%s' , regimen_habitacion = '%s' , fecha_llegada='%s' , fecha_salida='%s'  WHERE codigo = %d",r.getNumHabitaciones(), r.getTipoHabitacion() ,r.isEsFumador(), r.getRegimenHabitacion(), r.getHoraLLegada(), r.getHoraSalida(), r.getCodigo());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido realizar la edición");
