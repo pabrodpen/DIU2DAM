@@ -48,15 +48,12 @@ public class VentanaClientesController {
     @FXML
     public void initialize(){
 
-
-
         // Se inciializa la lista de Personas mostrando solo el nombre(atributo nombre_completo)
         //        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         nombrePersona.setCellValueFactory(cellData -> cellData.getValue().nombre_completoProperty());
 
         //cuando se seleccione una persona del table, se muestran los detalles mediante
         //un listener
-        //mostrarDetalles(null);//para que se actualice
 
         personaTable.getSelectionModel().selectedItemProperty().addListener
                 ((observable,oldValue,newValue) ->mostrarDetalles(newValue));
@@ -79,67 +76,66 @@ public class VentanaClientesController {
         }
 
     }
-/*
+
     @FXML
     private void handleNewPerson() {
-        Persona tempPerson = new Persona(); // Crea un nuevo Contacto
-        boolean okClicked = mainApp.showPersonEditDialog(tempPerson); // Muestra el diálogo
-        if (okClicked) {
-            listaPersonas.add(tempPerson); // Agrega a la lista de  si se hizo clic en OK
-            hotelModelo.addPersonVOtoBD(tempPerson);//agrega a la bd
+        Persona nuevaPersonaCreada = new Persona(); // Crea un nuevo Cliente
+        boolean okClicked = main.cargarVentanaCreacionPersona(nuevaPersonaCreada); // Muestra el diálogo
+        if (okClicked) {//si se pulsa el boton de OK
+            main.listaPersonas.add(nuevaPersonaCreada); // Agrega a la lista observable
+            //  si se hizo clic en OK
+            hotelModelo.addPersonVOtoBD(nuevaPersonaCreada);//agrega a la bd
         }
 
     }
-*/
+
 
     @FXML
     public void handleDeletePerson() {
-        int selectedIndex = personaTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
+        int indiceEliminar = personaTable.getSelectionModel().getSelectedIndex();
+        if (indiceEliminar >= 0) {
             //cogemos el Contacto con el indice que seleccionam os de
             // la interfaz del table view y le restamos uno, ya que la bd sigue unn indice mas
             //que la inmterfaz
-            //cogemos el metodo de agnedaModelo para eliminar de la bd
-            Persona personaEliminar=personaTable.getItems().get(selectedIndex);
-            //lo quitamos de la interfaz
-            personaTable.getItems().remove(selectedIndex);
 
+            //lo quitamos de la interfaz
+            personaTable.getItems().remove(indiceEliminar);
+
+            //cogemos el metodo de hotelModelo para eliminar de la bd
+            Persona personaEliminar=personaTable.getItems().get(indiceEliminar);
             hotelModelo.deletePersonVOtoBD(personaEliminar);
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setHeaderText("Cliente no seleccionado");
+            alert.setContentText("Seleccione un persona que desea eliminar");
             alert.showAndWait();
 
         }
     }
 
-/*
+
     @FXML
     private void handleEditPerson() {
-        Persona selectedPerson = personaTable.getSelectionModel().getSelectedItem();
-        if (selectedPerson != null) {
-            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+        Persona personaEditar = personaTable.getSelectionModel().getSelectedItem();
+        if (personaEditar != null) {
+            boolean okClicked = main.cargarVentanaCreacionPersona(personaEditar);
             if (okClicked) {
-                mostrarDetalles(selectedPerson);
-                hotelModelo.editPersonVOtoBD(selectedPerson);
+                mostrarDetalles(personaEditar);
+                hotelModelo.editPersonVOtoBD(personaEditar);
             }
 
         } else {
-            // Nothing selected.
             // Nada seleccionado.
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Person Selected");
-            alert.setContentText("Please select a person in the table.");
+            alert.setHeaderText("Cliente no seleccionado");
+            alert.setContentText("Seleccione un persona que desea editar");
             alert.showAndWait();
 
         }
     }
 
-*/
+
 
 
 

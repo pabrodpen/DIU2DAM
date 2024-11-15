@@ -56,11 +56,11 @@
                             </children>
                         </GridPane>
                         <Button layoutX="64.0" layoutY="299.0" mnemonicParsing="false" text="MOSTRAR RESERVAS" />
-                        <HBox layoutX="47.0" layoutY="344.0" prefHeight="29.0" spacing="5.0" AnchorPane.rightAnchor="10.0">
+                        <HBox layoutX="217.0" layoutY="355.0" prefHeight="29.0" spacing="5.0" AnchorPane.rightAnchor="7.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="29.0" text="Añadir" />
-                                <Button mnemonicParsing="false" text="Editar" />
-                                <Button mnemonicParsing="false" text="Eliminar" />
+                                <Button mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="29.0" text="Añadir" />
+                                <Button mnemonicParsing="false" onAction="#handleEditPerson" text="Editar" />
+                                <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Eliminar" />
                             </children>
                         </HBox>
                     </children>

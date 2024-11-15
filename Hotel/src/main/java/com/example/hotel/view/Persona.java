@@ -21,7 +21,11 @@ public class Persona {
     }
 
     public Persona(){
-
+        this.dni = new SimpleStringProperty("");
+        this.nombre_completo = new SimpleStringProperty("");
+        this.direccion = new SimpleStringProperty("");
+        this.localidad = new SimpleStringProperty("");
+        this.provincia = new SimpleStringProperty("");
     }
 
 

@@ -104,12 +104,12 @@ public class Main extends Application {
 
     }
 
-    public boolean cargarVentanaCreacionPersona(){
+    public boolean cargarVentanaCreacionPersona(Persona persona){
         try {
             // Cargar el archivo FXML y crear un nuevo escenario para el diálogo emergente.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/com/example/hotel/ventana-creacion-persona.fxml")); // Ruta corregida
-            AnchorPane page = (AnchorPane) loader.load();
+            loader.setLocation(getClass().getResource("/com/example/hotel/ventana-creacion-clientes.fxml")); // Ruta corregida
+            AnchorPane page = loader.load();
 
             // Crear el escenario del diálogo.
             Stage dialogStage = new Stage();
@@ -122,9 +122,11 @@ public class Main extends Application {
 
             // Establecer la persona en el controlador.
             VentanaCreacionClientesController controller = loader.getController();
-            /*controller.setDialogStage(dialogStage);
-            controller.setPerson(c);
-            controller.setAgendaModelo(agendaModelo);*/
+            controller.setDialogoStage(dialogStage);
+            //controller.setPerson(c);
+            controller.setMain(this);
+            controller.setHotelModelo(hotelModelo);
+            controller.cambiarDatosCliente(persona);
 
             // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
             dialogStage.showAndWait();
