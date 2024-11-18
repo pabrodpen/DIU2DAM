@@ -3,10 +3,12 @@ package com.example.hotel;
 import com.example.hotel.controller.RaizController;
 import com.example.hotel.controller.VentanaClientesController;
 import com.example.hotel.controller.VentanaCreacionClientesController;
+import com.example.hotel.controller.VentanaCreacionReservasController;
 import com.example.hotel.model.HotelModelo;
 import com.example.hotel.model.repository.impl.RepositoryImpl;
 import com.example.hotel.view.Persona;
 import com.example.hotel.view.PersonaUtil;
+import com.example.hotel.view.Reserva;
 import com.example.hotel.view.ReservaUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -27,6 +29,7 @@ public class Main extends Application {
     BorderPane raiz;
     HotelModelo hotelModelo=new HotelModelo();
     public ObservableList<Persona> listaPersonas= FXCollections.observableArrayList();
+    public ObservableList<Reserva> listaReservas= FXCollections.observableArrayList();
 
 
     public Main() throws IOException {
@@ -40,6 +43,7 @@ public class Main extends Application {
 
         //el main recoge los datos del modelo
         listaPersonas.addAll(hotelModelo.getListaPersonas());
+        listaReservas.addAll(hotelModelo.getListaReservas());
 
     }
     @Override
@@ -59,6 +63,10 @@ public class Main extends Application {
     //en la interfaz)
     public ObservableList<Persona> getListaPersonas() {
         return listaPersonas;
+    }
+
+    public ObservableList<Reserva> getListaReservas() {
+        return listaReservas;
     }
 
 
@@ -138,8 +146,38 @@ public class Main extends Application {
         }
     }
 
-    public void cargarVentanaCreacionReserva(){
+    public boolean cargarVentanaCreacionReserva(Reserva reserva){
+        try {
+            // Cargar el archivo FXML y crear un nuevo escenario para el diálogo emergente.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/hotel/ventana-creacion-reservas.fxml")); // Ruta corregida
+            AnchorPane page = loader.load();
 
+            // Crear el escenario del diálogo.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Reserva");
+            //quitamos modal para que se puedan abrir varias ventanas
+            //dialogStage.initModality(Modality.WINDOW_MODAL);
+            //dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Establecer la persona en el controlador.
+            VentanaCreacionReservasController controller = loader.getController();
+            controller.setDialogoStage(dialogStage);
+            //controller.setPerson(c);
+            controller.setMain(this);
+            controller.setHotelModelo(hotelModelo);
+            controller.cambiarDatosReserva(reserva);
+
+            // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static void main(String[] args) {

@@ -87,12 +87,14 @@ public class RepositoryImpl implements Repository {
         }
     }
 
+    //IMP!!-->SI EL CODIFGO ES UN STRING-->ENTRE COMILLAS SIMPLES Y %s
+    //SI EL CODIGO ES UN INT-->SIN COMILLAS SIMPLES Y %d
     public void deletePersona(String dniPersona) throws ExcepcionPersona {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
             Statement comando = conn.createStatement();
-            String sql = String.format("DELETE FROM personas WHERE dni = %d", dniPersona);
+            String sql = String.format("DELETE FROM personas WHERE dni = '%s'", dniPersona);
             comando.executeUpdate(sql);
             this.conexion.desconectarBD(conn);
         } catch (SQLException var5) {
@@ -106,7 +108,7 @@ public class RepositoryImpl implements Repository {
             this.stmt = conn.createStatement();
             //%s string y %d entero
             //RESPETAR EÑ ORDEN DE UPDATE(si nomrbe eds el primeri, el primero del update sera persona.getnombre())
-            String sql = String.format("UPDATE personas SET nombre_completo = '%s', direccion = '%s', localidad = '%s' , provincia = '%s' , fechaNac = '%s' WHERE dni = %d",personaVO.getNombre_completo(), personaVO.getDireccion() ,personaVO.getLocalidad(), personaVO.getProvincia(),personaVO.getDni());
+            String sql = String.format("UPDATE personas SET nombre_completo = '%s', direccion = '%s', localidad = '%s' , provincia = '%s' WHERE dni = '%s'",personaVO.getNombre_completo(), personaVO.getDireccion() ,personaVO.getLocalidad(), personaVO.getProvincia(),personaVO.getDni());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido realizar la edición");

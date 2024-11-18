@@ -49,13 +49,13 @@
                                 <Label text="Direccion" GridPane.rowIndex="1" />
                                 <Label text="Localidad" GridPane.rowIndex="2" />
                                 <Label text="Provincia" GridPane.rowIndex="3" />
-                                <Label fx:id="dniLabel" text="Label" GridPane.columnIndex="1" />
-                                <Label fx:id="direccionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label fx:id="localidadLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label fx:id="provinciaLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label fx:id="dniLabel" text="DNI del cliente" GridPane.columnIndex="1" />
+                                <Label fx:id="direccionLabel" text="Direccion del cliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label fx:id="localidadLabel" text="Localidad del cliente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="provinciaLabel" text="Provincia del cliente" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
-                        <Button layoutX="64.0" layoutY="299.0" mnemonicParsing="false" text="MOSTRAR RESERVAS" />
+                        <Button layoutX="64.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleMostrarReservas" text="MOSTRAR RESERVAS" />
                         <HBox layoutX="217.0" layoutY="355.0" prefHeight="29.0" spacing="5.0" AnchorPane.rightAnchor="7.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="29.0" text="Añadir" />

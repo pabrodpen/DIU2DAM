@@ -7,15 +7,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotel.VentanaReservas">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotel.controller.VentanaReservasController">
    <children>
       <SplitPane dividerPositions="0.36789297658862874" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="-14.0" layoutY="-2.0" prefHeight="400.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                  <TableView fx:id="reservaTable" layoutX="-14.0" layoutY="-2.0" prefHeight="400.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                     <columns>
-                      <TableColumn prefWidth="215.0" />
+                      <TableColumn fx:id="codigoReserva" prefWidth="215.0" />
                     </columns>
                   </TableView>
                   <Label layoutX="14.0" layoutY="4.0" prefHeight="20.0" prefWidth="94.0" text="RESERVAS DE ">
@@ -49,26 +49,24 @@
                         <Label prefHeight="19.0" prefWidth="158.0" text="Numero de habitaciones" GridPane.rowIndex="2" />
                         <Label text="Tipo de habitacion" GridPane.rowIndex="3" />
                         <Label text="Regimen de habitacion" GridPane.rowIndex="4" />
-                        <SplitMenuButton mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
-                          </items>
-                        </SplitMenuButton>
-                        <SplitMenuButton mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
-                          </items>
-                        </SplitMenuButton>
                         <Label text="Fecha de llegada" />
                         <Label text="Fecha de salida" GridPane.rowIndex="1" />
-                        <DatePicker GridPane.columnIndex="1" />
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <CheckBox layoutX="14.0" layoutY="345.0" mnemonicParsing="false" text="Fumador" />
-                  <Label layoutX="215.0" layoutY="336.0" text="Label" />
+                  <CheckBox layoutX="14.0" layoutY="305.0" mnemonicParsing="false" text="Fumador" />
+                  <Label layoutX="209.0" layoutY="305.0" text="Label" />
+                  <HBox layoutX="167.0" layoutY="349.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleNewReserva" text="Añadir" />
+                        <Button mnemonicParsing="false" onAction="#handleEditReserva" text="Editar" />
+                        <Button mnemonicParsing="false" onAction="#handleDeleteReserva" text="Eliminar" />
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
         </items>

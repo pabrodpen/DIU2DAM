@@ -31,10 +31,20 @@ public class HotelModelo {
         repository.addPersona(personaVO);
     }
 
+    public void addReservaVOtoBD(Reserva reserva){
+        ReservaVO reservaVO=new ReservaVO(reserva.getCodigo(),reserva.getNumHabitaciones(),reserva.getTipoHabitacion(),reserva.isEsFumador(),reserva.getRegimenHabitacion(),reserva.getHoraLlegada(),reserva.getHoraSalida(),reserva.getDniCliente());
+        repository.addReserva(reservaVO);
+    }
+
     public void editPersonVOtoBD(Persona persona){
         //cogemos la persona de la interfaz y lo convertimos en VO para editarlo
         PersonaVO personaVO=new PersonaVO(persona.getDni(),persona.getNombre_completo(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia());
         repository.editPersona(personaVO);
+    }
+
+    public void editReservaVOtoBD(Reserva reserva){
+        ReservaVO reservaVO=new ReservaVO(reserva.getCodigo(),reserva.getNumHabitaciones(),reserva.getTipoHabitacion(),reserva.isEsFumador(),reserva.getRegimenHabitacion(),reserva.getHoraLlegada(),reserva.getHoraSalida(),reserva.getDniCliente());
+        repository.editReserva(reservaVO);
     }
 
     public void deletePersonVOtoBD(Persona persona){
@@ -42,6 +52,12 @@ public class HotelModelo {
         String dni=persona.getDni();
         repository.deletePersona(dni);
     }
+
+    public void deleteReservaVOtoBD(Reserva reserva){
+        String codigo=reserva.getCodigo();
+        repository.deleteReserva(codigo);
+    }
+
     //cogemos lista de PersonasVO y ReservasVO de repository y los volvemos Personas y Reservas
     //con los metodos de util para mandar estas listas al controller
     public ArrayList<Persona> getListaPersonas(){
