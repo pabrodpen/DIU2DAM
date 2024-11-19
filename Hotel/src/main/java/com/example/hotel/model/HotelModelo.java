@@ -71,10 +71,11 @@ public class HotelModelo {
         return personas;
     }
 
-    public ArrayList<Reserva> getListaReservas(){
-        ArrayList<ReservaVO> reservasVO=repository.ObtenerListaReservas();
+    public ArrayList<Reserva> getListaReservas(String dni){
+        ArrayList<ReservaVO> reservasVO=repository.ObtenerListaReservas(dni);
         ArrayList<Reserva> reservas=new ArrayList<>();
         for(ReservaVO reservaVO:reservasVO){
+            String dniCliente=reservaVO.getDniCliente();
             Reserva reserva=reservaUtil.reservaVOtoReserva(reservaVO);
             reservas.add(reserva);
         }

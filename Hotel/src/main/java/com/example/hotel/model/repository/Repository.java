@@ -20,7 +20,7 @@ public interface Repository {
     void editPersona(PersonaVO var1) throws ExcepcionPersona;
 
 
-    ArrayList<ReservaVO> ObtenerListaReservas() throws ExcepcionReserva;
+    ArrayList<ReservaVO> ObtenerListaReservas(String dni) throws ExcepcionReserva;
 
     void addReserva(ReservaVO var1) throws ExcepcionReserva;
 

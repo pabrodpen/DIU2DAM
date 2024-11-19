@@ -113,10 +113,11 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public ArrayList<ReservaVO> ObtenerListaReservas() throws ExcepcionReserva {
+    public ArrayList<ReservaVO> ObtenerListaReservas(String dniCliente) throws ExcepcionReserva {
         this.reservas = new ArrayList<>(); // Inicializamos la lista como vacía
 
         try {
+            // Conexión a la base de datos
             Connection conn = this.conexion.conectarBD();
             if (conn == null) {
                 // Si no se pudo conectar, se muestra el alerta y se devuelve la lista vacía
@@ -124,57 +125,89 @@ public class RepositoryImpl implements Repository {
                 return this.reservas; // Devuelve la lista vacía
             }
 
+            // Crear sentencia SQL con filtrado por dni_cliente
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM reservas";
+            this.sentencia = "SELECT * FROM reservas WHERE dni_cliente = '" + dniCliente + "'";
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
+            // Procesamos los resultados
             while (rs.next()) {
-                String codigo= rs.getString("codigo");
+                String codigo = rs.getString("codigo");
                 int numHabitaciones = rs.getInt("num_habitaciones");
                 String tipoHabitacion = rs.getString("tipo_habitacion");
                 boolean fumador = rs.getBoolean("fumador");
                 String regimenHabitacion = rs.getString("regimen_habitacion");
-                //IMP
-                LocalDateTime horaLlegada=rs.getTimestamp("fecha_llegada").toLocalDateTime();
-                LocalDateTime horaSalida=rs.getTimestamp("fecha_salida").toLocalDateTime();
-                String dniCliente = rs.getString("dni_persona");
+                LocalDateTime horaLlegada = rs.getTimestamp("fecha_llegada").toLocalDateTime();
+                LocalDateTime horaSalida = rs.getTimestamp("fecha_salida").toLocalDateTime();
+                String dniClienteRes = rs.getString("dni_cliente");
 
-                this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion,horaLlegada,horaSalida,dniCliente);
+                // Crear el objeto ReservaVO y agregarlo a la lista
+                this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion, horaLlegada, horaSalida, dniClienteRes);
                 this.reservas.add(this.reserva);
             }
 
+            // Desconectar de la base de datos
             this.conexion.desconectarBD(conn);
         } catch (SQLException var6) {
             mostrarAlertaConexionFallida();
         }
 
-        return this.reservas; // Devuelve la lista, que puede estar vacía si hubo un error
+        // Devolver la lista de reservas para el cliente
+        return this.reservas; // Devuelve la lista que puede estar vacía si hubo un error
     }
 
-    @Override
     public void addReserva(ReservaVO r) throws ExcepcionReserva {
-        String sql = "INSERT INTO reservas (codigo, num_habitaciones, tipo_habitacion, fumador, regimen_habitacion, fecha_llegada, fecha_salida, dni_persona) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = this.conexion.conectarBD();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, r.getCodigo());
-            pstmt.setInt(2, r.getNumHabitaciones());
-            pstmt.setString(3, r.getTipoHabitacion());
-            pstmt.setBoolean(4, r.isEsFumador());
-            pstmt.setString(5, r.getRegimenHabitacion());
-            pstmt.setTimestamp(6, java.sql.Timestamp.valueOf(r.getHoraLLegada()));
-            pstmt.setTimestamp(7, java.sql.Timestamp.valueOf(r.getHoraSalida()));
-            pstmt.setString(8, r.getDniCliente());
-
-            pstmt.executeUpdate();
-
+        Connection conn = null;
+        try {
+            conn = this.conexion.conectarBD();
         } catch (SQLException e) {
-            e.printStackTrace(); // Para depurar.
-            throw new ExcepcionReserva("Error al insertar la reserva: " + e.getMessage());
+            throw new RuntimeException(e);
         }
+        try {
+            this.stmt = conn.createStatement();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        this.sentencia="INSERT INTO reservas (codigo, num_habitaciones, tipo_habitacion, fumador, regimen_habitacion, fecha_llegada, fecha_salida, dni_cliente) " +
+                "VALUES ('" + r.getCodigo() + "', " +
+                r.getNumHabitaciones() + ", '" +
+                r.getTipoHabitacion() + "', " +
+                r.isEsFumador() + ", '" +
+                r.getRegimenHabitacion() + "', '" +
+                java.sql.Timestamp.valueOf(r.getHoraLLegada()) + "', '" +
+                java.sql.Timestamp.valueOf(r.getHoraSalida()) + "', '" +
+                r.getDniCliente() + "')";
+
+        try {
+            this.stmt.executeUpdate(sentencia);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            this.stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        this.conexion.desconectarBD(conn);
+
+
+
+            /*
+            *    try {
+            Connection conn = this.conexion.conectarBD();
+            this.stmt = conn.createStatement();
+            this.sentencia = "INSERT INTO personas (dni, nombre_completo, direccion, localidad, provincia) VALUES ('" + p.getDni() + "','" + p.getNombre_completo() + "','"+p.getDireccion()+"','"+p.getLocalidad()+"','"+p.getProvincia()+"')";
+            this.stmt.executeUpdate(this.sentencia);
+            this.stmt.close();
+            this.conexion.desconectarBD(conn);
+        } catch (SQLException var3) {
+            throw new ExcepcionPersona("No se ha podido realizar la operación");
+        }
+            * */
+
     }
+
 
 
     @Override

@@ -18,9 +18,9 @@ public class VentanaReservasController {
     @FXML
     public TableColumn<Reserva, String> codigoReserva;
     @FXML
-    Label codigoReservaLabel;
+    Label dniClienteLabel;
     @FXML
-    Label fechaLLegadaLabel;
+    Label fechaLlegadaLabel;
     @FXML
     Label fechaSalidaLabel;
     @FXML
@@ -71,19 +71,17 @@ public class VentanaReservasController {
     private void mostrarDetalles(Reserva r) {
         if (r != null) {
             // Fill the labels with info from the person object.
-            codigoReservaLabel.setText(r.getCodigo());
+            dniClienteLabel.setText(persona.getNombre_completo());
             numHabitacionesLabel.setText(String.valueOf(r.getNumHabitaciones()));
             tipoHabitacionLabel.setText(r.getTipoHabitacion());
             regimenHabitacionLabel.setText(r.getRegimenHabitacion());
-            fechaLLegadaLabel.setText(String.valueOf(r.getHoraLlegada()));
+            fechaLlegadaLabel.setText(String.valueOf(r.getHoraLlegada()));
             fechaSalidaLabel.setText(String.valueOf(r.getHoraSalida()));
         } else {
-            // Reserva is null, remove all the text.
-            codigoReservaLabel.setText("");
             numHabitacionesLabel.setText("");
             tipoHabitacionLabel.setText("");
             regimenHabitacionLabel.setText("");
-            fechaLLegadaLabel.setText("");
+            fechaLlegadaLabel.setText("");
             fechaSalidaLabel.setText("");
         }
 
@@ -91,17 +89,27 @@ public class VentanaReservasController {
 
     @FXML
     private void handleNewReserva() {
-        Reserva nuevaReservaCreada = new Reserva(); // Crea un nuevo Cliente
-        //asociar el dni del cliente seleccionado
-        nuevaReservaCreada.setDniCliente(persona.getDni());
-        boolean okClicked = main.cargarVentanaCreacionReserva(nuevaReservaCreada); // Muestra el diálogo
-        if (okClicked) {//si se pulsa el boton de OK
-            main.listaReservas.add(nuevaReservaCreada); // Agrega a la lista observable
-            //  si se hizo clic en OK
-            hotelModelo.addReservaVOtoBD(nuevaReservaCreada);//agrega a la bd
-        }
+        Reserva nuevaReservaCreada = new Reserva(); // Crea una nueva reserva
 
+        // Asocia el DNI del cliente seleccionado
+        nuevaReservaCreada.setDniCliente(persona.getDni());
+
+        // Muestra la ventana para crear la reserva
+        boolean okClicked = main.cargarVentanaCreacionReserva(nuevaReservaCreada);
+
+        if (okClicked) { // Si el usuario confirma
+            // Agrega la nueva reserva a la base de datos
+            hotelModelo.addReservaVOtoBD(nuevaReservaCreada);
+
+            // Agrega la nueva reserva a la lista observable
+            main.listaReservas.add(nuevaReservaCreada);
+
+            // Fuerza la actualización del TableView reasignando la lista observable
+            reservaTable.setItems(null); // Limpia temporalmente el TableView
+            reservaTable.setItems(main.getListaReservas()); // Reasigna la lista observable
+        }
     }
+
 
 
     @FXML

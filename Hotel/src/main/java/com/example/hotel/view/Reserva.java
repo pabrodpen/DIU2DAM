@@ -38,7 +38,7 @@ public class Reserva {
     }
 
     public Reserva() {
-        this.codigo = new SimpleStringProperty("");
+        this.codigo = new SimpleStringProperty();
         this.numHabitaciones = new SimpleIntegerProperty();
         this.tipoHabitacion = new SimpleStringProperty();
         this.esFumador = new SimpleBooleanProperty();

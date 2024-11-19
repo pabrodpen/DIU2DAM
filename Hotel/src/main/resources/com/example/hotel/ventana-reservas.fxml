@@ -23,7 +23,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="4.0" text="Label">
+                  <Label fx:id="dniClienteLabel" layoutX="126.0" layoutY="4.0" text="Label">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -51,15 +51,15 @@
                         <Label text="Regimen de habitacion" GridPane.rowIndex="4" />
                         <Label text="Fecha de llegada" />
                         <Label text="Fecha de salida" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="fechaLlegadaLabel" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="fechaSalidaLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="numHabitacionesLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="tipoHabitacionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="regimenHabitacionLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <CheckBox layoutX="14.0" layoutY="305.0" mnemonicParsing="false" text="Fumador" />
-                  <Label layoutX="209.0" layoutY="305.0" text="Label" />
+                  <Label layoutX="209.0" layoutY="305.0" />
                   <HBox layoutX="167.0" layoutY="349.0" spacing="5.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleNewReserva" text="Añadir" />

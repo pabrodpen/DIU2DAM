@@ -19,6 +19,8 @@ public class VentanaCreacionReservasController {
     Reserva reserva;
 
     @FXML
+    TextField codigoField;
+    @FXML
     TextField numHabitacionesField;
     @FXML
     SplitMenuButton tipoHabitacionMenu, regimenHabitacionMenu;
@@ -83,6 +85,7 @@ public class VentanaCreacionReservasController {
             this.reserva = reserva;
         }
 
+        codigoField.setText(reserva.getCodigo());
         numHabitacionesField.setText(String.valueOf(reserva.getNumHabitaciones()));
         tipoHabitacionMenu.setText(reserva.getTipoHabitacion());
         regimenHabitacionMenu.setText(reserva.getRegimenHabitacion());
@@ -110,6 +113,7 @@ public class VentanaCreacionReservasController {
         }
 
         // Obtenemos los datos ingresados por el usuario
+        reserva.setCodigo(codigoField.getText());
         reserva.setNumHabitaciones(Integer.parseInt(numHabitacionesField.getText()));
         reserva.setTipoHabitacion(tipoHabitacionMenu.getText());
         reserva.setRegimenHabitacion(regimenHabitacionMenu.getText());
