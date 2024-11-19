@@ -102,8 +102,8 @@ public class VentanaClientesController {
             VentanaReservasController controller = loader.getController();
             controller.setHotelModelo(hotelModelo);
             controller.setMain(main);
-            dialogStage.showAndWait();
             controller.setClienteSeleccionado(p);
+            dialogStage.showAndWait();
 
 
         } catch (IOException e) {

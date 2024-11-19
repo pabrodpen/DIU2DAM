@@ -12,10 +12,7 @@ import com.example.hotel.model.ReservaVO;
 import com.example.hotel.model.repository.Repository;
 import javafx.scene.control.Alert;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -156,17 +153,29 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void addReserva(ReservaVO r) throws ExcepcionReserva {
-        try {
-            Connection conn = this.conexion.conectarBD();
-            this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO reservas (codigo, num_habitaciones, tipo_habitacion, fumador, regimen_habitacion,fecha_llegada,fecha_salida,dni_persona) VALUES ('" + r.getCodigo() + "','"+ r.getNumHabitaciones()+"','" + r.getTipoHabitacion() + "','"+r.isEsFumador()+"','"+r.getRegimenHabitacion()+"','"+r.getHoraLLegada()+"','"+r.getHoraSalida()+"','"+r.getDniCliente()+"')";
-            this.stmt.executeUpdate(this.sentencia);
-            this.stmt.close();
-            this.conexion.desconectarBD(conn);
-        } catch (SQLException var3) {
-            throw new ExcepcionPersona("No se ha podido realizar la operación");
+        String sql = "INSERT INTO reservas (codigo, num_habitaciones, tipo_habitacion, fumador, regimen_habitacion, fecha_llegada, fecha_salida, dni_persona) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, r.getCodigo());
+            pstmt.setInt(2, r.getNumHabitaciones());
+            pstmt.setString(3, r.getTipoHabitacion());
+            pstmt.setBoolean(4, r.isEsFumador());
+            pstmt.setString(5, r.getRegimenHabitacion());
+            pstmt.setTimestamp(6, java.sql.Timestamp.valueOf(r.getHoraLLegada()));
+            pstmt.setTimestamp(7, java.sql.Timestamp.valueOf(r.getHoraSalida()));
+            pstmt.setString(8, r.getDniCliente());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Para depurar.
+            throw new ExcepcionReserva("Error al insertar la reserva: " + e.getMessage());
         }
     }
+
 
     @Override
     public void deleteReserva(String codReserva) throws ExcepcionReserva {
