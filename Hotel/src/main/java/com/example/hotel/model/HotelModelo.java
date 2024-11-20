@@ -76,8 +76,11 @@ public class HotelModelo {
         ArrayList<Reserva> reservas=new ArrayList<>();
         for(ReservaVO reservaVO:reservasVO){
             String dniCliente=reservaVO.getDniCliente();
-            Reserva reserva=reservaUtil.reservaVOtoReserva(reservaVO);
-            reservas.add(reserva);
+            if(dniCliente.equals(dni)){
+                Reserva reserva=reservaUtil.reservaVOtoReserva(reservaVO);
+                reservas.add(reserva);
+            }
+
         }
         return reservas;
     }

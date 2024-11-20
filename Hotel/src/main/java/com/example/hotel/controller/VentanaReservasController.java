@@ -4,6 +4,8 @@ import com.example.hotel.Main;
 import com.example.hotel.model.HotelModelo;
 import com.example.hotel.view.Persona;
 import com.example.hotel.view.Reserva;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -33,12 +35,14 @@ public class VentanaReservasController {
     //Label fumadorLabel;
     HotelModelo hotelModelo;
     Persona persona;
+    public ObservableList<Reserva> listaReservas= FXCollections.observableArrayList();
 
     //pasamos el cliente seleccionado para mostrar las reservas
-    public void setClienteSeleccionado(Persona persona) {
-        this.persona = persona;
+    public void setClienteSeleccionado(Persona cliente) {
+        // Obtener las reservas del cliente seleccionado (suponiendo que el dni de la persona es único)
+        listaReservas.setAll(hotelModelo.getListaReservas(cliente.getDni()));
+        reservaTable.setItems(listaReservas);  // Mostrar las reservas en la tabla
     }
-
     public void setHotelModelo(HotelModelo hotelModelo) {
         this.hotelModelo = hotelModelo;
     }
@@ -102,9 +106,8 @@ public class VentanaReservasController {
             hotelModelo.addReservaVOtoBD(nuevaReservaCreada);
 
             // Agrega la nueva reserva a la lista observable
-            main.listaReservas.add(nuevaReservaCreada);
+            listaReservas.add(nuevaReservaCreada);
 
-            // Fuerza la actualización del TableView reasignando la lista observable
             reservaTable.setItems(null); // Limpia temporalmente el TableView
             reservaTable.setItems(main.getListaReservas()); // Reasigna la lista observable
         }

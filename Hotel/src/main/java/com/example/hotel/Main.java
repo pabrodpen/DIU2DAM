@@ -1,10 +1,8 @@
 package com.example.hotel;
 
-import com.example.hotel.controller.RaizController;
-import com.example.hotel.controller.VentanaClientesController;
-import com.example.hotel.controller.VentanaCreacionClientesController;
-import com.example.hotel.controller.VentanaCreacionReservasController;
+import com.example.hotel.controller.*;
 import com.example.hotel.model.HotelModelo;
+import com.example.hotel.model.ReservaVO;
 import com.example.hotel.model.repository.impl.RepositoryImpl;
 import com.example.hotel.view.Persona;
 import com.example.hotel.view.PersonaUtil;
@@ -20,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -29,9 +28,8 @@ public class Main extends Application {
     BorderPane raiz;
     HotelModelo hotelModelo=new HotelModelo();
     public ObservableList<Persona> listaPersonas= FXCollections.observableArrayList();
-    public ObservableList<Reserva> listaReservas= FXCollections.observableArrayList();
 
-
+    Persona clienteSeleccionado;
 
     public Main() throws IOException {
         RepositoryImpl repository=new RepositoryImpl();
@@ -42,9 +40,9 @@ public class Main extends Application {
         hotelModelo.setReservaUtil(reservaUtil);
         hotelModelo.setRepository(repository);
 
+
         //el main recoge los datos del modelo
         listaPersonas.addAll(hotelModelo.getListaPersonas());
-        listaReservas.addAll(hotelModelo.getListaReservas());
 
     }
     @Override
@@ -66,10 +64,12 @@ public class Main extends Application {
         return listaPersonas;
     }
 
-    public ObservableList<Reserva> getListaReservas() {
-        return listaReservas;
-    }
 
+
+    // Método para seleccionar un cliente
+    public void setClienteSeleccionado(Persona cliente) {
+        this.clienteSeleccionado = cliente;
+    }
 
     public void cargarRaiz(){
         try {
@@ -145,6 +145,20 @@ public class Main extends Application {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<Reserva> getListaReservas(String dni){
+        ArrayList<ReservaVO> reservasVO=repository.ObtenerListaReservas(dni);
+        ArrayList<Reserva> reservas=new ArrayList<>();
+        for(ReservaVO reservaVO:reservasVO){
+            String dniCliente=reservaVO.getDniCliente();
+            if(dniCliente.equals(dni)){
+                Reserva reserva=reservaUtil.reservaVOtoReserva(reservaVO);
+                reservas.add(reserva);
+            }
+
+        }
+        return reservas;
     }
 
     public boolean cargarVentanaCreacionReserva(Reserva reserva){
