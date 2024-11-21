@@ -20,6 +20,7 @@ public class CatalogoModelo {
         this.articuloUtil=articuloUtil;
     }
 
+    IntegerProperty numArticulos=new SimpleIntegerProperty(0);
 
 
 
@@ -30,6 +31,9 @@ public class CatalogoModelo {
             Articulo articulo=articuloUtil.articuloVOtoArticulo(articuloVO);
             listaArticulos.add(articulo);
         }
+        // Actualizamos el número de artículos después de obtener la lista
+        //para que al iniciar ya nos salga el numero actualizado
+        setNumContactosProperty(listaArticulos.size());
 
         return listaArticulos;
     }
@@ -49,8 +53,19 @@ public class CatalogoModelo {
     }
 
     public float getTotal(Integer unidades,float precio){
+        System.out.println(articuloRepository.total(unidades,precio));
         return articuloRepository.total(unidades,precio);
     }
+
+    public IntegerProperty getNumContactosProperty(){
+        return numArticulos;
+    }
+
+    public void setNumContactosProperty(int n){
+        numArticulos.set(n);
+    }
+
+
 
 
 }

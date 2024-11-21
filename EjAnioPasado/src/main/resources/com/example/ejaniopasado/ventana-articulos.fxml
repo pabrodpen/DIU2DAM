@@ -59,7 +59,7 @@
                   <HBox layoutX="128.0" layoutY="340.0" prefHeight="29.0" prefWidth="122.0" spacing="5.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleNewArticulo" text="Nuevo" />
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="58.0" text="Total" />
+                        <Button mnemonicParsing="false" onAction="#handleTotal" prefHeight="29.0" prefWidth="58.0" text="Total" />
                      </children>
                   </HBox>
                </children>

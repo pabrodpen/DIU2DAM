@@ -72,6 +72,7 @@ public class VentanaArticulosController {
             main.listaArticulos.add(nuevoArticuloCreado); // Agrega a la lista observable
             //  si se hizo clic en OK
             catalogoModelo.addArticuloVOtoBD(nuevoArticuloCreado);//agrega a la bd
+            catalogoModelo.setNumContactosProperty(articuloTable.getItems().size());
         }
 
     }
@@ -80,10 +81,14 @@ public class VentanaArticulosController {
     private void handleTotal(){
 
         int unidades = Integer.parseInt(unidadesField.getText());
-        float precio = Float.parseFloat(totalField.getText());
+        float precio = Float.parseFloat(precioLabel.getText());
+        System.out.println("Unidades: " + unidades);
+        System.out.println("Precio: " + precio);
 
-        float total = precio * unidades;
+        float total =catalogoModelo.getTotal(unidades,precio);
+        System.out.println("Total: " + total);
         totalField.setText(String.valueOf(total));
+        System.out.println(total);
     }
 
 

@@ -4,6 +4,7 @@ import com.example.ejaniopasado.MainApp;
 import com.example.ejaniopasado.model.CatalogoModelo;
 import com.example.ejaniopasado.view.Articulo;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -16,6 +17,21 @@ public class VentanaCreacionArticulosController {
     @FXML
     TextField codigoField,nombreField,descripcionField,precioField,stockField;
 
+    @FXML
+    Label numArticulosLabel;
+
+    @FXML
+    public void initialize() {
+
+    }
+
+    public void setCatalogoModelo(CatalogoModelo c) {
+        this.catalogoModelo = c;
+        numArticulosLabel.textProperty().bind(catalogoModelo.getNumContactosProperty().asString());
+
+    }
+
+
 
     public boolean isOkClicked() {
         return isOkClicked;
@@ -25,14 +41,10 @@ public class VentanaCreacionArticulosController {
         this.isOkClicked = isOkClicked;
     }
 
+
     public void setMain(MainApp main) {
         this.main = main;
     }
-
-    public void setCatalogoModelo(CatalogoModelo catalogoModelo) {
-        this.catalogoModelo = catalogoModelo;
-    }
-
     public void setDialogoStage(Stage dialogoStage) {
         this.dialogoStage = dialogoStage;
     }
