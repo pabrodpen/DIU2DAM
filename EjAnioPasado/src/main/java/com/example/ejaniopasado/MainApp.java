@@ -36,7 +36,34 @@ public class MainApp extends Application {
     public MainApp() {
 
         ArticuloRepository repository=new ArticuloRepositoryImpl();
+        ArticuloUtil util=new Articulo  public Stage primaryStage;
+    //public BorderPane rootLayout; // Usar BorderPane como layout raíz
+
+    public ObservableList<Articulo> listaArticulos = FXCollections.observableArrayList();
+    CatalogoModelo catalogoModelo=new CatalogoModelo();
+
+    //cogemos la lista observable(lista para mostrar a la interfaz y que se actualiza conntantemente
+    //en la interfaz)
+    public ObservableList<Articulo> getListaArticulos() {
+        return listaArticulos;
+    }
+
+    public MainApp() {
+
+        ArticuloRepository repository=new ArticuloRepositoryImpl();
         ArticuloUtil util=new ArticuloUtil();
+
+        catalogoModelo.setArticuloUtil(util);
+        catalogoModelo.setArticuloRepository(repository);
+
+
+        //el main recoge los datos del modelo
+        listaArticulos.addAll(catalogoModelo.getArticulos());
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        this.primaryStage = stage;Util();
 
         catalogoModelo.setArticuloUtil(util);
         catalogoModelo.setArticuloRepository(repository);
