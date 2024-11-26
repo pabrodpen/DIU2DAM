@@ -56,6 +56,7 @@ public class MainApp extends Application {
         cargarVentanaPrincipal();
 
 
+        catalogoModelo.setNumContactosProperty(listaArticulos.size());
 
 
     }
