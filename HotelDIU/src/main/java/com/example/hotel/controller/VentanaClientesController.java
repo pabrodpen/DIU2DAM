@@ -156,7 +156,7 @@ public class VentanaClientesController {
     private void handleEditPerson() {
         Persona personaEditar = personaTable.getSelectionModel().getSelectedItem();
         if (personaEditar != null) {
-            boolean okClicked = main.cargarVentanaCreacionPersona(personaEditar);
+            boolean okClicked = main.cargarVentanaEdicionPersona(personaEditar);
             if (okClicked) {
 
                 mostrarDetalles(personaEditar);

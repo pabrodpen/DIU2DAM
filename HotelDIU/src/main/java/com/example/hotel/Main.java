@@ -138,7 +138,7 @@ public class Main extends Application {
             //controller.setPerson(c);
             controller.setMain(this);
             controller.setHotelModelo(hotelModelo);
-            controller.cambiarDatosCliente(persona);
+            controller.cambiarDatosClienteCrear(persona);
 
             // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
             dialogStage.showAndWait();
@@ -150,6 +150,39 @@ public class Main extends Application {
         }
     }
 
+    public boolean cargarVentanaEdicionPersona(Persona persona){
+        try {
+            // Cargar el archivo FXML y crear un nuevo escenario para el diálogo emergente.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/hotel/ventana-creacion-clientes.fxml")); // Ruta corregida
+            AnchorPane page = loader.load();
+
+            // Crear el escenario del diálogo.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Persona");
+            //quitamos modal para que se puedan abrir varias ventanas
+            //dialogStage.initModality(Modality.WINDOW_MODAL);
+            //dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Establecer la persona en el controlador.
+            VentanaCreacionClientesController controller = loader.getController();
+            controller.setDialogoStage(dialogStage);
+            //controller.setPerson(c);
+            controller.setMain(this);
+            controller.setHotelModelo(hotelModelo);
+            controller.cambiarDatosClienteEditar(persona);
+
+            // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public ArrayList<Reserva> getListaReservas(String dni){
         ArrayList<ReservaVO> reservasVO=repository.ObtenerListaReservas(dni);
         ArrayList<Reserva> reservas=new ArrayList<>();
@@ -186,7 +219,41 @@ public class Main extends Application {
             //controller.setPerson(c);
             controller.setMain(this);
             controller.setHotelModelo(hotelModelo);
-            controller.cambiarDatosReserva(reserva);
+            controller.cambiarDatosReservaCreacion(reserva);
+
+            // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean cargarVentanaEdicionReserva(Reserva reserva){
+        try {
+            // Cargar el archivo FXML y crear un nuevo escenario para el diálogo emergente.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/hotel/ventana-creacion-reservas.fxml")); // Ruta corregida
+            AnchorPane page = loader.load();
+
+            // Crear el escenario del diálogo.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Reserva");
+            //quitamos modal para que se puedan abrir varias ventanas
+            //dialogStage.initModality(Modality.WINDOW_MODAL);
+            //dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Establecer la persona en el controlador.
+            VentanaCreacionReservasController controller = loader.getController();
+            controller.setDialogoStage(dialogStage);
+            //controller.setPerson(c);
+            controller.setMain(this);
+            controller.setHotelModelo(hotelModelo);
+            controller.cambiarDatosReservaEdicion(reserva);
 
             // Mostrar el diálogo y esperar hasta que el usuario lo cierre.
             dialogStage.showAndWait();

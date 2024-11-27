@@ -103,13 +103,13 @@ public class VentanaReservasController {
         boolean okClicked = main.cargarVentanaCreacionReserva(nuevaReservaCreada);
 
         if (okClicked) { // Si el usuario confirma
-            // Agrega la nueva reserva a la base de datos
-            hotelModelo.addReservaVOtoBD(nuevaReservaCreada);
-
             // Agrega la nueva reserva a la lista observable
             listaReservas.add(nuevaReservaCreada);
 
-            reservaTable.setItems(null); // Limpia temporalmente el TableView
+            // Agrega la nueva reserva a la base de datos
+            hotelModelo.addReservaVOtoBD(nuevaReservaCreada);
+
+            //reservaTable.setItems(null); // Limpia temporalmente el TableView
             //reservaTable.setItems(main.getListaReservas()); // Reasigna la lista observable
         }
     }
@@ -146,7 +146,7 @@ public class VentanaReservasController {
     private void handleEditReserva() {
         Reserva reservaEditar = reservaTable.getSelectionModel().getSelectedItem();
         if (reservaEditar != null) {
-            boolean okClicked = main.cargarVentanaCreacionReserva(reservaEditar);
+            boolean okClicked = main.cargarVentanaEdicionReserva(reservaEditar);
             if (okClicked) {
 
                 mostrarDetalles(reservaEditar);

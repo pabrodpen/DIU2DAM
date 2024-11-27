@@ -227,18 +227,34 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void editReserva(ReservaVO r) throws ExcepcionReserva {
-
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            //%s string y %d entero
-            //RESPETAR EÑ ORDEN DE UPDATE(si nomrbe eds el primeri, el primero del update sera persona.getnombre())
-            String sql = String.format("UPDATE reservas SET num_habitaciones = '%s', tipo_habitacion = '%s', fumador = '%s' , regimen_habitacion = '%s' , fecha_llegada='%s' , fecha_salida='%s'  WHERE codigo = %d",r.getNumHabitaciones(), r.getTipoHabitacion() ,r.isEsFumador(), r.getRegimenHabitacion(), r.getHoraLLegada(), r.getHoraSalida(), r.getCodigo());
+
+            String sql = String.format(
+                    "UPDATE reservas SET " +
+                            "num_habitaciones = %d, " +
+                            "tipo_habitacion = '%s', " +
+                            "fumador = %d, " +
+                            "regimen_habitacion = '%s', " +
+                            "fecha_llegada = '%s', " +
+                            "fecha_salida = '%s' " +
+                            "WHERE codigo = '%s'",
+                    r.getNumHabitaciones(),
+                    r.getTipoHabitacion(),
+                    r.isEsFumador() ? 1 : 0,  // Convierte booleano a 0/1
+                    r.getRegimenHabitacion(),
+                    Timestamp.valueOf(r.getHoraLLegada()),
+                    Timestamp.valueOf(r.getHoraSalida()),
+                    r.getCodigo()  // En comillas porque es VARCHAR
+            );
+
             this.stmt.executeUpdate(sql);
-        } catch (Exception var4) {
-            throw new ExcepcionPersona("No se ha podido realizar la edición");
+        } catch (SQLException e) {
+            throw new ExcepcionReserva("No se ha podido realizar la edición: " + e.getMessage());
         }
     }
+
 
 
 }

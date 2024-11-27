@@ -34,8 +34,8 @@
                   <Label text="Fecha de llegada" GridPane.rowIndex="1" />
                   <Label text="Fecha de salida" GridPane.rowIndex="3" />
                   <TextField fx:id="codigoField" GridPane.columnIndex="1" />
-                  <TextField fx:id="numHabitacionesField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <SplitMenuButton fx:id="tipoHabitacionMenu" mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <Spinner fx:id="spinnerNumHabitaciones" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <SplitMenuButton fx:id="tipoHabitacionMenu" mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Action 1" />
                       <MenuItem mnemonicParsing="false" text="Action 2" />

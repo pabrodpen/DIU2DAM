@@ -37,7 +37,7 @@ public class VentanaCreacionClientesController {
         this.dialogoStage = dialogoStage;
     }
 
-    public void cambiarDatosCliente(Persona persona) {
+    public void cambiarDatosClienteCrear(Persona persona) {
         if (persona == null) {
             // Initialize a new Persona if null
             this.persona = new Persona();
@@ -47,9 +47,6 @@ public class VentanaCreacionClientesController {
 
 
         dniField.setText(persona.getDni());
-        if(!(dniField.getText().equals(""))) {
-            dniField.setDisable(true);
-        }
         nombreField.setText(persona.getNombre_completo());
         direccionField.setText(persona.getDireccion());
         localidadField.setText(persona.getLocalidad());
@@ -58,6 +55,24 @@ public class VentanaCreacionClientesController {
 
     }
 
+    public void cambiarDatosClienteEditar(Persona persona) {
+        if (persona == null) {
+            // Initialize a new Persona if null
+            this.persona = new Persona();
+        } else {
+            this.persona = persona;
+        }
+
+
+        dniField.setText(persona.getDni());
+        dniField.setDisable(true);
+        nombreField.setText(persona.getNombre_completo());
+        direccionField.setText(persona.getDireccion());
+        localidadField.setText(persona.getLocalidad());
+        provinciaField.setText(persona.getProvincia());
+
+
+    }
     //metodo para cuando pulsemos el boton OK
     @FXML
     public void handleOkClicked() {

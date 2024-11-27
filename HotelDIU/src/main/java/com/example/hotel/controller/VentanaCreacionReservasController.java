@@ -21,7 +21,8 @@ public class VentanaCreacionReservasController {
     @FXML
     TextField codigoField;
     @FXML
-    TextField numHabitacionesField;
+    private Spinner<Integer> spinnerNumHabitaciones;
+
     @FXML
     SplitMenuButton tipoHabitacionMenu, regimenHabitacionMenu;
     @FXML
@@ -32,6 +33,11 @@ public class VentanaCreacionReservasController {
     CheckBox fumadorCheckBox;
 
     public void initialize() {
+        // Configurar el Spinner con valores de 1 a 10 y valor inicial de 1
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
+        spinnerNumHabitaciones.setValueFactory(valueFactory);
+        spinnerNumHabitaciones.setEditable(true); // Permitir edición manual
+
         // Opciones para tipo de habitación
         tipoHabitacionMenu.getItems().addAll(
                 new MenuItem("doble_individual"),
@@ -76,8 +82,7 @@ public class VentanaCreacionReservasController {
         this.dialogoStage = dialogoStage;
     }
 
-    // Método para cuando se pasa un objeto Reserva para edición
-    public void cambiarDatosReserva(Reserva reserva) {
+    public void cambiarDatosReservaCreacion(Reserva reserva) {
         if (reserva == null) {
             // Initialize a new Reserva if null
             this.reserva = new Reserva();
@@ -86,12 +91,42 @@ public class VentanaCreacionReservasController {
         }
 
         codigoField.setText(reserva.getCodigo());
-        codigoField.setDisable(true);
-        numHabitacionesField.setText(String.valueOf(reserva.getNumHabitaciones()));
+        spinnerNumHabitaciones.getValueFactory().setValue(reserva.getNumHabitaciones()); // Cargar número de habitaciones
         tipoHabitacionMenu.setText(reserva.getTipoHabitacion());
         regimenHabitacionMenu.setText(reserva.getRegimenHabitacion());
 
         // Convertimos las fechas y horas para mostrarlas correctamente
+        if (reserva.getHoraLlegada() != null) {
+            fechaLlegadaPicker.setValue(reserva.getHoraLlegada().toLocalDate());
+            horaLlegadaField.setText(reserva.getHoraLlegada().toLocalTime().toString());
+        }else{
+            horaLlegadaField.setPromptText("HH:mm:ss");
+        }
+
+        if (reserva.getHoraSalida() != null) {
+            fechaSalidaPicker.setValue(reserva.getHoraSalida().toLocalDate());
+            horaSalidaField.setText(reserva.getHoraSalida().toLocalTime().toString());
+        }else{
+            horaSalidaField.setPromptText("HH:mm:ss");
+        }
+
+        // Establecemos el valor del CheckBox según el valor de "fumador"
+        fumadorCheckBox.setSelected(reserva.isEsFumador());
+    }
+
+    public void cambiarDatosReservaEdicion(Reserva reserva) {
+        if (reserva == null) {
+            this.reserva = new Reserva();
+        } else {
+            this.reserva = reserva;
+        }
+
+        codigoField.setText(reserva.getCodigo());
+        codigoField.setDisable(true);
+        spinnerNumHabitaciones.getValueFactory().setValue(reserva.getNumHabitaciones()); // Cargar número de habitaciones
+        tipoHabitacionMenu.setText(reserva.getTipoHabitacion());
+        regimenHabitacionMenu.setText(reserva.getRegimenHabitacion());
+
         if (reserva.getHoraLlegada() != null) {
             fechaLlegadaPicker.setValue(reserva.getHoraLlegada().toLocalDate());
             horaLlegadaField.setText(reserva.getHoraLlegada().toLocalTime().toString());
@@ -102,11 +137,10 @@ public class VentanaCreacionReservasController {
             horaSalidaField.setText(reserva.getHoraSalida().toLocalTime().toString());
         }
 
-        // Establecemos el valor del CheckBox según el valor de "fumador"
         fumadorCheckBox.setSelected(reserva.isEsFumador());
     }
 
-    // Método para cuando pulsemos el botón OK
+
     @FXML
     public void handleOkClicked() {
         if (reserva == null) {
@@ -115,7 +149,7 @@ public class VentanaCreacionReservasController {
 
         // Obtenemos los datos ingresados por el usuario
         reserva.setCodigo(codigoField.getText());
-        reserva.setNumHabitaciones(Integer.parseInt(numHabitacionesField.getText()));
+        reserva.setNumHabitaciones(spinnerNumHabitaciones.getValue()); // Usar el Spinner
         reserva.setTipoHabitacion(tipoHabitacionMenu.getText());
         reserva.setRegimenHabitacion(regimenHabitacionMenu.getText());
 
@@ -123,7 +157,7 @@ public class VentanaCreacionReservasController {
         LocalDate fechaLlegada = fechaLlegadaPicker.getValue();
         LocalDate fechaSalida = fechaSalidaPicker.getValue();
 
-        // Parseamos las horas (suponemos que la entrada está en formato "HH:mm")
+        // Parseamos las horas
         LocalTime horaLlegada = LocalTime.parse(horaLlegadaField.getText());
         LocalTime horaSalida = LocalTime.parse(horaSalidaField.getText());
 
