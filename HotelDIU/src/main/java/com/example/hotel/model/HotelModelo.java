@@ -72,7 +72,7 @@ public class HotelModelo {
     }
 
     public ArrayList<Reserva> getListaReservas(String dni){
-        var reservasVO=repository.ObtenerListaReservas(dni);
+        ArrayList<ReservaVO> reservasVO=repository.ObtenerListaReservas(dni);
         ArrayList<Reserva> reservas=new ArrayList<>();
         for(ReservaVO reservaVO:reservasVO){
             String dniCliente=reservaVO.getDniCliente();
@@ -81,6 +81,16 @@ public class HotelModelo {
                 reservas.add(reserva);
             }
 
+        }
+        return reservas;
+    }
+
+    public ArrayList<Reserva> getListaTodasReservas(){
+        ArrayList<ReservaVO> reservasVO=repository.ObtenerListaTodasReservas();
+        ArrayList<Reserva> reservas=new ArrayList<>();
+        for(ReservaVO reservaVO:reservasVO){
+            Reserva reserva=reservaUtil.reservaVOtoReserva(reservaVO);
+            reservas.add(reserva);
         }
         return reservas;
     }

@@ -22,6 +22,8 @@ public interface Repository {
 
     ArrayList<ReservaVO> ObtenerListaReservas(String dni) throws ExcepcionReserva;
 
+    ArrayList<ReservaVO> ObtenerListaTodasReservas() throws ExcepcionReserva;
+
     void addReserva(ReservaVO var1) throws ExcepcionReserva;
 
     void deleteReserva(String var1) throws ExcepcionReserva;

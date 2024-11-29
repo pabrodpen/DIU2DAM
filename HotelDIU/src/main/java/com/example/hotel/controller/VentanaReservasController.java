@@ -7,10 +7,7 @@ import com.example.hotel.view.Reserva;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class VentanaReservasController {
 
@@ -31,8 +28,10 @@ public class VentanaReservasController {
     Label tipoHabitacionLabel;
     @FXML
     Label regimenHabitacionLabel;
-    //@FXML
-    //Label fumadorLabel;
+    @FXML
+    CheckBox checkFumador;
+    @FXML
+    Label fumadorLabel;
     HotelModelo hotelModelo;
     Persona persona;
     public ObservableList<Reserva> listaReservas= FXCollections.observableArrayList();
@@ -82,6 +81,12 @@ public class VentanaReservasController {
             regimenHabitacionLabel.setText(r.getRegimenHabitacion());
             fechaLlegadaLabel.setText(String.valueOf(r.getHoraLlegada()));
             fechaSalidaLabel.setText(String.valueOf(r.getHoraSalida()));
+            checkFumador.setSelected(r.isEsFumador());
+            if(r.isEsFumador()){
+                fumadorLabel.setText("\"En virtud de la ley de sanidad se informa a los clientes de que solo podrán fumar en las habitaciones\n" +
+                        "reservadas para tal fin.\"");
+            }
+            checkFumador.setDisable(true);
         } else {
             numHabitacionesLabel.setText("");
             tipoHabitacionLabel.setText("");

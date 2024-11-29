@@ -156,6 +156,51 @@ public class RepositoryImpl implements Repository {
         return this.reservas; // Devuelve la lista que puede estar vacía si hubo un error
     }
 
+
+    @Override
+    public ArrayList<ReservaVO> ObtenerListaTodasReservas() throws ExcepcionReserva {
+        this.reservas = new ArrayList<>(); // Inicializamos la lista como vacía
+
+        try {
+            // Conexión a la base de datos
+            Connection conn = this.conexion.conectarBD();
+            if (conn == null) {
+                // Si no se pudo conectar, se muestra el alerta y se devuelve la lista vacía
+                mostrarAlertaConexionFallida();
+                return this.reservas; // Devuelve la lista vacía
+            }
+
+            // Crear sentencia SQL con filtrado por dni_cliente
+            this.stmt = conn.createStatement();
+            this.sentencia = "SELECT * FROM reservas";
+            ResultSet rs = this.stmt.executeQuery(this.sentencia);
+
+            // Procesamos los resultados
+            while (rs.next()) {
+                String codigo = rs.getString("codigo");
+                int numHabitaciones = rs.getInt("num_habitaciones");
+                String tipoHabitacion = rs.getString("tipo_habitacion");
+                boolean fumador = rs.getBoolean("fumador");
+                String regimenHabitacion = rs.getString("regimen_habitacion");
+                LocalDateTime horaLlegada = rs.getTimestamp("fecha_llegada").toLocalDateTime();
+                LocalDateTime horaSalida = rs.getTimestamp("fecha_salida").toLocalDateTime();
+                String dniClienteRes = rs.getString("dni_cliente");
+
+                // Crear el objeto ReservaVO y agregarlo a la lista
+                this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion, horaLlegada, horaSalida, dniClienteRes);
+                this.reservas.add(this.reserva);
+            }
+
+            // Desconectar de la base de datos
+            this.conexion.desconectarBD(conn);
+        } catch (SQLException var6) {
+            mostrarAlertaConexionFallida();
+        }
+
+        // Devolver la lista de reservas para el cliente
+        return this.reservas; // Devuelve la lista que puede estar vacía si hubo un error
+    }
+
     public void addReserva(ReservaVO r) throws ExcepcionReserva {
         Connection conn = null;
         try {
@@ -190,21 +235,6 @@ public class RepositoryImpl implements Repository {
             throw new RuntimeException(e);
         }
         this.conexion.desconectarBD(conn);
-
-
-
-            /*
-            *    try {
-            Connection conn = this.conexion.conectarBD();
-            this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO personas (dni, nombre_completo, direccion, localidad, provincia) VALUES ('" + p.getDni() + "','" + p.getNombre_completo() + "','"+p.getDireccion()+"','"+p.getLocalidad()+"','"+p.getProvincia()+"')";
-            this.stmt.executeUpdate(this.sentencia);
-            this.stmt.close();
-            this.conexion.desconectarBD(conn);
-        } catch (SQLException var3) {
-            throw new ExcepcionPersona("No se ha podido realizar la operación");
-        }
-            * */
 
     }
 
