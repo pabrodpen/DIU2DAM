@@ -40,9 +40,9 @@ public class VentanaCreacionReservasController {
 
         // Opciones para tipo de habitación
         tipoHabitacionMenu.getItems().addAll(
-                new MenuItem("doble_individual"),
+                new MenuItem("doble individual"),
                 new MenuItem("doble"),
-                new MenuItem("junior_suite"),
+                new MenuItem("junior suite"),
                 new MenuItem("suite")
         );
 
@@ -52,9 +52,9 @@ public class VentanaCreacionReservasController {
 
         // Opciones para régimen de habitación
         regimenHabitacionMenu.getItems().addAll(
-                new MenuItem("alojamiento_desayuno"),
-                new MenuItem("media_pension"),
-                new MenuItem("pension_completa")
+                new MenuItem("alojamiento y desayuno"),
+                new MenuItem("media pension"),
+                new MenuItem("pension completa")
         );
 
         for (MenuItem item : regimenHabitacionMenu.getItems()) {

@@ -35,17 +35,9 @@
                   <Label text="Fecha de salida" GridPane.rowIndex="3" />
                   <TextField fx:id="codigoField" GridPane.columnIndex="1" />
                         <Spinner fx:id="spinnerNumHabitaciones" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <SplitMenuButton fx:id="tipoHabitacionMenu" mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
+                        <SplitMenuButton fx:id="tipoHabitacionMenu" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
                   </SplitMenuButton>
                   <SplitMenuButton fx:id="regimenHabitacionMenu" mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
                   </SplitMenuButton>
                   <DatePicker fx:id="fechaLlegadaPicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <DatePicker fx:id="fechaSalidaPicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />

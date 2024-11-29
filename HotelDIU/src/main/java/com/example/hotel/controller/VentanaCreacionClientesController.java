@@ -4,8 +4,11 @@ import com.example.hotel.Main;
 import com.example.hotel.model.HotelModelo;
 import com.example.hotel.view.Persona;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 
 public class VentanaCreacionClientesController {
     boolean isOkClicked = false;
@@ -76,6 +79,8 @@ public class VentanaCreacionClientesController {
     //metodo para cuando pulsemos el boton OK
     @FXML
     public void handleOkClicked() {
+
+        try{
         if(persona == null) {
             persona = new Persona();
         }
@@ -89,6 +94,15 @@ public class VentanaCreacionClientesController {
         isOkClicked = true;
         //cerramos la ventana de dialogo
         dialogoStage.close();
+        }catch(Exception e){
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("DNI ya existente");
+            alert.setHeaderText("Error de datos");
+            alert.setContentText("Lo siento, el DNI introducido ya existe");
+            alert.showAndWait();
+        }
+
     }
 
     //metodo para cuando pulsemos el boton de Cancelar
