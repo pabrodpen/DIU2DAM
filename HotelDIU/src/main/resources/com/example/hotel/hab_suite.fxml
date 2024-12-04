@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotel.controller.VentanaGaleriaController">
+    <children>
+        <ImageView fx:id="suiteImg" fitHeight="124.0" fitWidth="269.0" layoutX="49.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../img/suite.jpg" />
+            </image>
+        </ImageView>
+        <Label layoutX="234.0" layoutY="14.0" text="HABITACIONES SUITE" />
+        <ProgressIndicator fx:id="progresoSuite" layoutX="286.0" layoutY="191.0" prefHeight="19.0" prefWidth="29.0" progress="0.0" />
+      <ImageView fx:id="suiteImg1" fitHeight="124.0" fitWidth="269.0" layoutX="354.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/suite2.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="suiteImg2" fitHeight="124.0" fitWidth="269.0" layoutX="49.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/suite3.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="suiteImg21" fitHeight="124.0" fitWidth="269.0" layoutX="354.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/suite4.jpeg" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

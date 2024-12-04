@@ -41,28 +41,51 @@ public class VentanaCreacionReservasController {
         spinnerNumHabitaciones.setEditable(true); // Permitir edición manual
 
         // Opciones para tipo de habitación
-        tipoHabitacionMenu.getItems().addAll(
-                new MenuItem("Doble Individual"),
-                new MenuItem("Doble"),
-                new MenuItem("Junior Suite"),
-                new MenuItem("Suite")
-        );
+        MenuItem tipoHabitacion1 = new MenuItem("Doble Individual");
+        tipoHabitacion1.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
 
-        for (MenuItem item : tipoHabitacionMenu.getItems()) {
-            item.setOnAction(event -> tipoHabitacionMenu.setText(item.getText())); // Establece el texto al seleccionarlo
-        }
+        MenuItem tipoHabitacion2 = new MenuItem("Doble");
+        tipoHabitacion2.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
+
+        MenuItem tipoHabitacion3 = new MenuItem("Junior Suite");
+        tipoHabitacion3.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
+
+        MenuItem tipoHabitacion4 = new MenuItem("Suite");
+        tipoHabitacion4.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
+
+        tipoHabitacionMenu.getItems().addAll(tipoHabitacion1, tipoHabitacion2, tipoHabitacion3, tipoHabitacion4);
 
         // Opciones para régimen de habitación
-        regimenHabitacionMenu.getItems().addAll(
-                new MenuItem("Alojamiento y Desayuno"),
-                new MenuItem("Media Pension"),
-                new MenuItem("Pension Completa")
-        );
+        MenuItem regimen1 = new MenuItem("Alojamiento y Desayuno");
+        regimen1.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
+
+        MenuItem regimen2 = new MenuItem("Media Pension");
+        regimen2.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
+
+        MenuItem regimen3 = new MenuItem("Pension Completa");
+        regimen3.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF;");
+
+        regimenHabitacionMenu.getItems().addAll(regimen1, regimen2, regimen3);
+
+        // Asignar los eventos de acción a cada item del menú
+        for (MenuItem item : tipoHabitacionMenu.getItems()) {
+            item.setOnAction(event -> tipoHabitacionMenu.setText(item.getText()));
+        }
 
         for (MenuItem item : regimenHabitacionMenu.getItems()) {
             item.setOnAction(event -> regimenHabitacionMenu.setText(item.getText()));
         }
+
+        // Establecer el color de los items seleccionados
+        for (MenuItem item : tipoHabitacionMenu.getItems()) {
+            item.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF; -fx-selection-bar-non-focus-color: #000000; -fx-selection-bar-color: #333333;");
+        }
+
+        for (MenuItem item : regimenHabitacionMenu.getItems()) {
+            item.setStyle("-fx-background-color: #000000; -fx-text-fill: #FFFFFF; -fx-selection-bar-non-focus-color: #000000; -fx-selection-bar-color: #333333;");
+        }
     }
+
 
     public boolean isOkClicked() {
         return isOkClicked;

@@ -3,18 +3,18 @@ package com.example.hotel.controller;
 import com.example.hotel.model.HotelModelo;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressIndicator;
-
-import javax.swing.text.html.ImageView;
-import java.awt.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 
 public class VentanaGaleriaController {
 
     private HotelModelo hotelModelo;
-    @FXML
-    ImageView dobleImg,dobleIndividualImg,suiteImg,juniorImg;
 
     @FXML
-    ProgressIndicator progresoDoble, progresoDobleInidividual, progresoJunior, progresoSuite;
+    ImageView dobleImg, dobleIndividualImg, suiteImg, juniorImg;
+    @FXML
+    ProgressIndicator progresoDoble, progresoDobleIndividual, progresoJunior, progresoSuite;
+
 
     public void setHotelModelo(HotelModelo hotelModelo) {
         this.hotelModelo = hotelModelo;
@@ -24,14 +24,20 @@ public class VentanaGaleriaController {
 
     private void bindDatos() {
         if (hotelModelo != null) {
-            // Bind the progress of the indicators to the model's properties
-            progresoDoble.progressProperty().bind(hotelModelo.numReservasDobleProperty().divide(80.0));
-            progresoDobleInidividual.progressProperty().bind(hotelModelo.numReservasIndividualProperty().divide(20.0));
-            progresoJunior.progressProperty().bind(hotelModelo.numReservasJuniorProperty().divide(15.0));
-            progresoSuite.progressProperty().bind(hotelModelo.numReservasSuiteProperty().divide(5.0));
+            if (progresoDoble != null) {
+                progresoDoble.progressProperty().bind(hotelModelo.numReservasDobleProperty().divide(80.0));
+            }
+            if (progresoDobleIndividual != null) {
+                progresoDobleIndividual.progressProperty().bind(hotelModelo.numReservasIndividualProperty().divide(20.0));
+            }
+            if (progresoJunior != null) {
+                progresoJunior.progressProperty().bind(hotelModelo.numReservasJuniorProperty().divide(15.0));
+            }
+            if (progresoSuite != null) {
+                progresoSuite.progressProperty().bind(hotelModelo.numReservasSuiteProperty().divide(5.0));
+            }
         }
     }
-
 
 
     @FXML
@@ -44,16 +50,15 @@ public class VentanaGaleriaController {
 
         if (totalReservas > 0) {
             progresoDoble.setProgress((double) hotelModelo.numReservasDobleProperty().get() / 80);
-            progresoDobleInidividual.setProgress((double) hotelModelo.numReservasIndividualProperty().get() / 20);
+            progresoDobleIndividual.setProgress((double) hotelModelo.numReservasIndividualProperty().get() / 20);
             progresoJunior.setProgress((double) hotelModelo.numReservasJuniorProperty().get() / 15);
             progresoSuite.setProgress((double) hotelModelo.numReservasSuiteProperty().get() / 5);
         } else {
             // Reset all progress indicators if there are no reservations
             progresoDoble.setProgress(0);
-            progresoDobleInidividual.setProgress(0);
+            progresoDobleIndividual.setProgress(0);
             progresoJunior.setProgress(0);
             progresoSuite.setProgress(0);
         }
     }
-
 }

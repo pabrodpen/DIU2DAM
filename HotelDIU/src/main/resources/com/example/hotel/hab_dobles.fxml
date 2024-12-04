@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotel.controller.VentanaGaleriaController">
+    <children>
+        <ImageView fx:id="dobleIndividualImg" fitHeight="124.0" fitWidth="269.0" layoutX="52.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../img/indi6.jpeg" />
+            </image>
+        </ImageView>
+        <Label layoutX="212.0" layoutY="21.0" text="HABITACIONES DOBLES" />
+        <ProgressIndicator fx:id="progresoDoble" layoutX="271.0" layoutY="191.0" prefHeight="19.0" prefWidth="29.0" progress="0.0" />
+      <ImageView fx:id="dobleIndividualImg1" fitHeight="124.0" fitWidth="196.0" layoutX="334.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/indi8.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dobleIndividualImg2" fitHeight="124.0" fitWidth="269.0" layoutX="52.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/indi3.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dobleIndividualImg3" fitHeight="124.0" fitWidth="269.0" layoutX="334.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/indi9.jpeg" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

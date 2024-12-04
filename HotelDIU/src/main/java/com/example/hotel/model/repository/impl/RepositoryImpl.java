@@ -40,18 +40,18 @@ public class RepositoryImpl implements Repository {
             }
 
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM personas";
+            // Ordenar por nombre_completo alfabéticamente
+            this.sentencia = "SELECT * FROM personas ORDER BY nombre_completo ASC"; // ASC para orden ascendente
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
             while (rs.next()) {
-                String dni= rs.getString("dni");
+                String dni = rs.getString("dni");
                 String nom = rs.getString("nombre_completo");
                 String direcc = rs.getString("direccion");
                 String loc = rs.getString("localidad");
                 String provincia = rs.getString("provincia");
 
-
-                this.persona = new PersonaVO(dni, nom, direcc, loc, provincia );
+                this.persona = new PersonaVO(dni, nom, direcc, loc, provincia);
                 this.personas.add(this.persona);
             }
 
@@ -155,17 +155,15 @@ public class RepositoryImpl implements Repository {
             // Conexión a la base de datos
             Connection conn = this.conexion.conectarBD();
             if (conn == null) {
-                // Si no se pudo conectar, se muestra el alerta y se devuelve la lista vacía
                 mostrarAlertaConexionFallida();
                 return this.reservas; // Devuelve la lista vacía
             }
 
-            // Crear sentencia SQL con filtrado por dni_cliente
+            // Crear sentencia SQL con filtrado por dni_cliente y ordenando por fecha_llegada
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM reservas WHERE dni_cliente = '" + dniCliente + "'";
+            this.sentencia = "SELECT * FROM reservas WHERE dni_cliente = '" + dniCliente + "' ORDER BY fecha_llegada ASC"; // ASC para orden ascendente
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
-            // Procesamos los resultados
             while (rs.next()) {
                 String codigo = rs.getString("codigo");
                 int numHabitaciones = rs.getInt("num_habitaciones");
@@ -176,19 +174,16 @@ public class RepositoryImpl implements Repository {
                 LocalDateTime horaSalida = rs.getTimestamp("fecha_salida").toLocalDateTime();
                 String dniClienteRes = rs.getString("dni_cliente");
 
-                // Crear el objeto ReservaVO y agregarlo a la lista
                 this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion, horaLlegada, horaSalida, dniClienteRes);
                 this.reservas.add(this.reserva);
             }
 
-            // Desconectar de la base de datos
             this.conexion.desconectarBD(conn);
         } catch (SQLException var6) {
             mostrarAlertaConexionFallida();
         }
 
-        // Devolver la lista de reservas para el cliente
-        return this.reservas; // Devuelve la lista que puede estar vacía si hubo un error
+        return this.reservas; // Devuelve la lista de reservas ordenadas
     }
 
 
@@ -200,17 +195,15 @@ public class RepositoryImpl implements Repository {
             // Conexión a la base de datos
             Connection conn = this.conexion.conectarBD();
             if (conn == null) {
-                // Si no se pudo conectar, se muestra el alerta y se devuelve la lista vacía
                 mostrarAlertaConexionFallida();
                 return this.reservas; // Devuelve la lista vacía
             }
 
-            // Crear sentencia SQL con filtrado por dni_cliente
+            // Crear sentencia SQL para obtener todas las reservas y ordenarlas por fecha_llegada
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM reservas";
+            this.sentencia = "SELECT * FROM reservas ORDER BY fecha_llegada ASC"; // ASC para orden ascendente
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
-            // Procesamos los resultados
             while (rs.next()) {
                 String codigo = rs.getString("codigo");
                 int numHabitaciones = rs.getInt("num_habitaciones");
@@ -221,19 +214,16 @@ public class RepositoryImpl implements Repository {
                 LocalDateTime horaSalida = rs.getTimestamp("fecha_salida").toLocalDateTime();
                 String dniClienteRes = rs.getString("dni_cliente");
 
-                // Crear el objeto ReservaVO y agregarlo a la lista
                 this.reserva = new ReservaVO(codigo, numHabitaciones, tipoHabitacion, fumador, regimenHabitacion, horaLlegada, horaSalida, dniClienteRes);
                 this.reservas.add(this.reserva);
             }
 
-            // Desconectar de la base de datos
             this.conexion.desconectarBD(conn);
         } catch (SQLException var6) {
             mostrarAlertaConexionFallida();
         }
 
-        // Devolver la lista de reservas para el cliente
-        return this.reservas; // Devuelve la lista que puede estar vacía si hubo un error
+        return this.reservas; // Devuelve la lista de todas las reservas ordenadas
     }
 
     public void addReserva(ReservaVO r) throws ExcepcionReserva {

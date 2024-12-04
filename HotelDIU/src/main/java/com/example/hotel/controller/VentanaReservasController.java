@@ -11,11 +11,15 @@ import javafx.scene.control.*;
 
 public class VentanaReservasController {
 
-
     @FXML
     public TableView<Reserva> reservaTable;
+
+    // Estas variables ya están definidas, no es necesario redefinirlas aquí
     @FXML
     public TableColumn<Reserva, String> codigoReserva;
+    @FXML
+    public TableColumn<Reserva, String> fechaLlegadaReserva;
+
     @FXML
     Label dniClienteLabel;
     @FXML
@@ -32,18 +36,20 @@ public class VentanaReservasController {
     CheckBox checkFumador;
     @FXML
     Label fumadorLabel;
+
     HotelModelo hotelModelo;
     Persona persona;
-    public ObservableList<Reserva> listaReservas= FXCollections.observableArrayList();
+    public ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
 
     //pasamos el cliente seleccionado para mostrar las reservas
     public void setClienteSeleccionado(Persona cliente) {
-        this.persona = cliente;//imp
-        // Obtener las reservas del cliente seleccionado (suponiendo que el dni de la persona es único)
+        this.persona = cliente; // Seteamos la persona seleccionada
+        // Obtener las reservas del cliente seleccionado
         listaReservas.setAll(hotelModelo.getListaReservas(cliente.getDni()));
         reservaTable.setItems(listaReservas);  // Mostrar las reservas en la tabla
         dniClienteLabel.setText(persona.getNombre_completo());
     }
+
     public void setHotelModelo(HotelModelo hotelModelo) {
         this.hotelModelo = hotelModelo;
     }
@@ -51,40 +57,32 @@ public class VentanaReservasController {
     Main main;
     public void setMain(Main main) {
         this.main = main;
-
-        //como el metodo get de la lista observable lo tenemos en el main,
-        //lo ponemos en el setMain para que se actulice al pasarle la referencia del main
-        //reservaTable.setItems(main.getListaReservas());
     }
 
     @FXML
-    public void initialize(){
-
-        // Se inciializa la lista de Reservas mostrando solo el codigo
-        //        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+    public void initialize() {
+        // Se inicializa la lista de Reservas mostrando el código de la reserva y la fecha de llegada
         codigoReserva.setCellValueFactory(cellData -> cellData.getValue().codigoProperty());
 
-        //cuando se seleccione una persona del table, se muestran los detalles mediante
-        //un listener
+        // Nueva columna para la fecha de llegada
+        fechaLlegadaReserva.setCellValueFactory(cellData -> cellData.getValue().horaLlegadaProperty().asString());
 
+        // Cuando se seleccione una reserva en el table, se muestran los detalles mediante un listener
         reservaTable.getSelectionModel().selectedItemProperty().addListener
-                ((observable,oldValue,newValue) ->mostrarDetalles(newValue));
-
+                ((observable, oldValue, newValue) -> mostrarDetalles(newValue));
     }
-
 
     private void mostrarDetalles(Reserva r) {
         if (r != null) {
-            // Fill the labels with info from the person object.
             numHabitacionesLabel.setText(String.valueOf(r.getNumHabitaciones()));
             tipoHabitacionLabel.setText(r.getTipoHabitacion());
             regimenHabitacionLabel.setText(r.getRegimenHabitacion());
             fechaLlegadaLabel.setText(String.valueOf(r.getHoraLlegada()));
             fechaSalidaLabel.setText(String.valueOf(r.getHoraSalida()));
             checkFumador.setSelected(r.isEsFumador());
-            if(r.isEsFumador()){
-                fumadorLabel.setText("\"En virtud de la ley de sanidad se informa a los clientes de que solo podrán fumar en las habitaciones\n" +
-                        "reservadas para tal fin.\"");
+            if (r.isEsFumador()) {
+                fumadorLabel.setText("\"En virtud de la ley de\n sanidad se informa a los clientes de\n que solo podrán\n fumar en las habitaciones\n reservadas para tal fin.\"");
+                fumadorLabel.setStyle("-fx-font-size: 7pt;");
             }
             checkFumador.setDisable(true);
         } else {
@@ -94,58 +92,34 @@ public class VentanaReservasController {
             fechaLlegadaLabel.setText("");
             fechaSalidaLabel.setText("");
         }
-
     }
 
     @FXML
     private void handleNewReserva() {
         Reserva nuevaReservaCreada = new Reserva(); // Crea una nueva reserva
+        nuevaReservaCreada.setDniCliente(persona.getDni()); // Asocia el DNI del cliente seleccionado
 
-        // Asocia el DNI del cliente seleccionado
-        nuevaReservaCreada.setDniCliente(persona.getDni());
-
-        // Muestra la ventana para crear la reserva
         boolean okClicked = main.cargarVentanaCreacionReserva(nuevaReservaCreada);
-
-        if (okClicked) { // Si el usuario confirma
-            // Agrega la nueva reserva a la lista observable
-            listaReservas.add(nuevaReservaCreada);
-
-            // Agrega la nueva reserva a la base de datos
-            hotelModelo.addReservaVOtoBD(nuevaReservaCreada);
-
-            //reservaTable.setItems(null); // Limpia temporalmente el TableView
-            //reservaTable.setItems(main.getListaReservas()); // Reasigna la lista observable
+        if (okClicked) {
+            listaReservas.add(nuevaReservaCreada); // Agrega la nueva reserva a la lista observable
+            hotelModelo.addReservaVOtoBD(nuevaReservaCreada); // Agrega la nueva reserva a la base de datos
         }
     }
-
-
 
     @FXML
     public void handleDeleteReserva() {
         int indiceEliminar = reservaTable.getSelectionModel().getSelectedIndex();
         if (indiceEliminar >= 0) {
-            //cogemos el Contacto con el indice que seleccionam os de
-            // la interfaz del table view y le restamos uno, ya que la bd sigue unn indice mas
-            //que la inmterfaz
-
-            //cogemos el metodo de hotelModelo para eliminar de la bd
-            Reserva reservaEliminar=reservaTable.getItems().get(indiceEliminar);
+            Reserva reservaEliminar = reservaTable.getItems().get(indiceEliminar);
             hotelModelo.deleteReservaVOtoBD(reservaEliminar);
-
-            //lo quitamos de la interfaz
             reservaTable.getItems().remove(indiceEliminar);
-
         } else {
-            // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Reserva no seleccionada");
             alert.setContentText("Seleccione una reserva que desea eliminar");
             alert.showAndWait();
-
         }
     }
-
 
     @FXML
     private void handleEditReserva() {
@@ -153,22 +127,14 @@ public class VentanaReservasController {
         if (reservaEditar != null) {
             boolean okClicked = main.cargarVentanaEdicionReserva(reservaEditar);
             if (okClicked) {
-
                 mostrarDetalles(reservaEditar);
                 hotelModelo.editReservaVOtoBD(reservaEditar);
             }
-
         } else {
-            // Nada seleccionado.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Reserva no seleccionada");
             alert.setContentText("Seleccione una reserva que desea editar");
             alert.showAndWait();
-
         }
     }
-
-
-
-
 }

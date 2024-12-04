@@ -95,6 +95,7 @@ public class VentanaClientesController {
             //dialogStage.initModality(Modality.WINDOW_MODAL);
             //dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
+            scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
             dialogStage.setScene(scene);
 
             VentanaReservasController controller = loader.getController();

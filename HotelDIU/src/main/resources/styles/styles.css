@@ -24,6 +24,14 @@
     -fx-background-color: black;
 }
 
+/* Estilo para los items dentro de los submenús */
+.menu .menu-item {
+    -fx-background-color: #000000; /* Fondo negro para los items dentro de submenús */
+    -fx-text-fill: #FFFFFF; /* Texto blanco */
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 10pt;
+}
+
 
 /* Estilo de los botones */
 /* Estilo global para todos los botones */
@@ -155,3 +163,60 @@
     -fx-bar-fill: #FF0000; /* Barra de color blanco */
     -fx-text-fill: #E6ECED;
 }
+
+/* Cambiar el color del ProgressIndicator */
+.progress-indicator {
+    -fx-accent: white; /* Cambia el color de la barra de progreso a blanco */
+    -fx-background-color: transparent; /* Hacer el fondo transparente */
+}
+
+.split-button {
+    -fx-background-color: #000000; /* Fondo negro para el split button */
+    -fx-text-fill: #000000; /* Texto blanco para el split button */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+}
+
+.split-button:hover {
+    -fx-background-color: #333333; /* Fondo gris oscuro al pasar el ratón */
+    -fx-text-fill: #000000; /* Texto blanco al pasar el ratón */
+}
+
+.split-button .split-menu-button .menu-item {
+    -fx-background-color: #000000; /* Fondo negro para las opciones del menú */
+    -fx-text-fill: #000000; /* Texto blanco en las opciones */
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.split-button .split-menu-button .menu-item:hover {
+    -fx-background-color: #000000; /* Fondo gris oscuro al pasar el ratón por las opciones del menú */
+    -fx-text-fill: #000000; /* Texto blanco al pasar el ratón por las opciones del menú */
+}
+
+.split-button .split-menu-button .menu-item:pressed {
+    -fx-background-color: #000000; /* Fondo negro al hacer clic en una opción */
+    -fx-text-fill: #000000; /* Texto blanco al hacer clic en una opción */
+}
+
+.progress-indicator {
+    -fx-accent: white; /* Cambia el color de la barra de progreso a blanco */
+    -fx-background-color: transparent; /* Fondo transparente */
+    -fx-text-fill: white; /* Cambia el color del texto a blanco */
+}
+
+.progress-indicator .text {
+    -fx-text-fill: white;  /* Texto blanco */
+    -fx-font-weight: bold; /* Negrita */
+}
+
+/* Estilo para el Label o CheckBox del fumadorCheckLabel */
+#fumadorCheckLabel {
+    -fx-font-size: 7pt;  /* Establece el tamaño de la fuente a 7pt */
+}
+
+
+
+
+
+

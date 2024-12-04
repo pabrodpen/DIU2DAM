@@ -72,11 +72,20 @@ public class HotelModelo {
         actualizarNumReservas();
     }
 
-    public Persona buscarPersonaVOBD(String dni){
-       PersonaVO personaVO= repository.buscarPersona(dni);
-       Persona persona=personaUtil.personaVOtoPersona(personaVO);
-       return persona;
+    public Persona buscarPersonaVOBD(String dni) {
+        // Buscar persona en el repositorio
+        PersonaVO personaVO = repository.buscarPersona(dni);
+
+        // Verificar si la persona existe
+        if (personaVO == null) {
+            return null; // Si no se encuentra la persona, devolver null
+        }
+
+        // Convertir PersonaVO a Persona
+        Persona persona = personaUtil.personaVOtoPersona(personaVO);
+        return persona;  // Retornar la persona encontrada
     }
+
 
     //cogemos lista de PersonasVO y ReservasVO de repository y los volvemos Personas y Reservas
     //con los metodos de util para mandar estas listas al controller

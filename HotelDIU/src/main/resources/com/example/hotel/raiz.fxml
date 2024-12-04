@@ -7,28 +7,36 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../styles/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hotel.controller.RaizController">
-   <children>
-      <BorderPane layoutX="178.0" layoutY="110.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   </children>
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Buscador ">
-               <graphic>
-                  <TextField fx:id="buscadorField" onAction="#handleBuscador" prefHeight="29.0" prefWidth="91.0" promptText="DNI cliente" />
-               </graphic>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Habitaciones">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleGaleria" text="Tipos de habitaciones" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Reservas">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleEstadisticas" text="Reservas por mes" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
+    <children>
+        <BorderPane layoutX="178.0" layoutY="110.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    </children>
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Buscador ">
+                    <graphic>
+                        <TextField fx:id="buscadorField" onAction="#handleBuscador" prefHeight="29.0" prefWidth="91.0" promptText="DNI cliente" />
+                    </graphic>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Habitaciones">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleGaleriaDobles" text="Dobles" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGaleriaDoblesIndividuales" text="Dobles Individual" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGaleriaJunior" text="Junior Suite" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGaleriaSuite" text="Suite" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Reservas">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleEstadisticas" text="Reservas por mes" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="Javadoc">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleVerDocumentacion" text="Ver documentacion" />
+               </items>
+            </Menu>
+            </menus>
+        </MenuBar>
+    </top>
 </BorderPane>

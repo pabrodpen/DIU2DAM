@@ -35,9 +35,9 @@
                   <Label text="Fecha de salida" GridPane.rowIndex="3" />
                   <TextField fx:id="codigoField" GridPane.columnIndex="1" />
                         <Spinner fx:id="spinnerNumHabitaciones" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <SplitMenuButton fx:id="tipoHabitacionMenu" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <SplitMenuButton fx:id="tipoHabitacionMenu" mnemonicParsing="false" styleClass="anchor-pane" GridPane.columnIndex="1" GridPane.rowIndex="6">
                   </SplitMenuButton>
-                  <SplitMenuButton fx:id="regimenHabitacionMenu" mnemonicParsing="false" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <SplitMenuButton fx:id="regimenHabitacionMenu" mnemonicParsing="false" styleClass="anchor-pane" text="SplitMenuButton" GridPane.columnIndex="1" GridPane.rowIndex="7">
                   </SplitMenuButton>
                   <DatePicker fx:id="fechaLlegadaPicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <DatePicker fx:id="fechaSalidaPicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -45,7 +45,7 @@
                   <Label text="Hora de salida" GridPane.rowIndex="4" />
                   <TextField fx:id="horaLlegadaField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="horaSalidaField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <CheckBox fx:id="fumadorCheckBox" mnemonicParsing="false" text="Habitacion para fumador" GridPane.rowIndex="8" />
+                  <CheckBox fx:id="fumadorCheckBox" mnemonicParsing="false" text="Habitacion para fumador" textFill="WHITE" GridPane.rowIndex="8" />
                     </children>
                 </GridPane>
                 <HBox layoutX="422.0" layoutY="348.0" prefHeight="26.0" spacing="5.0">
