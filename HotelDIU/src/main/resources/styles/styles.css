@@ -137,3 +137,21 @@
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: #E6ECED; /* Color de texto verde neón */
 }
+
+/* Estilo de los textos de los Label */
+.label {
+    -fx-text-fill: #E6ECED;  /* Color de texto verde neón */
+}
+/* Fondo oscuro para el contenedor principal */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #000000, #333333); /* Fondo oscuro */
+}
+
+/* Fondo para el GridPane dentro del AnchorPane */
+.grid-pane {
+    -fx-background-color: #333333; /* Fondo oscuro */
+}
+.chart-bar {
+    -fx-bar-fill: #FF0000; /* Barra de color blanco */
+    -fx-text-fill: #E6ECED;
+}

@@ -18,7 +18,7 @@
                       <TableColumn fx:id="codigoReserva" prefWidth="215.0" />
                     </columns>
                   </TableView>
-                  <Label fx:id="dniClienteLabel" layoutX="14.0" layoutY="4.0" text="Label">
+                  <Label fx:id="dniClienteLabel" layoutX="82.0" layoutY="14.0" text="Cliente">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -30,8 +30,8 @@
                   <Label layoutX="87.0" layoutY="5.0" text="DETALLES DE RESERVA" />
                   <GridPane layoutX="14.0" layoutY="39.0" prefHeight="298.0" prefWidth="329.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="138.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="191.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="163.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="166.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -47,11 +47,11 @@
                         <Label text="Regimen habitacion" GridPane.rowIndex="4" />
                         <Label text="Fecha de llegada" />
                         <Label text="Fecha de salida" GridPane.rowIndex="1" />
-                        <Label fx:id="fechaLlegadaLabel" prefHeight="19.0" prefWidth="170.0" text="Fecha llegada de la reserva" GridPane.columnIndex="1" />
-                        <Label fx:id="fechaSalidaLabel" text="Fecha salida de la reserva" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="numHabitacionesLabel" text="Numero habitaciones  reserva" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="tipoHabitacionLabel" text="Tipo habitacion de reserva" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="regimenHabitacionLabel" text="Regimen habitacion de reserva" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="fechaLlegadaLabel" prefHeight="19.0" prefWidth="170.0" text="Reserva" GridPane.columnIndex="1" />
+                        <Label fx:id="fechaSalidaLabel" text="Reserva" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="numHabitacionesLabel" text="Reserva" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="tipoHabitacionLabel" text="Reserva" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="regimenHabitacionLabel" text="Reserva" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <CheckBox fx:id="checkFumador" mnemonicParsing="false" text="Fumador" textFill="#e6eced" GridPane.rowIndex="5" />
                         <Label fx:id="fumadorLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
