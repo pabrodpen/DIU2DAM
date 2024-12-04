@@ -11,6 +11,7 @@ import com.example.hotel.view.ReservaUtil;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +32,7 @@ public class Main extends Application {
     RepositoryImpl repository;
     PersonaUtil personaUtil;
     ReservaUtil reservaUtil;
+    VentanaClientesController ventanaClientesController=new VentanaClientesController();
 
     Persona clienteSeleccionado;
 
@@ -74,25 +76,40 @@ public class Main extends Application {
         this.clienteSeleccionado = cliente;
     }
 
-    public void cargarRaiz(){
+    public void cargarRaiz() {
         try {
-            // Cargar el layout raíz desde el archivo FXML.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/com/example/hotel/raiz.fxml"));
-            raiz = (BorderPane) loader.load();
+            raiz = loader.load();
 
-            // Mostrar la escena que contiene el layout raíz.
             Scene scene = new Scene(raiz);
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            // Obtener el controlador del root layout y establecer la referencia de MainApp.
-            RaizController controller = loader.getController();
-            controller.setMain(this); // Pasar la referencia de MainApp
+            RaizController raizController = loader.getController();
+            raizController.setMain(this);
+            raizController.setHotelModelo(hotelModelo);
+
+            // Cargar VentanaClientesController y pasarselo a RaizController
+            FXMLLoader clienteLoader = new FXMLLoader();
+            clienteLoader.setLocation(Main.class.getResource("/com/example/hotel/ventana-clientes.fxml"));
+            AnchorPane ventanaClientes = clienteLoader.load();
+
+            VentanaClientesController ventanaClientesController = clienteLoader.getController();
+            ventanaClientesController.setMain(this);
+            ventanaClientesController.setHotelModelo(hotelModelo);
+
+            // Pasaer el VentanaClientesController a RaizController
+            raizController.setVentanaClienteController(ventanaClientesController);
+
+            // Set VentanaClientesController in the root layout
+            raiz.setCenter(ventanaClientes);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void cargarVentanaPrincipal(){
         try {
@@ -264,6 +281,34 @@ public class Main extends Application {
             return false;
         }
     }
+
+    public void mostrarEstadisticas() {
+        try {
+            // Load the FXML file for the statistics view
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/hotel/ventana-reservas-por-mes.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create a new stage for the statistics popup
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Estadísticas de Reservas");
+            dialogStage.initOwner(primaryStage); // Link the dialog to the main stage
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the controller for the statistics view
+            VentanaEstadisticasReservasController controller = loader.getController();
+            controller.setPersonData(hotelModelo.getListaTodasReservas()); // Pass the reservation data
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public static void main(String[] args) {
         launch();

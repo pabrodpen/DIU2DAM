@@ -80,42 +80,48 @@ public class VentanaCreacionClientesController {
     //metodo para cuando pulsemos el boton OK
     @FXML
     public void handleOkClicked() {
-        try{
-            if(persona == null) {
+        try {
+            if (persona == null) {
                 persona = new Persona();
             }
-            if(!(validarDNI(dniField.getText()))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("DNI no valido");
-                alert.setHeaderText("Error de datos");
-                alert.setContentText("Lo siento, el DNI no es valido");
-                alert.showAndWait();
-            }else{
-                if(dniExistente(dniField.getText())) {
+
+            if (dniField.isDisable()) {
+                // Modo edición: No se valida ni verifica el DNI, ya que está deshabilitado
+                persona.setNombre_completo(nombreField.getText());
+                persona.setDireccion(direccionField.getText());
+                persona.setLocalidad(localidadField.getText());
+                persona.setProvincia(provinciaField.getText());
+                isOkClicked = true;
+                dialogoStage.close();
+            } else {
+                // Modo creación: Validamos y verificamos el DNI
+                if (!validarDNI(dniField.getText())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("DNI no válido");
+                    alert.setHeaderText("Error de datos");
+                    alert.setContentText("Lo siento, el DNI no es válido.");
+                    alert.showAndWait();
+                } else if (dniExistente(dniField.getText())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("DNI ya existente");
                     alert.setHeaderText("Error de datos");
-                    alert.setContentText("Lo siento, el DNI ya esta registrado");
+                    alert.setContentText("Lo siento, el DNI ya está registrado.");
                     alert.showAndWait();
-                }else{
+                } else {
                     persona.setDni(dniField.getText());
                     persona.setNombre_completo(nombreField.getText());
                     persona.setDireccion(direccionField.getText());
                     persona.setLocalidad(localidadField.getText());
                     persona.setProvincia(provinciaField.getText());
-                    //ponemos el booleano en true
                     isOkClicked = true;
-                    //cerramos la ventana de dialogo
                     dialogoStage.close();
                 }
             }
-
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
+
 
     private static final String LETRAS_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
 

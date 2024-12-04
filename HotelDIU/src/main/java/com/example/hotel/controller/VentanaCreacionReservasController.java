@@ -152,27 +152,7 @@ public class VentanaCreacionReservasController {
             reserva = new Reserva();
         }
 
-        if (codigoExistente(codigoField.getText())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Codigo de reserva ya existente");
-            alert.setTitle("Error de datos");
-            alert.setContentText("Lo siento, el codigo de la reserva ya esta registrado");
-            alert.showAndWait();
-        } else if (!(validacionfechaLlegadaFechaActual(fechaLlegadaPicker.getValue()))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Fecha de llegada no valida");
-            alert.setTitle("Error de datos");
-            alert.setContentText("La fecha de llegada tiene que ser posterior a la fecha de hoy");
-            alert.showAndWait();
-        }else if(!(validacionFechasLlegadaYSalida(fechaLlegadaPicker.getValue(),fechaSalidaPicker.getValue()))){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Fechas no validas");
-            alert.setTitle("Error de datos");
-            alert.setContentText("La fecha de salida tiene que ser posterior a la fecha de llegada");
-            alert.showAndWait();
-        }else{
-            // Obtenemos los datos ingresados por el usuario
-            reserva.setCodigo(codigoField.getText());
+        if(codigoField.isDisable()){
             reserva.setNumHabitaciones(spinnerNumHabitaciones.getValue()); // Usar el Spinner
             reserva.setTipoHabitacion(tipoHabitacionMenu.getText());
             reserva.setRegimenHabitacion(regimenHabitacionMenu.getText());
@@ -196,7 +176,55 @@ public class VentanaCreacionReservasController {
 
             // Cerramos la ventana de diálogo
             dialogoStage.close();
+        }else{
+            if (codigoExistente(codigoField.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Codigo de reserva ya existente");
+                alert.setTitle("Error de datos");
+                alert.setContentText("Lo siento, el codigo de la reserva ya esta registrado");
+                alert.showAndWait();
+            } else if (!(validacionfechaLlegadaFechaActual(fechaLlegadaPicker.getValue()))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Fecha de llegada no valida");
+                alert.setTitle("Error de datos");
+                alert.setContentText("La fecha de llegada tiene que ser posterior a la fecha de hoy");
+                alert.showAndWait();
+            }else if(!(validacionFechasLlegadaYSalida(fechaLlegadaPicker.getValue(),fechaSalidaPicker.getValue()))){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Fechas no validas");
+                alert.setTitle("Error de datos");
+                alert.setContentText("La fecha de salida tiene que ser posterior a la fecha de llegada");
+                alert.showAndWait();
+            }else{
+                // Obtenemos los datos ingresados por el usuario
+                reserva.setCodigo(codigoField.getText());
+                reserva.setNumHabitaciones(spinnerNumHabitaciones.getValue()); // Usar el Spinner
+                reserva.setTipoHabitacion(tipoHabitacionMenu.getText());
+                reserva.setRegimenHabitacion(regimenHabitacionMenu.getText());
+
+                // Convertir las fechas y horas de los campos de texto
+                LocalDate fechaLlegada = fechaLlegadaPicker.getValue();
+                LocalDate fechaSalida = fechaSalidaPicker.getValue();
+
+                // Parseamos las horas
+                LocalTime horaLlegada = LocalTime.parse(horaLlegadaField.getText());
+                LocalTime horaSalida = LocalTime.parse(horaSalidaField.getText());
+
+                // Establecemos las fechas y horas en el objeto reserva
+                reserva.setHoraLlegada(fechaLlegada.atTime(horaLlegada));
+                reserva.setHoraSalida(fechaSalida.atTime(horaSalida));
+
+                reserva.setEsFumador(fumadorCheckBox.isSelected());
+
+                // Establecemos el booleano en true para indicar que se hizo clic en OK
+                isOkClicked = true;
+
+                // Cerramos la ventana de diálogo
+                dialogoStage.close();
+            }
         }
+
+
 
     }
 

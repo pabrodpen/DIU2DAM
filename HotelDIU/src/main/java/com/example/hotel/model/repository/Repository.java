@@ -19,6 +19,8 @@ public interface Repository {
 
     void editPersona(PersonaVO var1) throws ExcepcionPersona;
 
+    PersonaVO buscarPersona(String var1) throws ExcepcionPersona;
+
 
     ArrayList<ReservaVO> ObtenerListaReservas(String dni) throws ExcepcionReserva;
 
@@ -29,6 +31,8 @@ public interface Repository {
     void deleteReserva(String var1) throws ExcepcionReserva;
 
     void editReserva(ReservaVO var1) throws ExcepcionReserva;
+
+    int numHabitacionesOcupadas(String tipoHabitacion) throws ExcepcionReserva;
 }
 
 

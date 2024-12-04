@@ -12,6 +12,7 @@ module com.example.hotel {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires javafx.graphics;
+    requires java.desktop;
 
     opens com.example.hotel to javafx.fxml;
     exports com.example.hotel;

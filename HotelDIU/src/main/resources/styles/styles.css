@@ -1,0 +1,139 @@
+/* Fondo oscuro con degradado */
+.background {
+    background: linear-gradient(to bottom, #000000, #333333); /* Degradado de negro a gris oscuro */
+}
+
+/* Estilo del menú */
+.menu-bar {
+    -fx-background-color: derive(#000000,20%);
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: #000000;  /* Fondo oscuro cuando el ratón está sobre el item */
+    -fx-text-fill: #000000;
+}
+
+.menu-bar .label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #E6ECED;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+
+
+/* Estilo de los botones */
+/* Estilo global para todos los botones */
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #000000;
+    /*-fx-border-width: 2;*/
+    -fx-background-radius: 0;
+    -fx-background-color: #000000;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 9pt;
+    -fx-text-fill: #E6ECED;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #000000;
+}
+
+.button:pressed, .button:default:hover:pressed {
+    -fx-background-color: #000000;
+    -fx-text-fill: #E6ECED;
+}
+
+.button:focused {
+    -fx-border-color: #000000, #000000;
+    -fx-border-width: 1, 1;
+    /*-fx-border-style: solid, segments(1, 1);*/
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1F9E7B;
+    -fx-text-fill: E6ECED;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #E6ECED;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+/* Estilo de la tabla */
+.table-view {
+    -fx-base: #000000;
+    -fx-control-inner-background: #000000;
+    -fx-background-color: #000000;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+    -fx-text-fill: #E6ECED; /* Color de texto verde neón en la tabla */
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+            transparent
+            transparent
+            derive(-fx-base, 80%)
+            transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #E6ECED; /* Color de texto verde neón para las cabeceras de la tabla */
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #E6ECED; /* Color de texto verde neón en las celdas */
+}
+
+/* Estilo para las celdas de la tabla seleccionadas */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #000000;  /* Color verde neón para el fondo de las celdas seleccionadas */
+    -fx-text-fill: #000000;  /* Color del texto en las celdas seleccionadas (puedes ajustarlo a tu preferencia) */
+}
+
+
+
+/* Estilo del split-pane */
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+    -fx-background-color: linear-gradient(to bottom, #000000, #333333); /* Gradiente para el split-pane */
+}
+
+.split-pane .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #E6ECED; /* Color de texto verde neón */
+}

@@ -13,7 +13,6 @@ import com.example.hotel.model.repository.Repository;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -110,6 +109,42 @@ public class RepositoryImpl implements Repository {
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido realizar la edición");
         }
+    }
+
+    @Override
+    public PersonaVO buscarPersona(String dni) throws ExcepcionPersona {
+        PersonaVO persona = null; // Initialize the PersonaVO object as null
+
+        try {
+            Connection conn = this.conexion.conectarBD();
+            if (conn == null) {
+                mostrarAlertaConexionFallida();
+                return null;
+            }
+
+            String sql = "SELECT * FROM personas WHERE dni = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, dni);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String nombre = rs.getString("nombre_completo");
+                String direccion = rs.getString("direccion");
+                String localidad = rs.getString("localidad");
+                String provincia = rs.getString("provincia");
+
+                persona = new PersonaVO(dni, nombre, direccion, localidad, provincia);
+            }
+
+            // Close the resources
+            rs.close();
+            pstmt.close();
+            this.conexion.desconectarBD(conn);
+        } catch (SQLException e) {
+            throw new ExcepcionPersona("Error al buscar la persona: " + e.getMessage());
+        }
+
+        return persona;
     }
 
     @Override
@@ -283,6 +318,40 @@ public class RepositoryImpl implements Repository {
         } catch (SQLException e) {
             throw new ExcepcionReserva("No se ha podido realizar la edición: " + e.getMessage());
         }
+    }
+
+    @Override
+    public int numHabitacionesOcupadas(String tipoHabitacion) throws ExcepcionReserva {
+        int numReservas = 0; // Initialize the count to zero
+
+        try {
+            // Establish a connection to the database
+            Connection conn = this.conexion.conectarBD();
+            if (conn == null) {
+                mostrarAlertaConexionFallida();
+                return numReservas;
+            }
+
+            // Prepare the SQL query to count reservations for the given room type
+            String sql = "SELECT COUNT(*) AS total FROM reservas WHERE tipo_habitacion = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, tipoHabitacion); // Set the room type parameter
+            ResultSet rs = pstmt.executeQuery();
+
+            // Retrieve the count from the result set
+            if (rs.next()) {
+                numReservas = rs.getInt("total");
+            }
+
+            // Close resources
+            rs.close();
+            pstmt.close();
+            this.conexion.desconectarBD(conn);
+        } catch (SQLException e) {
+            throw new ExcepcionReserva("Error al calcular el número de reservas: " + e.getMessage());
+        }
+
+        return numReservas;
     }
 
 
