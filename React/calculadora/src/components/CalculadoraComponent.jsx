@@ -1,90 +1,42 @@
 import React, { Component } from 'react';
-//import '../styles/counterApp.css';
+import '../styles/style.css'; // Aquí iría el archivo CSS para estilos personalizados
 
 class CalculadoraComponent extends Component {
   render() {
     const { texto, realizarOperacion, limpiar, escribir, negativo } = this.props;
 
     return (
-      <div className="container">
+      <div className="calculadora-container">
         {/* Pantalla de la calculadora */}
-        <div className="row">
-          <div className="col-12">
-            <input value={texto} readOnly />
-          </div>
+        <div className="pantalla">
+          <input className="pantalla-input" value={texto} readOnly />
         </div>
 
-        {/* Botones organizados en una cuadrícula */}
-        <div className="row text-center">
-          <div className="col-3">
-            <button  onClick={limpiar}>AC</button>
-          </div>
-          <div className="col-3">
-            <button  onClick={negativo}>+/-</button>
-          </div>
-          <div className="col-3">
-            <button  onClick={escribir}>%</button>
-          </div>
-          <div className="col-3">
-            <button  onClick={escribir}>/</button>
-          </div>
-        </div>
+        {/* Botones organizados */}
+        <div className="botones-grid">
+          <button className="boton gris" onClick={limpiar}>AC</button>
+          <button className="boton gris" onClick={negativo}>+/-</button>
+          <button className="boton gris" onClick={() => escribir('%')}>%</button>
+          <button className="boton naranja" onClick={() => escribir('/')}>/</button>
 
-        <div className="row">
-          <div className="col-3">
-            <button  onClick={escribir}>7</button>
-          </div>
-          <div className="col-3">
-            <button  onClick={escribir}>8</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>9</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>*</button>
-          </div>
-        </div>
+          <button className="boton" onClick={() => escribir('7')}>7</button>
+          <button className="boton" onClick={() => escribir('8')}>8</button>
+          <button className="boton" onClick={() => escribir('9')}>9</button>
+          <button className="boton naranja" onClick={() => escribir('*')}>*</button>
 
-        <div className="row">
-          <div className="col-3">
-            <button onClick={escribir}>4</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>5</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>6</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>-</button>
-          </div>
-        </div>
+          <button className="boton" onClick={() => escribir('4')}>4</button>
+          <button className="boton" onClick={() => escribir('5')}>5</button>
+          <button className="boton" onClick={() => escribir('6')}>6</button>
+          <button className="boton naranja" onClick={() => escribir('-')}>-</button>
 
-        <div className="row">
-          <div className="col-3">
-            <button onClick={escribir}>1</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>2</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>3</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>+</button>
-          </div>
-        </div>
+          <button className="boton" onClick={() => escribir('1')}>1</button>
+          <button className="boton" onClick={() => escribir('2')}>2</button>
+          <button className="boton" onClick={() => escribir('3')}>3</button>
+          <button className="boton naranja" onClick={() => escribir('+')}>+</button>
 
-        <div className="row">
-          <div className="col-6">
-            <button onClick={escribir}>0</button>
-          </div>
-          <div className="col-3">
-            <button onClick={escribir}>.</button>
-          </div>
-          <div className="col-3">
-            <button onClick={realizarOperacion}>=</button>
-          </div>
+          <button className="boton grande" onClick={() => escribir('0')}>0</button>
+          <button className="boton" onClick={() => escribir('.')}>.</button>
+          <button className="boton naranja" onClick={realizarOperacion}>=</button>
         </div>
       </div>
     );
