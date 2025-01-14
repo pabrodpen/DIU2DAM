@@ -6,19 +6,25 @@ import * as math from 'mathjs';
 const App=()=>{
 /*useState es un Hook de React que te permite agregar y manejar un estado en un componente funcional.
 El argumento que pasas a useState (en este caso, "") es el valor inicial del estado.*/ 
-
   const[texto,setTexto]=useState("")
+  const [resultadoMostrado,setResultado]=useState(false)
 
   const realizarOperacion=()=>{
     try{
       setTexto(math.evaluate(texto).toString())
+      setResultado(true)
     }catch{
       setTexto("Error")
     }
   }
 
   const escribir=(valor)=>{
-    setTexto(texto+valor)
+    if(resultadoMostrado && !isNaN(valor)){//si se ha mostrado el resultado y se escribe un valor que no sea un numero
+      setTexto(valor)
+    }else{
+      setTexto(texto+valor)
+    }
+    setResultado(false)
   }
 
   const limpiar=()=>{
