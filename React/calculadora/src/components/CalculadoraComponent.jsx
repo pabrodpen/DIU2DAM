@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/style.css'; // Aquí iría el archivo CSS para estilos personalizados
+import '../styles/style.css'; 
 
 class CalculadoraComponent extends Component {
   render() {
@@ -7,12 +7,10 @@ class CalculadoraComponent extends Component {
 
     return (
       <div className="calculadora-container">
-        {/* Pantalla de la calculadora */}
         <div className="pantalla">
           <input className="pantalla-input" value={texto} readOnly />
         </div>
 
-        {/* Botones organizados */}
         <div className="botones-grid">
           <button className="boton gris" onClick={limpiar}>AC</button>
           <button className="boton gris" onClick={negativo}>+/-</button>

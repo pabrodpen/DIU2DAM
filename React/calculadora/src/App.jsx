@@ -1,50 +1,56 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './App.css';
 import CalculadoraComponent from './components/CalculadoraComponent';
 import * as math from 'mathjs';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      texto: "",
-    };
-  }
+const App=()=>{
+/*useState es un Hook de React que te permite agregar y manejar un estado en un componente funcional.
+El argumento que pasas a useState (en este caso, "") es el valor inicial del estado.*/ 
 
-  realizarOperacion = () => {
-    try {
-      this.setState({ texto: math.evaluate(this.state.texto).toString() });
-    } catch (e) {
-      this.setState({ texto: "Error" });
+  const[texto,setTexto]=useState("")
+
+  const realizarOperacion=()=>{
+    try{
+      setTexto(math.evaluate(texto).toString())
+    }catch{
+      setTexto("Error")
     }
-  };
-
-  escribir = (valor) => {
-    this.setState({ texto: this.state.texto + valor });
-  };
-
-  limpiar = () => {
-    this.setState({ texto: "" });
-  };
-
-  negativo = () => {
-      this.setState({ texto: (-1 * parseFloat(this.state.texto)).toString() });
-  };
-
-  render() {
-    return (
-      <>
-        <h1>Calculadora en React</h1>
-        <CalculadoraComponent
-          texto={this.state.texto}
-          escribir={this.escribir}
-          realizarOperacion={this.realizarOperacion}
-          limpiar={this.limpiar}
-          negativo={this.negativo}
-        />
-      </>
-    );
   }
+
+  const escribir=(valor)=>{
+    setTexto(texto+valor)
+  }
+
+  const limpiar=()=>{
+    setTexto("")
+  }
+
+  const negativo=()=>{
+    try{
+      setTexto(-1 * parseFloat(texto).toString())
+    }catch{
+      setTexto("Error")
+    }
+  }
+
+
+
+
+  return (
+    <>
+      <h1>Calculadora en React</h1>
+      <CalculadoraComponent
+        texto={texto}
+        escribir={escribir}
+        realizarOperacion={realizarOperacion}
+        limpiar={limpiar}
+        negativo={negativo}
+      />
+    </>
+  );
+
 }
 
 export default App;
+
+  
