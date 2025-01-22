@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import CalculadoraComponent from './components/FormularioComponent';
+import TablaComponent from './components/TablaComponent';
 import FormularioComponent from './components/FormularioComponent';
 
 class App extends Component {
@@ -8,41 +8,53 @@ class App extends Component {
     super();
     this.state = {
       artista: "", 
-      cancion:""
+      cancion:"",
+      letra: []
     };
   }
 
-  // Función para realizar la operación matemática usando la API de mathjs
-  buscar = () => {
-    fetch(`http://api.mathjs.org/v4/?expr=${encodeURIComponent(this.state.texto)}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.text(); // Obtenemos el resultado como texto
-        } else {
-          throw new Error(response.statusText);
-        }
-      })
-      .then((resultado) => {
-        this.setState({ texto: resultado, resultadoMostrado: true }); // Actualizamos el estado con el resultado
-      })
-      .catch(() => {
-        this.setState({ texto: "Error", resultadoMostrado: true }); // Mostramos error si algo falla
-      });
+  // Actualiza el estado según el input
+  handleChange = (input, value) => {
+    this.setState({ [input]: value });
   };
 
 
 
+  // Busca la letra de la canción
+  buscar = () => {
+    fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(this.state.artista)}/${encodeURIComponent(this.state.cancion)}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(response.statusText);
+        }
+      })
+      .then((data) => {
+        // Añade la letra como una nueva fila
+        this.setState((prevState) => ({
+          letra: [...prevState.letra, { texto: data.lyrics || "Letra no encontrada" }]
+        }));
+      })
+      .catch((error) => {
+        console.error("Error al buscar la canción:", error);
+      });
+  };
+
+   
 
   render() {
     return (
       <>
         <h1>Buscador de canciones</h1>
         <FormularioComponent
-          texto={this.state.texto}
-          escribir={this.escribir}
-          realizarOperacion={this.realizarOperacion}
-          limpiar={this.limpiar}
-          negativo={this.negativo}
+          artista={this.state.artista}
+          cancion={this.state.cancion}
+          inputChange={this.handleChange}
+          buscar={this.buscar}
+        />
+        <TablaComponent
+          letra={this.state.letra}
         />
       </>
     );
