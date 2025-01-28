@@ -3,7 +3,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AddTutorial from "./components/add-tutorial.component";
+import AddTutorial from "./components/add-tutorials.component";
 //Componente para editar componente
 //import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";

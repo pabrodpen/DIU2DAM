@@ -79,8 +79,8 @@ export default class AddTutorial extends Component {
               value={this.addTutorial.Description}
               onChange={this.setState({description: e.target.value})}
             />
-            <input
-              type="text"
+            <checkbox
+              type="checkbox"
               className="form-control"
               placeholder="Status"
               value={this.addTutorial.Status}
