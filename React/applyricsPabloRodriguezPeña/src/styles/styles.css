@@ -1,0 +1,103 @@
+/* Estilo para el formulario */
+#formulario, .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa; /* Fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Encabezado */
+.h1 {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los inputs y labels */
+input, label {
+    margin-bottom: 15px; /* Espaciado uniforme */
+    font-family: 'Arial', sans-serif; /* Fuente estilizada */
+    font-size: 16px;
+    color: #495057;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ced4da; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    width: 300px; /* Ancho consistente */
+    background-color: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Efecto suave */
+}
+
+input:focus {
+    outline: none; /* Quita el contorno predeterminado */
+    border-color: #007bff; /* Borde azul al enfocar */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Sombra azul */
+}
+
+/* Botón de búsqueda */
+button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Fondo azul */
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Efecto suave */
+}
+
+button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+/* Tabla estilizada */
+.table {
+    margin: 20px auto;
+    padding: 1rem;
+    width: 90%;
+    max-width: 800px; /* Máximo ancho */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Elimina espacios entre celdas */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6; /* Línea divisoria */
+    font-family: 'Arial', sans-serif;
+    color: #495057;
+}
+
+th {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f1f3f5; /* Fondo al pasar el mouse */
+}
+
+/* Texto de la letra */
+.table p {
+    font-family: 'Arial', sans-serif;
+    color: #212529;
+    line-height: 1.6; /* Espaciado entre líneas */
+    white-space: pre-wrap; /* Preserva saltos de línea */
+}
