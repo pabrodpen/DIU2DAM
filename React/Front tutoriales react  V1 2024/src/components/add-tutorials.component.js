@@ -1,66 +1,40 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
-import { Link } from "react-router-dom";
 
 export default class AddTutorial extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      Id:null,
+      Id: null,
       Title: "", 
       Description: "", 
       Status: false
     };
   }
-  //Cuando se carga el componente, se realiza la petición de tutoriales a la API
-  //El método retrieveTutorials provoca la actualización del estado, y por tanto la re-renderización del componente
-  componentDidMount() {
-    this.retrieveTutorials();
-  }
 
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
+  addTutorial = () => {
+    const data = {
+      title: this.state.Title,
+      description: this.state.Description,
+      published: this.state.Status
+    };
 
-    this.setState({
-      searchTitle: searchTitle
-    });
-  }
-
-  retrieveTutorials() {
-    TutorialDataService.getAll()
-      .then(response => {
-        this.setState({
-          tutorials: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
-  
-  searchTitle() {
-    TutorialDataService.findByTitle(this.state.searchTitle)
-      .then(response => {
-        this.setState({
-          tutorials: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
-  addTutorial() {
     TutorialDataService.create(data)
-  }
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          Title: response.data.title,
+          Description: response.data.description,
+          Status: response.data.published
+        });
+      })
+      .catch(e => {
+        console.error("Error al agregar tutorial:", e);
+      });
+  };
 
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
-    //ponemos los distintos elementos del estado en variables para simplificar su acceso dentro del método
     return (
       <div className="list row">
         <div className="col-md-8">
@@ -69,36 +43,35 @@ export default class AddTutorial extends Component {
               type="text"
               className="form-control"
               placeholder="Title"
-              value={this.addTutorial.Title}
-              onChange={this.setState({title: e.target.value})}
+              value={this.state.Title}
+              onChange={(e) => this.setState({ Title: e.target.value })} 
             />
             <input
               type="text"
               className="form-control"
               placeholder="Description"
-              value={this.addTutorial.Description}
-              onChange={this.setState({description: e.target.value})}
+              value={this.state.Description}
+              onChange={(e) => this.setState({ Description: e.target.value })} 
             />
-            <checkbox
-              type="checkbox"
-              className="form-control"
-              placeholder="Status"
-              value={this.addTutorial.Status}
-              onChange={this.setState({status: e.target.value})}
-            />
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.Status}
+                onChange={(e) => this.setState({ Status: e.target.checked })} 
+              />
+              Published
+            </label>
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.create}
+                onClick={this.addTutorial} 
               >
                 Add Tutorial
               </button>
             </div>
           </div>
         </div>
-       
-        
       </div>
     );
   }
