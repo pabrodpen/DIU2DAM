@@ -86,25 +86,8 @@ export default class TutorialsList extends Component {
       });
   }
 
-  addTutorial() {
-    const data = {
-      id: null,
-      title: "",
-      description: "",
-      published: false
-    };
+  
 
-    TutorialDataService.create(data)
-    .then(response => {
-      this.setState({
-        tutorials: response.data
-      });
-      console.log(response.data);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-  }
 
   render() {
     const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;

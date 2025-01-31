@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AddTutorial from "./components/add-tutorials.component";
+import EditTutorial from "./components/edit-tutorials.component";
 //Componente para editar componente
 //import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";
@@ -35,7 +36,7 @@ class App extends Component {
           {/*El en switch se renderizarán todas los compoentes cuta URL coicidan con la activa*/}
             <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
           { <Route exact path="/add" component={AddTutorial} /> }
-          {/*  <Route path="/tutorials/:id" component={Tutorial} /> */}
+          {<Route path="/tutorials/:id" component={EditTutorial} />}
           </Switch>
         </div>
       </div>

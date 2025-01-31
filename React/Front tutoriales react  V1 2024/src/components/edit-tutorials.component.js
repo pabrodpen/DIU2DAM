@@ -6,10 +6,10 @@ export default class AddTutorial extends Component {
     super(props);
     
     this.state = {
-      Id: null,
-      Title: "", 
-      Description: "", 
-      Status: false
+      Id: this.state.Id,
+      Title: this.state.Title, 
+      Description: this.state.Description, 
+      Status: this.state.Status
     };
   }
 
