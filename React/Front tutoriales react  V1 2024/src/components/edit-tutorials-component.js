@@ -4,17 +4,19 @@ import TutorialDataService from "../services/tutorial.service";
 export default class EditTutorial extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
-      Id: null, // 🔹 Inicializamos con valores predeterminados
-      Title: "", 
-      Description: "", 
+      Id: null,
+      Title: "",
+      Description: "",
       Status: false
     };
   }
 
   componentDidMount() {
-    this.getTutorial(this.props.match.params.id);
+    // Obtener el ID directamente desde el pathname
+    const id = window.location.pathname.split('/')[2];
+    this.getTutorial(id);
   }
 
   getTutorial(id) {
@@ -77,13 +79,13 @@ export default class EditTutorial extends Component {
               className="form-control"
               placeholder="Description"
               value={this.state.Description}
-              onChange={this.onChangeDescription} 
+              onChange={this.onChangeDescription}
             />
             <label>
               <input
                 type="checkbox"
                 checked={this.state.Status}
-                onChange={this.onChangeStatus} 
+                onChange={this.onChangeStatus}
               />
               Published
             </label>
@@ -91,7 +93,7 @@ export default class EditTutorial extends Component {
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.updateTutorial} 
+                onClick={this.updateTutorial}
               >
                 Update Tutorial
               </button>
