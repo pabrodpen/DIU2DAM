@@ -1,16 +1,35 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 
-export default class AddTutorial extends Component {
+export default class EditTutorial extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      Id: this.state.Id,
-      Title: this.state.Title, 
-      Description: this.state.Description, 
-      Status: this.state.Status
+      Id: null, // 🔹 Inicializamos con valores predeterminados
+      Title: "", 
+      Description: "", 
+      Status: false
     };
+  }
+
+  componentDidMount() {
+    this.getTutorial(this.props.match.params.id);
+  }
+
+  getTutorial(id) {
+    TutorialDataService.get(id)
+      .then(response => {
+        this.setState({
+          Id: response.data.id,
+          Title: response.data.title,
+          Description: response.data.description,
+          Status: response.data.published
+        });
+      })
+      .catch(e => {
+        console.error("Error al obtener tutorial:", e);
+      });
   }
 
   onChangeTitle = (e) => {
@@ -25,24 +44,19 @@ export default class AddTutorial extends Component {
     this.setState({ Status: e.target.checked });
   };
 
-  addTutorial = () => {
+  updateTutorial = () => {
     const data = {
       title: this.state.Title,
       description: this.state.Description,
       published: this.state.Status
     };
 
-    TutorialDataService.create(data)
+    TutorialDataService.update(this.state.Id, data)
       .then(response => {
-        this.setState({
-          id: response.data.id,
-          Title: response.data.title,
-          Description: response.data.description,
-          Status: response.data.published
-        });
+        console.log("Tutorial actualizado:", response.data);
       })
       .catch(e => {
-        console.error("Error al agregar tutorial:", e);
+        console.error("Error al actualizar tutorial:", e);
       });
   };
 
@@ -77,9 +91,9 @@ export default class AddTutorial extends Component {
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.addTutorial} 
+                onClick={this.updateTutorial} 
               >
-                Add Tutorial
+                Update Tutorial
               </button>
             </div>
           </div>

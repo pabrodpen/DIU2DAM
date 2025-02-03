@@ -28,6 +28,11 @@ class App extends Component {
                 Add
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/tutorials/:id"} className="nav-link">
+                Edit
+              </Link>
+            </li>
           </div>
         </nav>
 
