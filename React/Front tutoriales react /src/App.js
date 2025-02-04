@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
+import AddTutorial from "./components/add-tutorials.component";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+
+//Componente para editar componente
+import Tutorial from "./components/tutorial.component";
 import TutorialsList from "./components/tutorials-list.component";
-import AddTutorial from "./components/add-tutorial.component";
-import EditTutorial from "./components/edit-tutorial.component";
 
 class App extends Component {
   render() {
@@ -32,10 +34,8 @@ class App extends Component {
           <Switch>
           {/*El en switch se renderizarán todas los compoentes cuta URL coicidan con la activa*/}
             <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
-            <Route exact path="/add" component={AddTutorial} /> 
-           <Route path="/tutorials/:id/edit" component={Tutorial} /> 
-          <Route path="/tutorials/:id" component={EditTutorial} /> 
-
+          {<Route exact path="/add" component={AddTutorial} /> }
+          {<Route path="/tutorials/:id" component={Tutorial} /> }
           </Switch>
         </div>
       </div>
