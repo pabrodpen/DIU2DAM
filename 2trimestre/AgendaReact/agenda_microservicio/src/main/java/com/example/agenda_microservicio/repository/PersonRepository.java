@@ -1,7 +1,6 @@
 package com.example.agenda_microservicio.repository;
 
 import com.example.agenda_microservicio.model.PersonVO;
-import com.example.tutorials.Tutorials.model.Tutorials;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

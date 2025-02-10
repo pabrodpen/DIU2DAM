@@ -1,9 +1,9 @@
 package com.example.agenda_microservicio.controller.impl;
 
-import com.example.agenda_microservicio.controller.AgendaAPI;
+import com.example.agenda_microservicio.controller.PersonAPI;
 import com.example.agenda_microservicio.model.PersonDto;
 import com.example.agenda_microservicio.repository.PersonRepository;
-import com.example.agenda_microservicio.service.AgendaService;
+import com.example.agenda_microservicio.service.PersonService;
 import com.example.tutorials.Tutorials.controller.TutorialsAPI;
 import com.example.tutorials.Tutorials.model.TutorialsDto;
 import com.example.tutorials.Tutorials.repository.TutorialsRepository;
@@ -17,9 +17,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
-public class PersonController implements AgendaAPI {
+public class PersonController implements PersonAPI {
     @Autowired
-    private AgendaService agendaService;
+    private PersonService agendaService;
     @Autowired
     private PersonRepository personRepository;
     @Override

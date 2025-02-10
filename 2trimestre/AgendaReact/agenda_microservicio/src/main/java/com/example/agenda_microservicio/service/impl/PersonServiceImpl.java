@@ -3,13 +3,8 @@ package com.example.agenda_microservicio.service.impl;
 import com.example.agenda_microservicio.model.PersonDto;
 import com.example.agenda_microservicio.model.PersonVO;
 import com.example.agenda_microservicio.repository.PersonRepository;
-import com.example.agenda_microservicio.service.AgendaService;
+import com.example.agenda_microservicio.service.PersonService;
 import com.example.agenda_microservicio.util.PersonMapper;
-import com.example.tutorials.Tutorials.model.Tutorials;
-import com.example.tutorials.Tutorials.model.TutorialsDto;
-import com.example.tutorials.Tutorials.repository.TutorialsRepository;
-import com.example.tutorials.Tutorials.service.TutorialsService;
-import com.example.tutorials.Tutorials.util.TutorialsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +15,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class PersonServiceImpl implements AgendaService {
+public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
 
     @Override
-    public List<PersonDto> getAllTutorials(){
+    public List<PersonDto> getAllPersons() {
         List<PersonVO> tutorialsList = personRepository.findAll();
         return tutorialsList.stream()
                 .map(PersonMapper::tutorialsMapperEntityToDto)
@@ -40,64 +35,67 @@ public class PersonServiceImpl implements AgendaService {
     }
 
     @Override
-    public List<PersonDto> findByTitleContaining(String title) {
+    public List<PersonDto> findByNameContaining(String name) {
         List<PersonVO> personOptional = personRepository.findByTitleContaining(title);
 
-        return PersonMapper.tutorialsListMapperEntityToDto(tutorialOptional);
+        return PersonMapper.tutorialsListMapperEntityToDto(personOptional);
     }
 
-    @Override
+    /*@Override
     public List<TutorialsDto> findByPublished() {
         List<Tutorials> publishedTutorials = tutorialsRepository.findByPublished(true);
 
         return TutorialsMapper.tutorialsListMapperEntityToDto(publishedTutorials);
+    }*/
+
+    @Override
+    public PersonDto save(PersonDto personDto) {
+        PersonVO personVO = PersonMapper.tutorialsMapperDtoToEntity(personDto);
+        PersonVO savedPersonEntity = personRepository.save(personVO);
+        return PersonMapper.tutorialsMapperEntityToDto(savedPersonEntity);
     }
 
     @Override
-    public TutorialsDto save(TutorialsDto tutorialDto) {
-        Tutorials tutorials = TutorialsMapper.tutorialsMapperDtoToEntity(tutorialDto);
-        Tutorials savedTutorialEntity = tutorialsRepository.save(tutorials);
-        return TutorialsMapper.tutorialsMapperEntityToDto(savedTutorialEntity);
-    }
+    public PersonDto updatePerson(PersonDto personDto) {
+        Optional<PersonVO> existingPersonOptional = personRepository.findById(personDto.getId());
 
-    @Override
-    public TutorialsDto updateTutorial(TutorialsDto tutorial) {
-        Optional<Tutorials> existingTutorialOptional = tutorialsRepository.findById(tutorial.getId());
+        if (existingPersonOptional.isPresent()) {
+            PersonVO existingPersonVO = existingPersonOptional.get();
+            existingPersonVO.setNombre(personDto.getNombre());
+            existingPersonVO.setApellido(personDto.getApellido());
+            existingPersonVO.setDireccion(personDto.getDireccion());
+            existingPersonVO.setLocalidad(personDto.getLocalidad());
+            existingPersonVO.setCodPostal(personDto.getCodPostal());
+            existingPersonVO.setFechaNac(personDto.getFechaNac());
 
-        if (existingTutorialOptional.isPresent()) {
-            Tutorials existingTutorial = existingTutorialOptional.get();
-            existingTutorial.setTitle(tutorial.getTitle());
-            existingTutorial.setDescription(tutorial.getDescription());
-            existingTutorial.setPublished(tutorial.getPublished());
+            PersonVO updatedPerson = personRepository.save(existingPersonVO);
 
-            Tutorials updatedTutorial = tutorialsRepository.save(existingTutorial);
-
-            return TutorialsMapper.tutorialsMapperEntityToDto(updatedTutorial);
+            return PersonMapper.tutorialsMapperEntityToDto(updatedPerson);
         } else {
             return null;
         }
     }
 
     @Override
-    public ResponseEntity deleteTutorial(String id) {
+    public ResponseEntity deletePersonVO(String id) {
         try {
-            Optional<Tutorials> existingTutorialOptional = tutorialsRepository.findById(id);
-            if (existingTutorialOptional.isPresent()) {
-                tutorialsRepository.deleteById(id);
-                return ResponseEntity.ok("Tutorial eliminado exitosamente");
+            Optional<PersonVO> existingPersonOptional = personRepository.findById(id);
+            if (existingPersonOptional.isPresent()) {
+                personRepository.deleteById(id);
+                return ResponseEntity.ok("Persona eliminada exitosamente");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tutorial no encontrado con ID: " + id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Persona no encontrada con ID: " + id);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar el tutorial");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar la persona");
         }
     }
 
     @Override
-    public ResponseEntity deleteAllTutorials() {
-        tutorialsRepository.deleteAll();
-        ResponseEntity.ok("Tutorial eliminado exitosamente");
+    public ResponseEntity deleteAllPersons() {
+        personRepository.deleteAll();
+        ResponseEntity.ok("Persona eliminada exitosamente");
         return ResponseEntity.ok().build();
     }
 
