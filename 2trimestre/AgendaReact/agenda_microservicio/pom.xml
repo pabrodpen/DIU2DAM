@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>agenda_microservicio</artifactId>
+	<artifactId>agenda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>agenda_microservicio</name>
+	<name>agenda</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
