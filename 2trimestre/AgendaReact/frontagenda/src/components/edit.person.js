@@ -1,56 +1,45 @@
 import React, { useState, useEffect } from "react";
 import PersonDataService from "../services/agenda.service";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditPerson = () => {
-  const id = window.location.pathname.split('/')[2];
+  const { id } = useParams();
+  const navigate = useNavigate(); // Para redirigir después de actualizar
 
   const [person, setPerson] = useState({
-    id: id,
     nombre: '',
     apellidos: '',
     calle: '',
     ciudad: '',
     codigoPostal: '',
-    fechaNacimiento: ''  // Fecha en formato YYYY-MM-DD
+    fechaNacimiento: ''
   });
 
   useEffect(() => {
     PersonDataService.get(id)
       .then(response => {
-        setPerson(response.data);
+        if (response.data) {
+          setPerson(response.data);
+        }
+      })
+      .catch(error => {
+        console.error("Error al obtener contacto:", error);
       });
   }, [id]);
 
-  const EditPerson = (e) => {
+  const handleEditPerson = (e) => {
     e.preventDefault();
     PersonDataService.update(id, person).then(() => {
       console.log("Contacto actualizado correctamente");
+      navigate("/persons"); // Redirigir a la lista de contactos
     });
   };
 
-  const setName = (e) => {
-    setPerson({ ...person, nombre: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPerson({ ...person, [name]: value });
   };
 
-  const setSurname = (e) => {
-    setPerson({ ...person, apellidos: e.target.value });
-  };
-
-  const setAddress = (e) => {
-    setPerson({ ...person, calle: e.target.value });
-  };
-
-  const setCity = (e) => {
-    setPerson({ ...person, ciudad: e.target.value });
-  };
-
-  const setPostalCode = (e) => {
-    setPerson({ ...person, codigoPostal: e.target.value });
-  };
-
-  const setBirthDate = (e) => {
-    setPerson({ ...person, fechaNacimiento: e.target.value });
-  };
   return (
     <div className="list row">
       <div className="col-md-8">
@@ -59,49 +48,55 @@ const EditPerson = () => {
             type="text"
             className="form-control"
             placeholder="Nombre"
+            name="nombre"
             value={person.nombre}
-            onChange={setName}
+            onChange={handleChange}
           />
-           <input
+          <input
             type="text"
             className="form-control"
             placeholder="Apellidos"
+            name="apellidos"
             value={person.apellidos}
-            onChange={setSurname}
+            onChange={handleChange}
           />
-           <input
+          <input
             type="text"
             className="form-control"
             placeholder="Dirección"
+            name="calle"
             value={person.calle}
-            onChange={setAddress}
+            onChange={handleChange}
           />
-           <input
+          <input
             type="text"
             className="form-control"
             placeholder="Localidad"
+            name="ciudad"
             value={person.ciudad}
-            onChange={setCity}
+            onChange={handleChange}
           />
-           <input
+          <input
             type="text"
             className="form-control"
             placeholder="Codigo Postal"
+            name="codigoPostal"
             value={person.codigoPostal}
-            onChange={setPostalCode}
+            onChange={handleChange}
           />
-           <input
+          <input
             type="date"
             className="form-control"
             placeholder="Fecha de nacimiento"
+            name="fechaNacimiento"
             value={person.fechaNacimiento}
-            onChange={setBirthDate}
+            onChange={handleChange}
           />
           <div className="input-group-append">
             <button
               className="btn btn-outline-secondary"
               type="button"
-              onClick={EditPerson}
+              onClick={handleEditPerson}
             >
               Actualizar contacto
             </button>

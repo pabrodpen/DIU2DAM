@@ -1,45 +1,25 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PersonDataService from "../services/agenda.service";
 
-export default class AddPerson extends Component {
-  constructor(props) {
-    super(props);
+const AddPerson = () => {
+  const [person, setPerson] = useState({
+    nombre: '',
+    apellidos: '',
+    calle: '',
+    ciudad: '',
+    codigoPostal: '',
+    fechaNacimiento: ''
+  });
 
-    this.state = {
-      Nombre: "", 
-      Apellido: "",
-      Direccion: "", 
-      Localidad: "",  
-      Codigo_postal: "",
-      Fecha_nacimiento: ""
-    };
-  }
+  const navigate = useNavigate();
 
-  onChangeName = (e) => {
-    this.setState({ Nombre: e.target.value });
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setPerson({ ...person, [name]: value });
   };
 
-  onChangeSurname = (e) => {
-    this.setState({ Apellido: e.target.value });
-  };
-
-  onChangeAddress = (e) => {
-    this.setState({ Direccion: e.target.value });
-  };
-
-  onChangeCity = (e) => {
-    this.setState({ Localidad: e.target.value });
-  };
-
-  onChangePostalCode = (e) => {
-    this.setState({ Codigo_postal: e.target.value });
-  };
-
-  onChangeBirthDate = (e) => {
-    this.setState({ Fecha_nacimiento: e.target.value });
-  };
-
-  formatDate = (dateString) => {
+  const formatDate = (dateString) => {
     if (!dateString) return ""; // Evita errores si la fecha es nula
   
     const date = new Date(dateString);
@@ -49,112 +29,117 @@ export default class AddPerson extends Component {
   
     return `${year}-${month}-${day}`;
   };
-  
 
-  addPerson = () => {
-    const fechaFormateada = this.formatDate(this.state.Fecha_nacimiento);
+  const addPerson = () => {
+    const fechaFormateada = formatDate(person.fechaNacimiento);
   
     const data = {
-      nombre: this.state.Nombre,
-      apellidos: this.state.Apellido,
-      calle: this.state.Direccion,
-      ciudad: this.state.Localidad,
-      codigoPostal: parseInt(this.state.Codigo_postal, 10),
+      nombre: person.nombre,
+      apellidos: person.apellidos,
+      calle: person.calle,
+      ciudad: person.ciudad,
+      codigoPostal: parseInt(person.codigoPostal, 10),
       fechaNacimiento: fechaFormateada  // Fecha en formato YYYY-MM-DD
     };
   
     PersonDataService.create(data)
       .then(response => {
         console.log("Respuesta del backend:", response.data);
-        this.setState({
+        setPerson({
           id: response.data.id,
-          Nombre: response.data.nombre,
-          Apellido: response.data.apellidos,
-          Direccion: response.data.calle,
-          Codigo_postal: response.data.codigoPostal,
-          Localidad: response.data.ciudad,
-          Fecha_nacimiento: response.data.fechaNacimiento
+          nombre: response.data.nombre,
+          apellidos: response.data.apellidos,
+          calle: response.data.calle,
+          codigoPostal: response.data.codigoPostal,
+          ciudad: response.data.ciudad,
+          fechaNacimiento: response.data.fechaNacimiento
         });
+        navigate("/persons"); // Redirigir a la lista de contactos
       })
       .catch(e => {
-        console.error("❌ Error al agregar contacto:", e);
+        console.error("Error al agregar contacto:", e);
       });
   };
-  
 
-  render() {
-    return (
-      <div className="container mt-3">
-        <h4>Añadir Contacto</h4>
-        <div className="form-group">
-          <label>Nombre</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Nombre"
-            value={this.state.Nombre}
-            onChange={this.onChangeName}
-          />
-        </div>
-        
-        <div className="form-group">
-          <label>Apellido</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Apellido"
-            value={this.state.Apellido}
-            onChange={this.onChangeSurname}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Dirección</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Dirección"
-            value={this.state.Direccion}
-            onChange={this.onChangeAddress}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Localidad</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Localidad"
-            value={this.state.Localidad}
-            onChange={this.onChangeCity}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Código Postal</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Código Postal"
-            value={this.state.Codigo_postal}
-            onChange={this.onChangePostalCode}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Fecha de Nacimiento</label>
-          <input
-            type="date"
-            className="form-control"
-            value={this.state.Fecha_nacimiento}
-            onChange={this.onChangeBirthDate}
-          />
-        </div>
-
-        <button className="btn btn-primary mt-3" onClick={this.addPerson}>
-          Añadir Contacto
-        </button>
+  return (
+    <div className="container mt-3">
+      <h4>Añadir Contacto</h4>
+      <div className="form-group">
+        <label>Nombre</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Nombre"
+          name="nombre"
+          value={person.nombre}
+          onChange={onChange}
+        />
       </div>
-    );
-  }
-}
+      
+      <div className="form-group">
+        <label>Apellido</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Apellido"
+          name="apellidos"
+          value={person.apellidos}
+          onChange={onChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Dirección</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Dirección"
+          name="calle"
+          value={person.calle}
+          onChange={onChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Localidad</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Localidad"
+          name="ciudad"
+          value={person.ciudad}
+          onChange={onChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Código Postal</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Código Postal"
+          name="codigoPostal"
+          value={person.codigoPostal}
+          onChange={onChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Fecha de Nacimiento</label>
+        <input
+          type="date"
+          className="form-control"
+          name="fechaNacimiento"
+          value={person.fechaNacimiento}
+          onChange={onChange}
+        />
+      </div>
+
+      <button className="btn btn-primary mt-3" onClick={addPerson}>
+        Añadir Contacto
+      </button>
+    </div>
+  );
+};
+
+export default AddPerson;

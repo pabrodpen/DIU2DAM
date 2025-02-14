@@ -51,13 +51,23 @@ export default class PersonsList extends Component {
   removeAllPersons = () => {
     PersonDataService.deleteAll()
       .then(response => {
-        console.log(response.data);
-        this.refreshList();
+        console.log("Contactos eliminados:", response.data);
+        this.refreshList(); // Recargar la lista después de eliminar todos los contactos
       })
       .catch(e => {
-        console.log(e);
+        console.error("Error al eliminar contactos:", e);
       });
   };
+  
+
+  removePerson = (id) => {
+    PersonDataService.delete(id)
+      .then(response => {
+        console.log(response.data);
+        this.refreshList();
+      }
+      )
+    };
 
   searchByName = () => {
     PersonDataService.findByName(this.state.searchByName)
@@ -154,11 +164,29 @@ export default class PersonsList extends Component {
                   <strong>Fecha de nacimiento:</strong>
                 </label>{" "}
                 {currentPerson.fechaNacimiento}
+
+                <Link
+                //Como hemos incluido en el switch esta ruta, /tutorials/+id se renderizará el componente
+                // tutorials cuando se pulse el enlace.
+                to={"/agenda/" + currentPerson.id}
+                className="badge badge-warning">
+                Edit
+              </Link>
               </div>
 
-              <Link to={"/person/" + currentPerson.id} className="badge badge-warning">
-                Editar
+              <Link to={"/edit/" + currentPerson.id} className="nav-link">
+                <button className="btn btn-primary mt-3" onClick={this.addPerson}>
+                Editar Contacto
+                </button>
               </Link>
+
+              
+                <button className="btn btn-primary mt-3" onClick={() => this.removePerson(currentPerson.id)}>
+                Eliminar Contacto
+                </button>
+              
+
+              
             </div>
           ) : (
             <div>
