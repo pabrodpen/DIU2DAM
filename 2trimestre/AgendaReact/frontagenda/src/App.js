@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -7,15 +7,16 @@ import "./App.css";
 //Componente para editar componente
 //import Tutorial from "./components/tutorial.component";
 import PersonsList from "./components/persons.list";
+import AddPerson from "./components/add.person";
 
 class App extends Component {
   render() {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/persons"} className="navbar-brand">
+          {/*<Link to={"/persons"} className="navbar-brand">
             Contactos
-          </Link>
+          </Link>*/}
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/persons"} className="nav-link">
@@ -35,7 +36,7 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<PersonsList />} />
             <Route path="/persons" element={<PersonsList />} />
-            {/*  <Route exact path="/add" component={AddTutorial} /> */}
+            <Route path="/add" element={<AddPerson/>} /> 
           {/*  <Route path="/tutorials/:id" component={Tutorial} /> */}
           </Routes>
         </div>
