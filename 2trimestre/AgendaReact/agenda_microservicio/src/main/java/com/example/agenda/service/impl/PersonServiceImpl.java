@@ -99,4 +99,9 @@ public class PersonServiceImpl implements PersonService {
         ResponseEntity.ok("Persona eliminada exitosamente");
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public List<String> getTutorialsFromPerson(PersonDto person) {
+        return List.of();
+    }
 }

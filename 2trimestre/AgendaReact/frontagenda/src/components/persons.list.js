@@ -1,5 +1,6 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import PersonDataService from "../services/agenda.service";
+import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
 
 const PersonsList = forwardRef((props, ref) => {
@@ -112,6 +113,12 @@ const PersonsList = forwardRef((props, ref) => {
             >
               Eliminar Contacto
             </button>
+
+            <Link to={"/tutorials/" + currentPerson.id} className="nav-link">
+              <button className="btn btn-primary mt-3">Tutoriales</button>
+            </Link>
+
+          
           </div>
         ) : (
           <div>

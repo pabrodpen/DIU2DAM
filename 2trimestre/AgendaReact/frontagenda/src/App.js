@@ -6,6 +6,7 @@ import "./App.css";
 import PersonsList from "./components/persons.list";
 import AddPerson from "./components/add.person";
 import EditPerson from "./components/edit.person";
+import TutorialsList from "./components/tutorials.from.person";
 
 function App() {
   const personsListRef = useRef(null); // Creamos la referencia
@@ -43,7 +44,8 @@ function App() {
           <Route path="/" element={<PersonsList ref={personsListRef} />} />
           <Route path="/persons" element={<PersonsList ref={personsListRef} />} />
           <Route path="/add" element={<AddPerson />} />
-          <Route path="/edit/:id" element={<EditPerson />} />
+          <Route path="/edit/:id" element={<EditPerson />}/>
+          <Route path="/tutorials/:id" element={<TutorialsList />}/>
         </Routes>
       </div>
     </div>
