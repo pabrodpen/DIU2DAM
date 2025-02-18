@@ -2,7 +2,7 @@ import http from "../http-common.tutorials";
 
 class TutorialDataService {
   getAll() {
-    return http.get(`/tutorials/`);
+    return http.get(`/tutorials`);
   }
 
   /*get(id) {

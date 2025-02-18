@@ -67,7 +67,12 @@ public class PersonServiceImpl implements PersonService {
             existingPerson.setCodigoPostal(person.getCodigoPostal());
             existingPerson.setCiudad(person.getCiudad());
             existingPerson.setFechaNacimiento(person.getFechaNacimiento());
-            existingPerson.setTutoriales(person.getTutoriales());
+            if (person.getTutoriales() != null) {
+                existingPerson.setTutoriales(person.getTutoriales());
+            } else if (existingPerson.getTutoriales() == null) {
+                existingPerson.setTutoriales(new String[0]); // Asegurar que sea un array vacío si era null
+            }
+
 
             PersonVO updatedPerson = personRepository.save(existingPerson);
 

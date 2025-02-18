@@ -16,5 +16,6 @@ public class TutorialsDto {
     private String title;
     private String description;
     private Boolean published;
+    private String url_image;
 
 }

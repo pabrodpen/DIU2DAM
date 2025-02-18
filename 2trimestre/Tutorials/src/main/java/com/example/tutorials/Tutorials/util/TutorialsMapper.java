@@ -13,6 +13,7 @@ public class TutorialsMapper {
                 .title(tutorials.getTitle())
                 .description(tutorials.getDescription())
                 .published(tutorials.getPublished())
+                .url_image(tutorials.getUrl_image())
                 .build();
     }
 
@@ -22,6 +23,7 @@ public class TutorialsMapper {
                 .title(tutorials.getTitle())
                 .description(tutorials.getDescription())
                 .published(tutorials.getPublished())
+                .url_image(tutorials.getUrl_image())
                 .build();
     }
 

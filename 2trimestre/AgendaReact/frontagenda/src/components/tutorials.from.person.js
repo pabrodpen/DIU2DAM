@@ -17,18 +17,14 @@ const { id } = useParams();
     retrieveTutorialsFromPerson();
   }, []);
 
-  const retrieveTutorialsFromPerson = () => {
-    const tutorialsresponse = TutorialDataService.getAll();
+  const retrieveTutorialsFromPerson = async () => {
+    const tutorialsresponse = await TutorialDataService.getAll();
     const alltutorials = tutorialsresponse.data || [];
     const publishedTutorials = alltutorials.filter(tutorial => tutorial.published)|| [];
-    const personResponse = PersonDataService.get(id);
+    const personResponse = await PersonDataService.get(id);
     const person = personResponse.data
 
-    if (!person || !person.tutoriales) {
-      console.error("El contacto no tiene tutoriales asignados.");
-      setTutorials([]);
-      return;
-    }else{
+    
       
 
       // Filtrar tutoriales que coincidan con los del contacto
@@ -37,7 +33,7 @@ const { id } = useParams();
       );
 
       setTutorials(tutorialsFromPerson);
-    }
+    
 
     
   };
@@ -97,6 +93,9 @@ const { id } = useParams();
                 {currentTutorial.published ? "Published" : "Pending"}
             </div>
             
+            <div>
+            <img src={currentTutorial.url_image} alt="Tutorial" width="200" />
+            </div>
           </div>
         ) : (
           <div>
