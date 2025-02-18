@@ -15,5 +15,5 @@ public interface PersonService {
     PersonDto updatePerson(PersonDto person); //funciona
     ResponseEntity deletePerson(String id); //funciona
     ResponseEntity deleteAllPersons(); //funciona
-    List<String> getTutorialsFromPerson(PersonDto person);
+
 }

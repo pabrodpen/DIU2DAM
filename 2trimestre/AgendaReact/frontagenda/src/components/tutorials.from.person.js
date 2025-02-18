@@ -2,6 +2,7 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from "rea
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
+import PersonDataService from "../services/person.service";
 
 
 const TutorialsList = forwardRef((props, ref) => {
@@ -13,22 +14,36 @@ const { id } = useParams();
 
   useEffect(() => {
     console.log("ID recibido en TutorialsList:", id); 
-    retrieveTutorials();
+    retrieveTutorialsFromPerson();
   }, []);
 
-  const retrieveTutorials = () => {
-    TutorialDataService.getAll()
-      .then((response) => {
-        setTutorials(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const retrieveTutorialsFromPerson = () => {
+    const tutorialsresponse = TutorialDataService.getAll();
+    const alltutorials = tutorialsresponse.data || [];
+    const publishedTutorials = alltutorials.filter(tutorial => tutorial.published)|| [];
+    const personResponse = PersonDataService.get(id);
+    const person = personResponse.data
+
+    if (!person || !person.tutoriales) {
+      console.error("El contacto no tiene tutoriales asignados.");
+      setTutorials([]);
+      return;
+    }else{
+      
+
+      // Filtrar tutoriales que coincidan con los del contacto
+      const tutorialsFromPerson = publishedTutorials.filter(tutorial =>
+          person.tutoriales.includes(tutorial.id) || []
+      );
+
+      setTutorials(tutorialsFromPerson);
+    }
+
+    
   };
 
   const refreshList = () => {
-    retrieveTutorials();
+    retrieveTutorialsFromPerson();
     setCurrentTutorial(null);
     setCurrentIndex(-1);
   };

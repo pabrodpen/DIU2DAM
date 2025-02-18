@@ -67,7 +67,7 @@ public class PersonServiceImpl implements PersonService {
             existingPerson.setCodigoPostal(person.getCodigoPostal());
             existingPerson.setCiudad(person.getCiudad());
             existingPerson.setFechaNacimiento(person.getFechaNacimiento());
-            //existingPerson.setTutoriales(person.getTutoriales());
+            existingPerson.setTutoriales(person.getTutoriales());
 
             PersonVO updatedPerson = personRepository.save(existingPerson);
 
@@ -98,10 +98,5 @@ public class PersonServiceImpl implements PersonService {
         personRepository.deleteAll();
         ResponseEntity.ok("Persona eliminada exitosamente");
         return ResponseEntity.ok().build();
-    }
-
-    @Override
-    public List<String> getTutorialsFromPerson(PersonDto person) {
-        return List.of();
     }
 }

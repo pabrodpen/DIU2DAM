@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PersonDataService from "../services/agenda.service";
+import PersonDataService from "../services/person.service";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditPerson = () => {

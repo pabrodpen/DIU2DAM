@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PersonDataService from "../services/agenda.service";
+import PersonDataService from "../services/person.service";
 
 const AddPerson = () => {
   const [person, setPerson] = useState({
