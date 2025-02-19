@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PersonDataService from "../services/person.service";
 import { useParams, useNavigate } from "react-router-dom";
+import MultiSelectDropdown from "./button.multiple.selection";
 
 const EditPerson = () => {
   const { id } = useParams();
@@ -12,7 +13,8 @@ const EditPerson = () => {
     calle: '',
     ciudad: '',
     codigoPostal: '',
-    fechaNacimiento: ''
+    fechaNacimiento: '',
+    tutoriales: [] // Aquí guardaremos los IDs seleccionados
   });
 
   useEffect(() => {
@@ -90,8 +92,13 @@ const EditPerson = () => {
             placeholder="Fecha de nacimiento"
             name="fechaNacimiento"
             value={person.fechaNacimiento}
-            onChange={handleChange}
-          />
+          onChange={handleChange}
+        />
+        {/* Componente MultiSelectDropdown */}
+        <MultiSelectDropdown
+          selectedTutorials={person.tutoriales}
+          setSelectedTutorials={(selected) => setPerson({ ...person, tutoriales: selected })}
+        />
           <div className="input-group-append">
             <button
               className="btn btn-outline-secondary"
