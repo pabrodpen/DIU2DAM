@@ -14,53 +14,43 @@ const AddProduct = () => {
   const navigate = useNavigate();
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setProduct({ 
+      ...product, 
+      [name]: type === "checkbox" ? checked : value 
+    });
   };
-
-
 
   const addProduct = () => {
     const data = {
       name: product.name,
       brand: product.brand,
-      price: product.price,
+      price: parseFloat(product.price),
       stock: parseInt(product.stock, 10),
       active: product.active
     };
     
-  
     ProductDataService.create(data)
       .then(response => {
-        console.log("Respuesta del backend:", response.data);
-
-        setProduct({
-                id: response.data.id,
-                name: response.data.name,
-                brand: response.data.brand,
-                price: response.data.price,
-                stock: response.data.stock,
-                active: response.data.active
-                });
-                navigate("/products"); // Redirigir a la lista de contactos
-            })
-            .catch(e => {
-                console.error("Error al agregar producto:", e);
-            });
-        };
-
-       
+        console.log("Producto agregado:", response.data);
+        navigate("/products");
+      })
+      .catch(e => {
+        console.error("Error al agregar producto:", e);
+      });
+  };
 
   return (
     <div className="container mt-3">
-      <h4>Añadir Producto</h4>
+      <h2>Añadir Producto</h2>
+
       <div className="form-group">
         <label>Nombre</label>
         <input
           type="text"
           className="form-control"
           placeholder="Nombre"
-          name="nombre"
+          name="name"
           value={product.name}
           onChange={onChange}
         />
@@ -83,8 +73,8 @@ const AddProduct = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Dirección"
-          name="calle"
+          placeholder="Marca"
+          name="brand"
           value={product.brand}
           onChange={onChange}
         />
@@ -96,29 +86,28 @@ const AddProduct = () => {
           type="text"
           className="form-control"
           placeholder="Precio"
-          name="precio"
+          name="price"
           value={product.price}
           onChange={onChange}
         />
       </div>    
-      <div className="form-group">
-        <label>Activo</label>
+
+      <div className="form-group form-check">
         <input
           type="checkbox"
-          className="form-control"
-          name="activo"
-          value={product.active}
+          className="form-check-input"
+          name="active"
+          checked={product.active}
           onChange={onChange}
         />
+        <label className="form-check-label">Activo</label>
       </div>
 
-        <button className="btn btn-primary mt-3" onClick={addProduct}>
+      <button className="btn btn-primary mt-3" onClick={addProduct}>
         Añadir Producto
       </button>
     </div>
   );
 };
-
-     
 
 export default AddProduct;

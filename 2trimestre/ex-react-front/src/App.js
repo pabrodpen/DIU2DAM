@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import AddProduct from "./components/add.product";
+import ProductsList from "./components/list.products";
+import "./App.css";
 
 function App() {
+  const productsListRef = useRef(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/products"} className="nav-link">
+              Productos
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/add"} className="nav-link">
+              Add
+            </Link>
+          </li>
+        </div>
+      </nav>
+
+      <div className="container mt-3">
+          <Routes>
+            <Route path="/" element={<ProductsList ref={productsListRef} />} />
+            <Route path="/products" element={<ProductsList />} />
+            <Route path="/add" element={<AddProduct />} />
+          </Routes>
+        </div>
     </div>
   );
 }

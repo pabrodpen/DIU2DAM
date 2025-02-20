@@ -1,38 +1,88 @@
-.App {
+.progress {
+  height: 20px;
+  border-radius: 5px;
+  background: #ccc;
+  margin-top: 15px;
+}
+
+.progress-bar {
+  background: #28a745;
   text-align: center;
+  line-height: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Estilos Generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navbar */
+.navbar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: left;
+  padding: 10px 20px;
+  background-color: #007bff;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 20px; /* Espaciado entre los elementos */
+  list-style: none; /* 🔥 Elimina los puntos de la lista */
+  padding: 0;
+}
+
+.navbar-nav .nav-item {
+  display: inline-block;
+}
+
+.navbar-nav .nav-link {
   color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-nav .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Lista de Productos */
+.list-group {
+  list-style: none; /* 🔥 Elimina los puntos de la lista */
+  padding: 0;
+}
+
+.list-group-item {
+  background: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background: #f1f1f1;
+}
+
+/* Formulario */
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Botón */
+.btn {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 10px;
 }

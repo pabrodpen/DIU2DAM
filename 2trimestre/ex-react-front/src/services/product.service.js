@@ -1,6 +1,6 @@
-import http from "../http-common";
+import http from "../http.common";
 
-class TutorialDataService {
+class ProductDataService {
   getAll() {
     return http.get("/products");
   }
@@ -14,17 +14,16 @@ class TutorialDataService {
   }
 
   update(id, data) {
-    return http.put(`/producta/${id}`, data);
+    return http.put(`/products/${id}`, data); 
   }
 
   delete(id) {
     return http.delete(`/products/${id}`);
   }
 
-
- findByName(name) {
-     return http.get(`/products/name/${title}`);
-   }
+  findByName(name) {
+    return http.get(`/products/name/${name}`); 
+  }
 }
 
-export default new TutorialDataService();
+export default new ProductDataService();
