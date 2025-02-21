@@ -1,106 +1,125 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
+import React, { useState, useEffect } from "react";
 import ProductDataService from "../services/product.service";
-import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
 
-
-const ProductsList = forwardRef((props, ref) => {
-const { id } = useParams();
-  const [currentProduct, setCurrentTutorial] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(-1);
-
+const EditProduct = () => {
+  const { id } = useParams(); // Obtener el ID del producto desde la URL
+  const navigate = useNavigate(); // Para redirigir después de actualizar
 
   const [product, setProduct] = useState({
-    name: '',
-    stock: 0,
+    name: "",
     price: 0,
-    brand: 0,
-    acive: false
+    stock: 0,
+    brand: "",
+    active: false,
   });
 
+  // Obtener todos los productos y filtrar el correcto
   useEffect(() => {
-    console.log("ID recibido en TutorialsList:", id); 
-    retrieveTutorialsFromPerson();
-  }, []);
+    ProductDataService.getAll()
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          const selectedProduct = response.data.find((p) => p.id === id);
+          if (selectedProduct) {
+            console.log("Producto encontrado:", selectedProduct);
+            setProduct(selectedProduct);
+          } else {
+            console.error("Producto no encontrado con ID:", id);
+          }
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener productos:", error);
+      });
+  }, [id]);
 
-  const retrievePersonFromID = async () => {
-    const productsresponse = await ProductDataService.getAll();
-    const allproducts = productsresponse.data || [];
-    
-      
-
-      // Filtrar productos que coincidan con el ID del producto seleccionado
-      const producto_editar = allproducts.filter(product =>
-          product.id.includes(id)
-      );
-
-      setProduct(producto_editar);
-    
-
-    
+  // Manejar cambios en los campos del formulario
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-
- 
+  // Manejar la actualización del producto
   const handleEditProduct = (e) => {
     e.preventDefault();
-    ProductDataService.update(id, person).then(() => {
-      console.log("Contacto actualizado correctamente");
-      navigate("/persons"); // Redirigir a la lista de contactos
-    });
-  };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+    ProductDataService.update(id, product)
+      .then(() => {
+        console.log("Producto actualizado correctamente");
+        navigate("/products"); // Redirige a la lista de productos
+      })
+      .catch((error) => {
+        console.error("Error al actualizar producto:", error);
+      });
   };
 
   return (
-    <div className="list row">
-      <div className="col-md-8">
-        <div className="input-group mb-3">
+    <div className="container mt-4">
+      <h2 className="text-center">Editar Producto</h2>
+
+      <form onSubmit={handleEditProduct}>
+        <div className="form-group">
+          <label><strong>Nombre:</strong></label>
           <input
             type="text"
             className="form-control"
-            placeholder="Nombre"
-            name="nombre"
+            name="name"
             value={product.name}
             onChange={handleChange}
           />
+        </div>
+
+        <div className="form-group">
+          <label><strong>Stock:</strong></label>
           <input
-            type="text"
+            type="number"
             className="form-control"
-            placeholder="Stock"
             name="stock"
             value={product.stock}
             onChange={handleChange}
           />
+        </div>
+
+        <div className="form-group">
+          <label><strong>Precio:</strong></label>
           <input
-            type="text"
+            type="number"
             className="form-control"
-            placeholder="Precio"
-            name="calle"
+            name="price"
             value={product.price}
             onChange={handleChange}
           />
-            <input
-              type="checkbox"
-              checked={product.acive}
-              onChange={handleChange}
-            />
-            Published
-
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={handleEditProduct}
-            >
-              Actualizar producto
-            </button>
-          </div>
         </div>
-      </div>
+
+        <div className="form-group">
+          <label><strong>Marca:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            name="brand"
+            value={product.brand}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group form-check mt-3">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            name="active"
+            checked={product.active}
+            onChange={handleChange}
+          />
+          <label className="form-check-label">Activo</label>
+        </div>
+
+        <button type="submit" className="btn btn-success mt-3">
+          Actualizar Producto
+        </button>
+      </form>
     </div>
   );
 };

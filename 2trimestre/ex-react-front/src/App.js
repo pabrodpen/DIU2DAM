@@ -1,11 +1,20 @@
 import React, { useRef } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import AddProduct from "./components/add.product";
-import ProductsList from "./components/list.products";
+import { Routes, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+import ProductsList from "./components/list.products";
+import AddProduct from "./components/add.product";
+import EditProduct from "./components/edit.product";
+
 function App() {
-  const productsListRef = useRef(null);
+  const personsListRef = useRef(null); // Creamos la referencia
+
+  const handleRemoveAllPersons = () => {
+    if (personsListRef.current) {
+      personsListRef.current.removeAllPersons(); // Llamamos correctamente la función
+    }
+  };
 
   return (
     <div>
@@ -25,12 +34,14 @@ function App() {
       </nav>
 
       <div className="container mt-3">
-          <Routes>
-            <Route path="/" element={<ProductsList ref={productsListRef} />} />
-            <Route path="/products" element={<ProductsList />} />
-            <Route path="/add" element={<AddProduct />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<ProductsList />} />
+          <Route path="/products" element={<ProductsList />} />
+          <Route path="/add" element={<AddProduct />} />
+          <Route path="/edit/:id" element={<EditProduct />} /> 
+        </Routes>
+
+      </div>
     </div>
   );
 }
