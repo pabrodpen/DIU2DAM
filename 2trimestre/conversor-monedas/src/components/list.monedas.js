@@ -95,7 +95,9 @@ export default class MonedasList extends Component {
     <thead className="table-dark">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Moneda</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Stock</th>
       </tr>
     </thead>
     <tbody>
@@ -109,6 +111,8 @@ export default class MonedasList extends Component {
           >
             <td>{index + 1}</td>
             <td>{moneda.name}</td>
+            <td>{moneda.brand}</td>
+            <td>{moneda.stock}</td>
           </tr>
         ))}
     </tbody>
