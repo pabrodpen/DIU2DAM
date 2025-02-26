@@ -1,94 +1,55 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { getCurrentUser, auth } from "./firebase";
-import { signOut } from "firebase/auth";
-
 import PersonsList from "./components/persons.list";
 import AddPerson from "./components/add.person";
 import EditPerson from "./components/edit.person";
 import TutorialsList from "./components/tutorials.from.person";
-import SignUp from "./components/sign.up";
 import SignIn from "./components/sign.in";
+import SignUp from "./components/sign.up";
 
-function App() {
-  const personsListRef = useRef(null);
-  const [user, setUser] = useState(null);
+const menuItems = [
+  { path: "/", icon: "☰", label: "Home", color: "#ff8c00" },
+  { path: "/persons", icon: "📂", label: "Personas", color: "#f54888" },
+  { path: "/add", icon: "📚", label: "Añadir", color: "#4343f5" },
+  { path: "/edit", icon: "📋", label: "Editar", color: "#e0b115" },
+  { path: "/tutorials", icon: "🖼️", label: "Tutoriales", color: "#65ddb7" }
+];
 
-  useEffect(() => {
-    getCurrentUser(setUser);
-  }, []);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    setUser(null);
-  };
-
-  const handleRemoveAllPersons = () => {
-    if (personsListRef.current) {
-      personsListRef.current.removeAllPersons(); // Llamamos correctamente la función
-    }
-  };
-
+const Navbar = () => {
+  const location = useLocation();
   return (
-    <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/persons"} className="nav-link">
-              Personas
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={"/add"} className="nav-link">
-              Add
-            </Link>
-          </li>
-          <li className="nav-item">
-            <button className="nav-link btn btn-link" onClick={handleRemoveAllPersons}>
-              Limpiar contactos
-            </button>
-          </li>
-        </div>
-        <div className="navbar-nav ml-auto">
-          {user ? (
-            <>
-              <li className="nav-item">
-                <span className="nav-link">👤 {user.displayName}</span>
-              </li>
-              <li className="nav-item">
-                <button className="btn btn-danger btn-sm" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="nav-item">
-                <Link to={"/signUp"} className="nav-link">
-                  Registro
-                </Link>
-              </li>
-              
-            </>
-          )}
-        </div>
-      </nav>
+    <menu className="menu">
+      {menuItems.map((item, index) => (
+        <Link key={index} to={item.path} className={`menu__item ${location.pathname === item.path ? "active" : ""}`} style={{ "--bgColorItem": item.color }}>
+          <span className="icon">{item.icon}</span>
+        </Link>
+      ))}
+      <div className="menu__border"></div>
+    </menu>
+  );
+};
 
+const App = () => {
+  return (
+    <Router>
+      <Navbar />
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<PersonsList ref={personsListRef} />} />
-          <Route path="/persons" element={<PersonsList ref={personsListRef} />} />
-          <Route path="/add" element={<AddPerson />} />
+        <Route path="/add" element={<AddPerson />} />
           <Route path="/edit/:id" element={<EditPerson />} />
           <Route path="/tutorials/:id" element={<TutorialsList />} />
-          <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
         </Routes>
       </div>
-    </div>
+    </Router>
   );
-}
+};
 
 export default App;
+
+
+/**   <Route path="/persons" element={<PersonsList />} />
+           */
