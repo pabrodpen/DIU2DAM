@@ -1,55 +1,157 @@
-/* Global Styles */
+/* 🔹 Estilos globales */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  background:#000000; /* 🔹 Degradado oscuro */
+  color: white;
+}
+
+/* 🔹 Navbar */
+.menu {
+  display: flex;
+  width: 50vw;
+  height: 2.4em;
+  font-size: 1.5em;
+  padding: 0 2em;
+  position: fixed;
+  top: 0;
+  left: 20vw;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #169c78;
+  z-index: 1000;
+}
+
+/* 🔹 Botones del menú */
+.menu__item {
+  all: unset;
+  flex-grow: 1;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 1em 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.menu__item.active {
+  transform: translateY(-0.3em);
+}
+
+.user-avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* 🔹 Hover igual que los demás iconos de la Navbar */
+.user-avatar-container:hover {
+  transform: scale(1.1);
+}
+
+/* 🔹 Imágenes dentro del menú */
+.menu__icon {
+  width: 1.75em;
+  height: 1.75em;
+  object-fit: contain;
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu__item:hover .menu__icon {
+  transform: scale(1.1);
+}
+
+/* 🔹 Tooltip al pasar el ratón */
+.menu__item:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -2em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #169c78;
+  color: black;
+  padding: 6px 10px;
+  font-size: 0.5em;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.menu__item::after {
+  opacity: 0;
+}
+
+/* 🔹 Contenedor principal */
+.contacts-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding: 2em;
+}
+
+/* 🔹 Contenedor de la lista de contactos */
+.list-container {
+  margin-top: 25%;
+  margin-left: 15%;
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;;
+}
+
+/* 🔹 Contenedor de los detalles del contacto */
+.details-container {
+  margin-top: 3%;
+  margin-right: 10%;
+  width: 35%;
+  max-width: 500px;
+  position: fixed;
+  right: 0;
+  top: 7em;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+/* 🔹 Lista */
+.list-group {
+  list-style: none;
   padding: 0;
 }
 
-/* Container */
-.container {
-  max-width: 800px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Headings */
-h4 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* Form Styles */
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.list-group-item {
+  padding: 12px;
+  margin: 5px 0;
+  background: grey;
+  border-radius: 5px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  color: white;
 }
 
-.form-control:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+.list-group-item:hover {
+  background: #9b9b9b;
+  color: white;
+}
+.list-group-item.active {
+  background: #007bff;
+  color: white;
 }
 
-/* Buttons */
+/* 🔹 Botones */
 button {
   width: 100%;
   padding: 10px;
@@ -59,116 +161,297 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #6c6c6c;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #9b9b9b;
 }
 
-.btn-success {
-  background-color: #28a745;
+.btn-delete {
+  background-color: #6c6c6c;
 }
 
-.btn-success:hover {
-  background-color: #218838;
+.btn-delete:hover {
+  background-color: #9b9b9b;
 }
 
-/* Navbar */
-.navbar {
-  background-color: #343a40;
-  padding: 10px 20px;
+/* 🔹 Ajustes para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+  .list-container {
+    width: 40%;
+    left: 0;
+  }
+
+  .details-container {
+    width: 40%;
+    right: 0;
+  }
 }
 
-.navbar-nav {
-  display: flex;
-  gap: 15px;
+@media screen and (max-width: 480px) {
+  .list-container {
+    width: 50%;
+    left: 0;
+  }
+
+  .details-container {
+    width: 50%;
+    right: 0;
+  }
 }
 
-.nav-item {
-  list-style: none;
+/* 🔹 Ajustes para pantallas pequeñas */
+@media screen and (max-width: 50em) {
+  .menu {
+    font-size: 0.9em;
+  }
+
+  .menu__icon {
+    width: 2.5em;
+    height: 2.5em;
+  }
 }
 
-.nav-link {
+/*ADD PERSON*/
+/* 🔹 Contenedor del formulario */
+.form-container {
+  margin-top:20%;
+  margin-left: 45%;
+  width: 50vw;
+  background: #1e1e1e; /* Fondo oscuro similar a la lista */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: white;
-  text-decoration: none;
-  font-size: 16px;
-  padding: 5px 10px;
 }
 
-.nav-link:hover {
-  background-color: #007bff;
+/* 🔹 Campos de entrada */
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #444;
   border-radius: 5px;
+  background: #333;
+  color: white;
 }
 
-/* List Styles */
-.list-group {
-  list-style: none;
-  padding: 0;
+/* 🔹 Etiquetas */
+.form-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #ddd;
 }
 
-.list-group-item {
-  padding: 12px;
-  margin: 5px 0;
-  background: #f9f9f9;
+/* 🔹 Botón similar al de la lista */
+.form-container .btn-primary {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #4e4e4e;
+  color: white;
+  cursor: pointer;
+}
+
+.form-container .btn-primary:hover {
+  background: #9b9b9b;
+}
+
+
+#USER PROFILE
+.user-avatar-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.user-sidebar {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 220px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+}
+
+.user-sidebar p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.logout-btn, .login-btn {
+  width: 80%;
+  padding: 8px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-size: 14px;
+  transition: background 0.2s;
 }
 
-.list-group-item:hover {
-  background: #007bff;
-  color: white;
+.logout-btn:hover, .login-btn:hover {
+  background: #cc0000;
 }
 
-.list-group-item.active {
-  background: #007bff !important;
-  color: white;
-}
-
-/* Tables */
-.table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
-}
-
-.table thead {
-  background: #343a40;
-  color: white;
-}
-
-.table th, .table td {
+#PROGRESSBAR
+.progress-container {
+  margin-top: 20px;
   padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+  text-align: center;
 }
 
-.table-hover tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-/* Select (for MultiSelect Dropdown) */
-.css-2b097c-container {
+.progress-bar {
   width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+}
+
+.warning {
+  color: red;
+  font-weight: bold;
   margin-top: 5px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    width: 100%;
-    padding: 15px;
-  }
-
-  button {
-    font-size: 14px;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-  }
+#MULTIPLE-SELECTOR
+/* Estilos generales del contenedor */
+.multi-select-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Ajusta el ancho si es necesario */
+  font-family: Arial, sans-serif;
 }
+
+/* Botón para abrir el menú */
+.multi-select-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Azul */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.multi-select-button:hover {
+  background-color: #0056b3; /* Azul más oscuro */
+}
+
+/* Estilos del icono de flecha */
+.multi-select-button::after {
+  content: "▼";
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+/* Contenedor de opciones desplegables */
+.multi-select-dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-y: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Opciones individuales */
+.multi-select-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.multi-select-option:hover {
+  background-color: #f1f1f1;
+}
+
+/* Checkbox estilizado */
+.multi-select-option input {
+  margin-right: 10px;
+}
+
+/* Contenedor de etiquetas de selección */
+.multi-select-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.multi-select-tag {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 15px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.multi-select-tag button {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.multi-select-tag button:hover {
+  color: #ff6b6b;
+}
+

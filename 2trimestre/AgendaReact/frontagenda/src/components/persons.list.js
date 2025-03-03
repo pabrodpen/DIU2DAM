@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PersonDataService from "../services/person.service";
-import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
+import ProgressBar from "./progress.bar";
+import "../App.css";
 
 export default class PersonsList extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class PersonsList extends Component {
       persons: [],
       currentPerson: null,
       currentIndex: -1,
-      searchByName: ""
+      searchByName: "",
+      maxPersons: 50,
     };
   }
 
@@ -89,28 +91,9 @@ export default class PersonsList extends Component {
     const { searchByName, persons, currentPerson, currentIndex } = this.state;
 
     return (
-      <div className="list row">
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Buscar por nombre"
-              value={searchByName}
-              onChange={this.onChangeSearchByName}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchByName}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
+      <div className="contacts-container">
+        {/* 🔹 Lista de Contactos */}
+        <div className="list-container">
           <h4>Lista de contactos</h4>
           <ul className="list-group">
             {persons &&
@@ -126,82 +109,52 @@ export default class PersonsList extends Component {
                 </li>
               ))}
           </ul>
+          {/* ✅ Barra de progreso debajo de la lista */}
+          <ProgressBar totalPersons={persons.length} maxPersons={this.state.maxPersons} />
         </div>
-        <div className="col-md-6">
+    
+        {/* 🔹 Detalles del Contacto (A la derecha) */}
+        <div className="details-container">
           {currentPerson ? (
             <div>
               <h4>Contacto</h4>
               <div>
-                <label>
-                  <strong>Nombre:</strong>
-                </label>{" "}
-                {currentPerson.nombre}
+                <label><strong>Nombre:</strong></label> {currentPerson.nombre}
               </div>
               <div>
-                <label>
-                  <strong>Apellido:</strong>
-                </label>{" "}
-                {currentPerson.apellidos}
+                <label><strong>Apellido:</strong></label> {currentPerson.apellidos}
               </div>
               <div>
-                <label>
-                  <strong>Direccion:</strong>
-                </label>{" "}
-                {currentPerson.calle}
+                <label><strong>Dirección:</strong></label> {currentPerson.calle}
               </div>
               <div>
-                <label>
-                  <strong>Localidad:</strong>
-                </label>{" "}
-                {currentPerson.ciudad}
+                <label><strong>Localidad:</strong></label> {currentPerson.ciudad}
               </div>
               <div>
-                <label>
-                  <strong>Codigo postal:</strong>
-                </label>{" "}
-                {currentPerson.codigoPostal}
+                <label><strong>Código Postal:</strong></label> {currentPerson.codigoPostal}
               </div>
               <div>
-                <label>
-                  <strong>Fecha de nacimiento:</strong>
-                </label>{" "}
-                {currentPerson.fechaNacimiento}
-
-                <Link
-                //Como hemos incluido en el switch esta ruta, /tutorials/+id se renderizará el componente
-                // tutorials cuando se pulse el enlace.
-                to={"/agenda/" + currentPerson.id}
-                className="badge badge-warning">
-                Edit
+                <label><strong>Fecha de Nacimiento:</strong></label> {currentPerson.fechaNacimiento}
+              </div>
+              <Link to={"/edit/" + currentPerson.id}>
+                <button className="btn btn-primary">Editar Contacto</button>
               </Link>
-              </div>
-
-              <Link to={"/edit/" + currentPerson.id} className="nav-link">
-                <button className="btn btn-primary mt-3" onClick={this.addPerson}>
-                Editar Contacto
-                </button>
-              </Link>
-
-              
-                <button className="btn btn-primary mt-3" onClick={() => this.removePerson(currentPerson.id)}>
+              <button className="btn btn-delete" onClick={() => this.removePerson(currentPerson.id)}>
                 Eliminar Contacto
-                </button>
-              
-                <Link to={"/tutorials/" + currentPerson.id} className="nav-link">
+              </button>
+
+              <Link to={"/tutorials/" + currentPerson.id} className="nav-link">
                 <button className="btn btn-primary mt-3" onClick={this.addPerson}>
                 Tutoriales
                 </button>
               </Link>
-              
             </div>
           ) : (
-            <div>
-              <br />
-              <p>Selecciona un contacto</p>
-            </div>
+            <p>Selecciona un contacto</p>
           )}
         </div>
       </div>
     );
+    
   }
 }

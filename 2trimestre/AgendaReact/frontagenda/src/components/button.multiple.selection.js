@@ -46,21 +46,34 @@ const TutorialsSelector = () => {
         setSelectedTutorials(selectedOptions);
     };
 
-    // ✅ Guardar cambios en el contacto
     const handleSave = async () => {
         try {
             if (!person) return;
+    
             const updatedPerson = {
                 ...person,
-                tutoriales: selectedTutorials.map(tutorial => tutorial.value), // Guardamos solo los IDs
+                tutoriales: selectedTutorials.map(tutorial => tutorial.value), // 🔥 Guardamos solo los IDs
             };
-
+    
+            console.log("🚀 Enviando datos actualizados:", updatedPerson);
+    
             await PersonDataService.update(person.id, updatedPerson);
-            alert("Tutoriales actualizados correctamente!");
+    
+            // 🔄 Volver a obtener los datos actualizados después de guardar
+            const updatedPersonResponse = await PersonDataService.get(person.id);
+            setPerson(updatedPersonResponse.data);
+    
+            alert("✅ Tutoriales actualizados correctamente!");
+    
+            // 🔥 Emitir evento global para notificar a `EditPerson.js`
+            window.dispatchEvent(new Event("tutorialsUpdated"));
+    
         } catch (error) {
-            console.error("Error al actualizar tutoriales:", error);
+            console.error("❌ Error al actualizar tutoriales:", error);
         }
     };
+    
+      
 
     if (!person) {
         return <p>Cargando datos...</p>;
@@ -68,14 +81,44 @@ const TutorialsSelector = () => {
 
     return (
         <div className="container mt-3">
-            <h4>Seleccionar Tutoriales</h4>
 
             <Select
-                isMulti
-                options={tutorials.map(tutorial => ({ value: tutorial.id, label: tutorial.title }))}
-                value={selectedTutorials}
-                onChange={handleChange}
-            />
+  isMulti
+  options={tutorials.map(tutorial => ({ value: tutorial.id, label: tutorial.title }))}
+  value={selectedTutorials}
+  onChange={handleChange}
+  styles={{
+    control: (base) => ({
+      ...base,
+      background: "#333", 
+      color: "white",
+      border: "1px solid #777",
+      borderRadius: "5px",
+      padding: "5px"
+    }),
+    menu: (base) => ({
+      ...base,
+      background: "#222",
+      color: "white",
+    }),
+    multiValue: (base) => ({
+      ...base,
+      background: "#169c78", 
+      color: "white",
+      borderRadius: "15px",
+      padding: "4px 8px"
+    }),
+    multiValueLabel: (base) => ({
+      ...base,
+      color: "white"
+    }),
+    multiValueRemove: (base) => ({
+      ...base,
+      color: "#ff6b6b",
+      ":hover": { background: "#ff4d4d", color: "white" }
+    })
+  }}
+/>
 
             <button className="btn btn-primary mt-3" onClick={handleSave}>
                 Guardar Selección

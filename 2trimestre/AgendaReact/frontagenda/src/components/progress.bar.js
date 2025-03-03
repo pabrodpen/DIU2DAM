@@ -1,31 +1,25 @@
-/*import React, { useState } from "react";
+import React from "react";
 
-const ProgressBarExample = () => {
-  const [progress, setProgress] = useState(0);
-
-  const increaseProgress = () => {
-    if (progress < 100) {
-      setProgress(progress + 10); // Incrementa el progreso
-    }
-  };
+const ProgressBar = ({ totalPersons, maxPersons }) => {
+  const progress = (totalPersons / maxPersons) * 100;
 
   return (
-    <div className="container mt-3">
-      <h4>Progreso de Carga</h4>
-      <div className="progress">
+    <div className="progress-container">
+      <label><strong>Capacidad de contactos:</strong> {totalPersons}/{maxPersons}</label>
+      <div className="progress-bar">
         <div
-          className="progress-bar progress-bar-striped progress-bar-animated"
-          role="progressbar"
-          style={{ width: `${progress}%` }}
-        >
-          {progress}%
-        </div>
+          className="progress-fill"
+          style={{
+            width: `${progress}%`,
+            backgroundColor: totalPersons >= maxPersons ? "red" : "green",
+          }}
+        ></div>
       </div>
-      <button className="btn btn-primary mt-3" onClick={increaseProgress}>
-        Aumentar Progreso
-      </button>
+      {totalPersons >= maxPersons && (
+        <p className="warning">⚠️ Has alcanzado el límite de contactos.</p>
+      )}
     </div>
   );
 };
 
-export default ProgressBarExample;*/
+export default ProgressBar;

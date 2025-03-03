@@ -9,13 +9,20 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("🔥 Usuario detectado en AuthContext:", user); // 🔥 Debug
       setCurrentUser(user);
     });
     return () => unsubscribe();
   }, []);
 
+  const logout = () => {
+    signOut(auth)
+      .then(() => console.log("✅ Usuario cerró sesión"))
+      .catch((error) => console.error("❌ Error al cerrar sesión", error));
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, signOut }}>
+    <AuthContext.Provider value={{ currentUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

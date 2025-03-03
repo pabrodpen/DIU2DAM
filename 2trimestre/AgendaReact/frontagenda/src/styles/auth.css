@@ -1,0 +1,89 @@
+/* 🔹 Estilos globales */
+
+  
+  
+  /* 🔹 Tabs superiores */
+  .tab-group {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 40px;
+    display: flex;
+  }
+  
+  .tab-group .tab {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .tab-group .tab a {
+    display: block;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: #a0b3b0;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.5s;
+  }
+  
+  .tab-group .tab a:hover {
+    background: #1ab188;
+    color: white;
+  }
+  
+  .tab-group .tab.active a {
+    background: #1ab188;
+    color: white;
+  }
+  
+  /* 🔹 Campos del formulario */
+  .field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  
+  .field-wrap label {
+    position: absolute;
+    left: 13px;
+    top: 6px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.25s ease;
+  }
+  
+  .field-wrap input {
+    font-size: 22px;
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid #a0b3b0;
+    background: none;
+    color: white;
+    transition: 0.25s ease;
+  }
+  
+  .field-wrap input:focus {
+    border-color: #1ab188;
+  }
+  
+  /* 🔹 Botones */
+  .button {
+    border: 0;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #1ab188;
+    color: white;
+    transition: 0.5s;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background: #179b77;
+  }
+  
+  /* 🔹 Enlace de contraseña olvidada */
+  .forgot {
+    text-align: right;
+    margin-top: -20px;
+  }
+  
